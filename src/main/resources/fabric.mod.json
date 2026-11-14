@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "asgard",
+  "version": "${version}",
+  "name": "Asgard",
+  "description": "The gods of Asgard as potions: Thor, Frigg, Heimdall, Odin, Freyja and Loki, each with a draught brewed from its own ingredient.",
+  "authors": [
+    "SolutionsAsService"
+  ],
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.shadw.asgard.Mod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

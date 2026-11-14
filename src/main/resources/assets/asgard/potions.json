@@ -1,0 +1,128 @@
+{
+  "schema": "pantheon.potions/1",
+  "realms": [
+    {
+      "id": "asgard",
+      "name": "Asgard",
+      "hue": "#FFFF55",
+      "family": "yellow",
+      "blurb": "Home of the Aesir. Gold halls, gods' oaths."
+    }
+  ],
+  "potions": [
+    {
+      "id": "thors_valor",
+      "name": "Thor's Valor",
+      "realm": "asgard",
+      "ingredient": "thunder_iron",
+      "lore": "Thor's hammer rings in the forge. Strength for whoever strikes first.",
+      "effects": [
+        {
+          "effect": "minecraft:strength",
+          "seconds": 180,
+          "amplifier": 1
+        },
+        {
+          "effect": "minecraft:resistance",
+          "seconds": 60,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "aegis_of_frigg",
+      "name": "Aegis of Frigg",
+      "realm": "asgard",
+      "ingredient": "spindle_thread",
+      "lore": "Frigg wove an oath into every thread. Nothing that swings at the wearer is sure to land.",
+      "effects": [
+        {
+          "effect": "minecraft:resistance",
+          "seconds": 180,
+          "amplifier": 1
+        },
+        {
+          "effect": "minecraft:absorption",
+          "seconds": 60,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "bifrost_spark",
+      "name": "Bifrost Spark",
+      "realm": "asgard",
+      "ingredient": "rainbow_shard",
+      "lore": "Heimdall guards the bridge that burns in seven colours. Run as if the bridge were under you.",
+      "effects": [
+        {
+          "effect": "minecraft:speed",
+          "seconds": 120,
+          "amplifier": 1
+        },
+        {
+          "effect": "minecraft:haste",
+          "seconds": 60,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "allfathers_eye",
+      "name": "All-Father's Eye",
+      "realm": "asgard",
+      "ingredient": "mimir_glass",
+      "lore": "Odin gave an eye for a drink from Mimir's well. Sight in the dark, and fortune in the hall.",
+      "effects": [
+        {
+          "effect": "minecraft:night_vision",
+          "seconds": 300,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:luck",
+          "seconds": 300,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "hall_mead",
+      "name": "Hall Mead",
+      "realm": "asgard",
+      "ingredient": "valhalla_honey",
+      "lore": "Freyja's honey, poured at the feast. The wound closes while the cup is still warm.",
+      "effects": [
+        {
+          "effect": "minecraft:regeneration",
+          "seconds": 45,
+          "amplifier": 1
+        },
+        {
+          "effect": "minecraft:absorption",
+          "seconds": 120,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "trickster_draught",
+      "name": "Trickster's Draught",
+      "realm": "asgard",
+      "ingredient": "serpent_scale",
+      "lore": "Loki's gift is a way out of every room. The wearer is simply not there to be seen.",
+      "effects": [
+        {
+          "effect": "minecraft:invisibility",
+          "seconds": 120,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:speed",
+          "seconds": 60,
+          "amplifier": 0
+        }
+      ]
+    }
+  ]
+}
