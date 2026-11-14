@@ -1,0 +1,7 @@
+{
+  "project": "minecraft-asgard",
+  "static_dir": "site",
+  "routes": [
+    { "pattern": "/", "target": "static" }
+  ]
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Asgard</title>
+<meta name="description" content="How to build and install the Asgard Minecraft mod.">
+<meta property="og:title" content="Install Asgard">
+<meta property="og:description" content="How to build and install the Asgard Minecraft mod.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://minecraft-asgard.shadw.app/install.html">
+<meta property="og:image" content="https://minecraft-asgard.shadw.app/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="/index.html"><span class="brand-mark" aria-hidden="true"></span>ASGARD</a>
+  <nav aria-label="Primary"><a href="/index.html">Home</a><a href="/gods.html">Gods</a><a href="/install.html" aria-current="page">Install</a><a href="/developers.html">Developers</a></nav>
+</header>
+<main id="main" tabindex="-1">
+
+<section class="page">
+  <p class="eyebrow">Install</p>
+  <h1 class="mc-h">Install Asgard</h1>
+  <p class="lede">Asgard is a Fabric mod for Minecraft 1.21.4. No release jar is published yet, so you build it.</p>
+  <h2>You need</h2>
+  <ul><li>Minecraft Java Edition 1.21.4 (not Bedrock)</li><li><a href="https://fabricmc.net">Fabric</a>, the mod loader: Fabric Loader 0.16 or later, and Fabric API</li><li>Java 21</li><li>Gradle 8, the build tool (the repository has no Gradle wrapper)</li></ul>
+  <h2>Build</h2>
+  <pre><code>git clone https://github.com/SolutionsAsService/minecraft-asgard
+cd minecraft-asgard
+gradle build
+# the jar is in build/libs/asgard-0.1.0.jar</code></pre>
+  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: 6 potions, 6 brewing recipes, 0 unknown effects skipped</code> confirms the registration.</p>
+  <h2>Status</h2>
+  <p>Builds on Fabric Loom 1.11.8 and Gradle 8. Loaded on a Fabric dedicated server for 1.21.4, and a client joined that server and showed the ingredients and potions (the screenshots on the home page). Brewing in a stand and drinking the potions are not yet tested.</p>
+</section>
+</main>
+<footer class="foot">
+  <p>A Minecraft mod for the Nordic Pantheon pack. Source: <a href="https://github.com/SolutionsAsService/minecraft-asgard">minecraft-asgard</a>. Built with <a href="https://github.com/SolutionsAsService/shadw-modding">shadw-modding</a>. Credit: SolutionsAsService. Dark&nbsp;theme&nbsp;only. English&nbsp;only.</p>
+</footer>
+</body>
+</html>

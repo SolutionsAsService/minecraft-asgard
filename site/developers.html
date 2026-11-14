@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Developers: add a god or a potion</title>
+<meta name="description" content="The data format behind the Asgard mod, and how to add a potion.">
+<meta property="og:title" content="Developers: add a god or a potion">
+<meta property="og:description" content="The data format behind the Asgard mod, and how to add a potion.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://minecraft-asgard.shadw.app/developers.html">
+<meta property="og:image" content="https://minecraft-asgard.shadw.app/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="/index.html"><span class="brand-mark" aria-hidden="true"></span>ASGARD</a>
+  <nav aria-label="Primary"><a href="/index.html">Home</a><a href="/gods.html">Gods</a><a href="/install.html">Install</a><a href="/developers.html" aria-current="page">Developers</a></nav>
+</header>
+<main id="main" tabindex="-1">
+
+<section class="page">
+  <p class="eyebrow">Developers</p>
+  <h1 class="mc-h">Add a god, or a potion</h1>
+  <p class="lede">The potions are data. The mod reads <code>potions.json</code> at startup, registers one ingredient item and one potion per entry, and adds the brewing recipe from Awkward Potion. An unknown effect id is logged and skipped.</p>
+  <h2>One entry</h2>
+  <pre><code>{
+  &quot;id&quot;: &quot;thors_valor&quot;,
+  &quot;name&quot;: &quot;Thor&#x27;s Valor&quot;,
+  &quot;god&quot;: &quot;Thor&quot;,
+  &quot;epithet&quot;: &quot;The Thunderer&quot;,
+  &quot;domain&quot;: &quot;Storm and strength&quot;,
+  &quot;hue&quot;: &quot;#3AB3DA&quot;,
+  &quot;realm&quot;: &quot;asgard&quot;,
+  &quot;ingredient&quot;: &quot;thunder_iron&quot;,
+  &quot;lore&quot;: &quot;Thor&#x27;s hammer rings in the forge. Strength for whoever strikes first.&quot;,
+  &quot;effects&quot;: [
+    {
+      &quot;effect&quot;: &quot;minecraft:strength&quot;,
+      &quot;seconds&quot;: 180,
+      &quot;amplifier&quot;: 1
+    },
+    {
+      &quot;effect&quot;: &quot;minecraft:resistance&quot;,
+      &quot;seconds&quot;: 60,
+      &quot;amplifier&quot;: 0
+    }
+  ]
+}</code></pre>
+  <dl class="fields">
+    <dt><code>id</code></dt><dd>The potion’s path. The loader uses it to register the potion.</dd>
+    <dt><code>ingredient</code></dt><dd>The item path of the brewing ingredient. Each ingredient is one registry entry, so it must be unique.</dd>
+    <dt><code>effects</code></dt><dd>List of <code>effect</code> (a registry id such as <code>minecraft:strength</code>), <code>seconds</code>, <code>amplifier</code> (0 is level I).</dd>
+    <dt><code>name</code></dt><dd>Used by <code>tools/gen_assets.py</code> for the language file: the potion shows as "Potion of &lt;name&gt;" (and "Splash &lt;name&gt;", "Lingering &lt;name&gt;").</dd>
+    <dt><code>lore</code></dt><dd>One line for the ingredient’s tooltip (also written by the generator).</dd>
+    <dt><code>hue</code></dt><dd>Optional. The ingredient sprite’s colour. Without it the sprite takes the realm’s colour.</dd>
+    <dt><code>realm</code></dt><dd>A realm id from the <code>realms</code> list. The generator uses it for the default sprite colour.</dd>
+    <dt><code>god</code>, <code>epithet</code>, <code>domain</code></dt><dd>Optional. Used by this site; the mod ignores them.</dd>
+  </dl>
+  <h2>Regenerate and build</h2>
+  <pre><code>python3 tools/gen_assets.py      # language file, item models, item definitions, sprites
+gradle build
+python3 _src/build_site.py       # this site</code></pre>
+  <p>The loader and the data format are shared with the other Nordic Pantheon mods, built with the <a href="https://github.com/SolutionsAsService/shadw-modding">shadw-modding</a> stack.</p>
+</section>
+</main>
+<footer class="foot">
+  <p>A Minecraft mod for the Nordic Pantheon pack. Source: <a href="https://github.com/SolutionsAsService/minecraft-asgard">minecraft-asgard</a>. Built with <a href="https://github.com/SolutionsAsService/shadw-modding">shadw-modding</a>. Credit: SolutionsAsService. Dark&nbsp;theme&nbsp;only. English&nbsp;only.</p>
+</footer>
+</body>
+</html>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the language file, item models and item sprites from potions.json.
+"""Generate the language file, item models, item definitions and item sprites from potions.json.
 
 Run from the mod root after editing potions.json:
 
@@ -65,6 +65,16 @@ def write_models():
         model = {"parent": "minecraft:item/generated",
                  "textures": {"layer0": f"{MOD_ID}:item/{p['ingredient']}"}}
         path.write_text(json.dumps(model, indent=2) + "\n", encoding="utf-8")
+
+
+def write_item_definitions():
+    """Minecraft 1.21.4 draws an item from assets/<ns>/items/<id>.json, which names the model.
+    A model file alone is not enough: the item renders as the purple-and-black missing model."""
+    for p in DATA["potions"]:
+        path = ASSETS / "items" / f"{p['ingredient']}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        definition = {"model": {"type": "minecraft:model", "model": f"{MOD_ID}:item/{p['ingredient']}"}}
+        path.write_text(json.dumps(definition, indent=2) + "\n", encoding="utf-8")
 
 
 def hex_rgb(h):
@@ -135,12 +145,13 @@ def write_png(path, width, height, pixels):
 
 def write_sprites():
     for index, p in enumerate(DATA["potions"]):
-        colour = hex_rgb(REALM_HUE[p["realm"]])
+        colour = hex_rgb(p.get("hue") or REALM_HUE[p["realm"]])  # a potion may set its own sprite colour
         write_png(ASSETS / "textures/item" / f"{p['ingredient']}.png", 16, 16, sprite(index, colour))
 
 
 if __name__ == "__main__":
     write_lang()
     write_models()
+    write_item_definitions()
     write_sprites()
-    print(f"wrote lang, {len(DATA['potions'])} models and sprites for {MOD_ID}")
+    print(f"wrote lang, {len(DATA['potions'])} models, item definitions and sprites for {MOD_ID}")

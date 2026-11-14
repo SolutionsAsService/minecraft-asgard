@@ -1,0 +1,220 @@
+/* Asgard. Colours are Minecraft's dye colours (read from the game's DyeColor class): one per god,
+   yellow reserved for Asgard's gold (the action). The look borrows the game's own interface:
+   bevelled buttons, inventory slots, a hard text shadow. Dark interface only. */
+
+:root {
+  color-scheme: dark;
+  --sky: #131316;       /* hero slab: black dye, darkened */
+  --ground: #1d1d21;    /* black dye */
+  --card: #2a2b2e;      /* black dye lifted 6% toward white */
+  --rule: #4a4c50;
+  --text: #f9fffe;      /* white dye */
+  --muted: #9d9d97;     /* light gray dye, 5.2:1 on the card ground */
+  --gold: #fed83d;      /* yellow dye: the action, reserved */
+  --focus: #fed83d;
+  --hue: #fed83d;       /* set per god */
+  --shadow: #3a3a3f;    /* the game's hard text shadow */
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--ground); color: var(--text); overflow-x: hidden; min-width: 0;
+}
+body[style*="--hue"] main { background: color-mix(in srgb, var(--hue) 8%, var(--ground)); }
+a { color: var(--text); }
+a:focus-visible, .btn:focus-visible, .tile:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.skip { position: absolute; left: 16px; top: -48px; background: var(--gold); color: #000; padding: 10px 14px; z-index: 10; }
+.skip:focus { top: 12px; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; }
+code { background: #000; padding: 1px 6px; overflow-wrap: anywhere; }
+pre { background: #000; padding: 16px; overflow-x: auto; border-left: 4px solid var(--gold); max-width: 100%; }
+.px { image-rendering: pixelated; }
+
+/* header */
+.top {
+  background: var(--sky); border-bottom: 4px solid #000; box-shadow: 0 2px 0 var(--rule);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 18px; padding: 8px 16px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font-weight: 900;
+  letter-spacing: .12em; font-family: ui-monospace, "Courier New", monospace;
+}
+.brand-mark { width: 20px; height: 20px; background: var(--text); box-shadow: 0 0 0 3px #000 inset, 4px 4px 0 var(--shadow); }
+.top nav { display: flex; flex-wrap: wrap; gap: 2px; }
+.top nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; text-decoration: none; }
+.top nav a:hover { background: var(--card); }
+.top nav a[aria-current="page"] { border-bottom: 4px solid currentColor; }
+
+/* Minecraft-style heading */
+.mc, .mc-h {
+  font-family: ui-monospace, "Courier New", monospace; font-weight: 900; text-transform: uppercase;
+  letter-spacing: .08em; line-height: 1.05; text-shadow: 4px 4px 0 var(--shadow); margin: 6px 0 10px;
+}
+.mc { font-size: clamp(52px, 13vw, 118px); }
+.mc-h { font-size: clamp(30px, 6vw, 52px); }
+.eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: 13px; color: var(--muted); margin: 0; }
+.lede, .tag { color: var(--muted); max-width: 34em; font-size: 18px; text-wrap: pretty; }
+.meta { color: var(--muted); font-size: 14px; max-width: 34em; }
+
+/* hero */
+.hero { background: var(--sky); border-bottom: 4px solid #000; padding: 22px 16px 28px; }
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; display: grid; gap: 10px 32px;
+  grid-template-columns: 1fr;
+  grid-template-areas: "title" "tag" "fig" "action";
+}
+.hero-title { grid-area: title; }
+.hero-tag { grid-area: tag; }
+.hero-tag .tag { margin: 0 0 4px; max-width: none; }
+.hero-tag .meta { max-width: none; }
+.hero-inner .action { grid-area: action; margin: 6px 0 0; }
+.hero-fig { grid-area: fig; min-width: 0; }
+@media (min-width: 900px) {
+  .hero-inner { grid-template-columns: auto 1fr; grid-template-areas: "title tag" "title action" "fig fig"; align-items: end; }
+  .hero-inner .action { align-self: start; }
+}
+.hero .mc { font-size: clamp(48px, 8vw, 92px); margin: 2px 0 6px; }
+
+/* the real hall, the pillars as links (wide screens); tiles on narrow ones */
+.hall { display: none; position: relative; margin: 8px auto 0; width: min(100%, calc((100vh - 66px - 208px) * 16 / 9)); }
+.hall-img { display: block; width: 100%; height: auto; border: 4px solid #000; box-shadow: 0 0 0 2px var(--rule); }
+.hall-note {
+  position: absolute; left: 10px; bottom: 10px; margin: 0; max-width: 245px; padding: 4px 8px; font-size: 13px;
+  background: rgba(19,19,22,.9); color: var(--muted); border: 2px solid #000;
+}
+.spot {
+  position: absolute; left: var(--x); top: 62%; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 1px; max-width: 92px; padding: 5px 5px; text-align: center; text-decoration: none;
+  background: rgba(19,19,22,.94); border: 3px solid #000; box-shadow: 0 0 0 3px var(--hue), inset 2px 2px 0 #4a4c50, inset -2px -2px 0 #0b0b0d;
+}
+.spot::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 24vh; }
+.spot:hover { background: rgba(42,43,46,.98); }
+.spot:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; box-shadow: 0 0 0 3px var(--hue), 0 0 0 5px #000; z-index: 3; }
+.spot svg { width: 32px; height: 32px; }
+.spot-name { font-weight: 800; font-size: 15px; }
+.spot-fx { font-size: 13px; color: #d3d3cd; line-height: 1.25; }
+.bifrost { display: flex; height: 14px; margin: 6px 0 10px; border: 3px solid #000; }
+.bifrost span { flex: 1; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
+.tile {
+  display: flex; align-items: center; gap: 10px; min-height: 84px; min-width: 0; padding: 8px 10px; text-decoration: none;
+  background: var(--card); border: 3px solid #000; border-left: 10px solid var(--hue); box-shadow: 0 0 0 2px var(--rule);
+}
+.tile:hover { background: #34353a; }
+.tile-text { display: flex; flex-direction: column; min-width: 0; }
+.tile-name { font-weight: 800; font-size: 17px; }
+.tile-meta { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+@media (min-width: 900px) { .hall { display: block; } .tiles, .bifrost { display: none; } }
+
+.figures { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 16px 0 0; color: var(--muted); }
+.figures b { color: var(--text); font-size: 24px; margin-right: 4px; }
+.action { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0; }
+
+/* Minecraft-style buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 8px 22px;
+  font-weight: 800; text-decoration: none; color: #000; background: var(--gold); border: 3px solid #000;
+  box-shadow: inset 3px 3px 0 #fff3a8, inset -4px -4px 0 #b8941f;
+}
+.btn:hover { filter: brightness(1.07); }
+.btn-alt { color: #000; background: var(--text); box-shadow: inset 3px 3px 0 #ffffff, inset -4px -4px 0 #a9b0b0; }
+.btn-quiet {
+  color: var(--text); background: #6f6f6f; text-shadow: 2px 2px 0 #3e3e3e;
+  box-shadow: inset 3px 3px 0 #a8a8a8, inset -4px -4px 0 #3a3a3a;
+}
+
+/* bands and pages */
+.band { max-width: 1100px; margin: 0 auto; padding: 30px 16px; }
+.band h2, .page h2 { font-size: 28px; margin: 30px 0 8px; line-height: 1.2; }
+.band > h2:first-child { margin-top: 0; }
+.page { max-width: 980px; margin: 0 auto; padding: 26px 16px 52px; }
+.page p, .page li, .band p { max-width: 34em; text-wrap: pretty; }
+.meta, blockquote, .foot p, .rcap { text-wrap: pretty; }
+
+/* in-game screenshots */
+.shots { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .shots { grid-template-columns: 1fr 1fr; } .shots .shot:first-child { grid-column: 1 / -1; } }
+.shot { margin: 0; }
+.shot img { display: block; width: 100%; height: auto; border: 4px solid #000; box-shadow: 0 0 0 2px var(--rule); }
+.shot figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+.shot.wide { margin: 18px 0; }
+
+/* recipe: inventory slots */
+.recipe { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin: 16px 0; padding: 0; }
+.rslot { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 104px; text-align: center; }
+.rslot > svg, .rslot > img { padding: 8px; box-sizing: content-box; background: #8b8b8b; box-shadow: inset 3px 3px 0 #373737, inset -3px -3px 0 #fff; }
+.rcap { font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.rop { align-self: center; font-size: 32px; font-weight: 900; margin-bottom: 28px; color: var(--gold); }
+
+/* god pages */
+.god-head { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.god-emblem { background: var(--card); border: 4px solid #000; box-shadow: 0 0 0 2px var(--hue); padding: 10px; line-height: 0; }
+.epithet { font-size: 22px; margin: 0; }
+.god .eyebrow, .god .epithet { color: var(--hue-text, var(--hue)); }
+.cols { display: grid; grid-template-columns: 1fr; gap: 8px 28px; }
+@media (min-width: 760px) { .cols { grid-template-columns: 1fr 1fr; } }
+.fx { list-style: none; padding: 0; margin: 0; }
+.fx li { margin: 0 0 4px; }
+.fx.big li { font-size: 18px; font-weight: 700; padding: 6px 10px; margin-bottom: 6px; background: var(--card); border-left: 8px solid var(--hue); }
+blockquote { margin: 8px 0; padding: 10px 14px; border-left: 6px solid var(--hue); background: var(--card); font-style: italic; max-width: 56ch; }
+.ing { display: flex; align-items: center; gap: 14px; margin: 6px 0; }
+.ing img { background: #000; padding: 4px; border: 3px solid #000; box-shadow: 0 0 0 2px var(--rule); }
+.pager { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 30px; }
+.pager a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* tables and text links */
+table.data { width: 100%; border-collapse: collapse; background: var(--card); margin: 16px 0; }
+@media (max-width: 720px) { table.data { display: block; overflow-x: auto; } }
+table.data:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+table.data th, table.data td { text-align: left; padding: 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.data th { color: var(--muted); font-weight: 600; }
+table.data th[scope="row"] { color: var(--text); font-weight: 800; }
+dl.fields dt { font-weight: 800; margin-top: 12px; }
+dl.fields dd { margin: 4px 0 0; color: var(--muted); max-width: 66ch; }
+.page a, .band a:not(.btn), .foot a { display: inline-flex; align-items: center; min-height: 44px; }
+.band .btn, .page .btn { min-height: 48px; }
+
+.foot { background: var(--sky); border-top: 4px solid #000; box-shadow: 0 -2px 0 var(--rule); padding: 20px 16px; color: var(--muted); font-size: 14px; }
+.foot p { max-width: 46em; margin: 0 auto; text-wrap: balance; }
+
+@media (forced-colors: active) {
+  .top nav a[aria-current="page"] { border-bottom-color: CanvasText; }
+  a:focus-visible, .btn:focus-visible, .tile:focus-visible { outline: 3px solid Highlight; }
+}
+.god .eyebrow { margin-bottom: 10px; }
+
+table.data, .fx, .figures, .spot-fx { font-variant-numeric: tabular-nums; }
+main:focus { outline: none; }
+.mc, .mc-h { font-weight: 800; }
+
+/* the gods roll */
+.rolls { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; }
+@media (min-width: 760px) { .rolls { grid-template-columns: 1fr 1fr; } }
+.roll { display: flex; gap: 14px; align-items: flex-start; padding: 14px; background: var(--card); border: 3px solid #000; border-left: 10px solid var(--hue); box-shadow: 0 0 0 2px var(--rule); }
+.roll-emblem { background: #131316; border: 3px solid #000; padding: 4px; line-height: 0; flex: none; }
+.roll h2 { margin: 0 0 2px; font-size: 24px; }
+.roll h2 a { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.roll p { margin: 4px 0; }
+.epithet-line { color: var(--muted); font-size: 15px; }
+
+@media (forced-colors: active) { .spot { border: 3px solid CanvasText; } .spot:focus-visible { outline: 3px solid Highlight; outline-offset: 3px; border: 3px solid Canvas; } }
+
+/* two-up gallery, photo-led gods roll, alternating god-page composition */
+.shots.two { grid-template-columns: 1fr; }
+@media (min-width: 760px) { .shots.two { grid-template-columns: 1fr 1fr; } .shots.two .shot:first-child { grid-column: auto; } }
+.page.wide { max-width: 1100px; }
+.roll { flex-direction: column; padding: 0; }
+.roll-photo { display: block; line-height: 0; border-bottom: 3px solid #000; }
+.roll-photo img { width: 100%; height: auto; display: block; }
+.roll-body { display: flex; gap: 14px; align-items: flex-start; padding: 14px; }
+@media (min-width: 900px) {
+  .god.alt .god-body { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8px 28px; align-items: start; }
+  .god.alt .god-body .shot.wide { margin: 18px 0 0; }
+}
+@media (min-width: 900px) { .god.alt .god-body .cols { grid-template-columns: 1fr; } }
+/* phone tiles: a smaller emblem leaves room for whole words; break only between words */
+.tile svg { width: 44px; height: 44px; flex: none; }
+.tile { gap: 8px; padding: 8px 8px; }
+.tile-meta { overflow-wrap: normal; word-break: normal; }

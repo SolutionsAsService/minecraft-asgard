@@ -38,7 +38,7 @@ Or with Gradle directly, from this folder: `gradle build`. The jar lands in `bui
 ## Add or change a potion
 
 Potions are data. Edit `src/main/resources/assets/asgard/potions.json`, then regenerate the language file, item
-models and sprites:
+models, item definitions and sprites (a potion may set its own sprite colour with `hue`):
 
 ```sh
 python3 tools/gen_assets.py
@@ -47,11 +47,26 @@ python3 tools/gen_assets.py
 An unknown effect id is logged and skipped, not a crash. The data format (`pantheon.potions/1`) is shared with
 the other Nordic Pantheon mods. It is described on the developers page of the modding site.
 
+## Site
+
+`python3 _src/build_site.py` writes `site/` from `potions.json`: the home page with the hall of six pillars, a page per
+god, install and developer pages. Colours are Minecraft's dye colours, read from the game's `DyeColor` class, one per
+god, with yellow kept for actions. The build fails if two god colours differ by less than ΔE 30 or any is under 3:1 on
+the card ground. The in-game screenshots in `site/img/shots/` were captured from a Minecraft 1.21.4 client joined to a
+Fabric dedicated server with this mod, in a flat test world built with server commands (the pillars and the Bifrost
+are not part of the mod). `site/img/hero.png` is the hall capture with the crosshair smoothed out and the HUD cropped
+off. The deploy serves the committed `site/` as static files.
+
 ## Status
+
+- Item models need item definitions in Minecraft 1.21.4 (`assets/asgard/items/<id>.json`). An early build shipped
+  models only, and every ingredient drew as the purple-and-black missing model in the game. The generator now writes
+  the definitions, and the ingredients draw correctly in the hall captures.
 
 - Builds with Fabric Loom 1.11.8 on Gradle 8.
 - Loads on a Fabric dedicated server for 1.21.4. The log line is
   `Asgard loaded: 6 potions, 6 brewing recipes, 0 unknown effects skipped`.
+- A client joined the server and showed the ingredients (as item-frame displays and in the hotbar) and the potions.
 - **Not yet tested in a world:** a brew in a brewing stand, and drinking the potions. The brewing recipes are
   registered in code and counted in the log.
 
