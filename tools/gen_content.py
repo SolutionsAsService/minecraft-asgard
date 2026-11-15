@@ -130,10 +130,10 @@ def tex(fn):
 
 
 def log_side(x, y):
-    base = (91, 62, 36)
+    base = (128, 92, 56)
     c = shade(base, -18 if x % 4 == 0 else (8 if x % 4 == 2 else 0))
     if h(x, y, 1) < 9:
-        c = (63, 107, 42)
+        c = (88, 140, 60)
     elif h(x, y, 2) < 14:
         c = shade(base, -30)
     return c
