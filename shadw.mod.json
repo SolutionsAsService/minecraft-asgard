@@ -2,7 +2,7 @@
   "schema": "shadw.mod/1",
   "id": "asgard",
   "name": "Asgard",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The Norse world in Minecraft: the six gods as potions, Mjölnir, Gungnir and Gjallarhorn, the Yggdrasil tree, Thor's shrine and rune circles that generate in new worlds.",
   "author": "SolutionsAsService",
   "game": "minecraft",

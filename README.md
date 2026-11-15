@@ -15,6 +15,17 @@ Version 0.2 adds the rest of the Norse world:
   own chest; the shrine and circle come in three variants each.
 - **Advancements**: a small tree from the rune circle to Mjölnir, Gungnir and the Gjallarhorn. Rune stone is a craftable block; the glowing Yggdrasil Rune is found on the tree.
 
+Version 0.3 starts the [expansion design](design/expand.md) (Phase 1):
+
+- **Seven god shrines**, each with its own look: Thor (thunder dais), Odin (monolith, one-eyed statue, ravens), Freyja
+  (flower garden, crystals, cats), Loki (a hidden underground altar), Freyr (a golden-wheat farm and totems), Tyr (crossed
+  swords, shields, banners) and Heimdall (a rainbow watchtower). Each comes in variants, has a chest of god-themed loot,
+  and an **offering altar**: hold the offering, use the altar, and receive the god's blessing.
+- **Five more divine potions** (Freyr's Blessing, Tyr's Courage, Idunn's Elixir, Mimir's Knowledge, Yggdrasil's Essence),
+  Yggdrasil Sap, Sacred Root, Heartwood, Ancient Bark and Golden World Tree Leaves, with crafting recipes.
+
+Not yet built from the design: creatures, the Nine Realms, bosses and events, armour, rune magic, the three wells.
+
 Status: the mod builds and loads on a 1.21.4 Fabric server; all three structures generate with `/place structure`;
 the icons and structures show in a real client. Using the relics, brewing, and natural spawning in a fresh survival world
 are not yet tested (`/locate` was inconclusive on the test seed). Regenerate the generated files with

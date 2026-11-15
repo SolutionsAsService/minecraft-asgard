@@ -711,7 +711,7 @@ SHRINES = [  # god key, shrine slug, display name, epithet, blurb, shot names (d
     ("thor", "thors_shrine", "Thor", "God of Thunder", "The first shrine: a tiered stone dais, lightning-rod pillars, braziers and a spire over a gold altar.", ("shrine", "shrine-dusk")),
     ("odin", "odin_shrine", "Odin", "Allfather", "A stone monolith with glowing runes, a one-eyed statue under a wide hat, two raven statues, and lanterns hanging from carved posts.", ("shrine-odin", "shrine-odin-dusk")),
     ("freyja", "freyja_shrine", "Freyja", "Goddess of Love and Magic", "A garden of golden and pink flowers, crystals that glow, a cherry pergola and quartz cat statues.", ("shrine-freyja", "shrine-freyja-dusk")),
-    ("loki", "loki_shrine", "Loki", "God of Mischief", "A hidden underground altar under a hatch: green froglight flames, strange statues, cobwebs and slime.", ("shrine-loki", "shrine-loki-surface")),
+    ("loki", "loki_shrine", "Loki", "God of Mischief", "A hidden underground altar under a hatch: green froglight flames, strange statues, cobwebs and slime.", ("shrine-loki",)),
     ("freyr", "freyr_shrine", "Freyr", "God of Prosperity", "A walled farm of ripe golden wheat watered by two channels, with carved totems and hay-bale seats around the altar.", ("shrine-freyr",)),
     ("tyr", "tyr_shrine", "Tyr", "God of War", "A battlefield monument: two huge crossed swords, a wall of shields (target blocks) and red banners.", ("shrine-tyr",)),
     ("heimdall", "heimdall_shrine", "Heimdall", "Guardian of the Bifrost", "A 34-block watchtower with golden corner pillars, rainbow glass windows, a ladder inside and a lookout of rainbow crystals.", ("shrine-heimdall", "shrine-heimdall-dusk")),
