@@ -312,6 +312,9 @@ LANG = {
 }
 
 
+LANG.update({"entity.asgard.draugr": "Draugr", "entity.asgard.troll": "Troll", "entity.asgard.raven": "Raven",
+             "item.asgard.draugr_spawn_egg": "Draugr Spawn Egg", "item.asgard.troll_spawn_egg": "Troll Spawn Egg",
+             "item.asgard.raven_spawn_egg": "Raven Spawn Egg"})
 for _g, _n in GOD_NAME.items():
     LANG[f"block.asgard.{_g}_altar"] = f"Altar of {_n}"
 

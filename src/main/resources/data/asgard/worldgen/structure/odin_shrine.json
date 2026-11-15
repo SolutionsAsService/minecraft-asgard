@@ -2,7 +2,19 @@
   "type": "minecraft:jigsaw",
   "biomes": "#asgard:has_structure/odin_shrine",
   "step": "surface_structures",
-  "spawn_overrides": {},
+  "spawn_overrides": {
+    "creature": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "asgard:raven",
+          "weight": 10,
+          "minCount": 2,
+          "maxCount": 3
+        }
+      ]
+    }
+  },
   "terrain_adaptation": "beard_thin",
   "start_pool": "asgard:odin_shrine",
   "size": 1,

@@ -60,6 +60,12 @@ LOOT = {
                         item("asgard:sacred_root", 1), potion("asgard:bifrost_spark", 2)],
 }
 
+SPAWNS = {
+    "odin_shrine": {"creature": {"bounding_box": "full", "spawns": [{"type": "asgard:raven", "weight": 10, "minCount": 2, "maxCount": 3}]}},
+    "tyr_shrine": {"monster": {"bounding_box": "piece", "spawns": [{"type": "asgard:draugr", "weight": 10, "minCount": 2, "maxCount": 3},
+                                                                    {"type": "asgard:troll", "weight": 2, "minCount": 1, "maxCount": 1}]}},
+}
+
 ADV = {  # name: (parent, icon, title, description, frame)
     "odin_shrine": ("rune_circle", "asgard:odin_altar", "The Allfather's Monument", "Find Odin's shrine.", "task"),
     "freyja_shrine": ("rune_circle", "asgard:freyja_altar", "A Garden of Gold and Crystal", "Find Freyja's shrine.", "task"),
@@ -74,7 +80,7 @@ def main():
     for name, (spacing, sep, salt, start, biomes) in SHRINES.items():
         write(D / "worldgen/structure" / f"{name}.json", {
             "type": "minecraft:jigsaw", "biomes": f"#asgard:has_structure/{name}", "step": "surface_structures",
-            "spawn_overrides": {}, "terrain_adaptation": "beard_thin", "start_pool": f"asgard:{name}", "size": 1,
+            "spawn_overrides": SPAWNS.get(name, {}), "terrain_adaptation": "beard_thin", "start_pool": f"asgard:{name}", "size": 1,
             "start_height": {"absolute": start}, "project_start_to_heightmap": "WORLD_SURFACE_WG",
             "max_distance_from_center": 40, "use_expansion_hack": False})
         write(D / "worldgen/template_pool" / f"{name}.json", {"fallback": "minecraft:empty", "elements": [

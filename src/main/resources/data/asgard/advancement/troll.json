@@ -1,0 +1,34 @@
+{
+  "parent": "asgard:thors_shrine",
+  "display": {
+    "icon": {
+      "id": "minecraft:cobblestone"
+    },
+    "title": {
+      "text": "Under the Bridge"
+    },
+    "description": {
+      "text": "Fell a mountain troll."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "asgard:troll"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

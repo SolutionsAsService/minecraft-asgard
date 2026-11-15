@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "asgard:item/troll_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 6059604
+      },
+      {
+        "type": "minecraft:constant",
+        "value": 8027258
+      }
+    ]
+  }
+}

@@ -11,6 +11,9 @@
   "entrypoints": {
     "main": [
       "dev.shadw.asgard.Mod"
+    ],
+    "client": [
+      "dev.shadw.asgard.AsgardClient"
     ]
   },
   "depends": {

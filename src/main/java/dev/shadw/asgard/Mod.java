@@ -43,6 +43,7 @@ public class Mod implements ModInitializer {
 	public void onInitialize() {
 		AsgardBlocks.init();
 		AsgardItems.init();
+		AsgardEntities.init();
 		JsonObject root = load();
 		JsonArray potions = root.getAsJsonArray("potions");
 		List<Pending> pending = new ArrayList<>();
@@ -104,6 +105,11 @@ public class Mod implements ModInitializer {
 			entries.accept(AsgardBlocks.RUNE_STONE);
 			entries.accept(AsgardBlocks.YGGDRASIL_HEARTWOOD);
 		});
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(entries -> {
+			entries.accept(AsgardEntities.DRAUGR_SPAWN_EGG);
+			entries.accept(AsgardEntities.TROLL_SPAWN_EGG);
+			entries.accept(AsgardEntities.RAVEN_SPAWN_EGG);
+		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
 			for (var altar : AsgardBlocks.ALTARS) {
 				entries.accept(altar);
@@ -122,7 +128,7 @@ public class Mod implements ModInitializer {
 			entries.accept(AsgardItems.SACRED_ROOT);
 		});
 		LOGGER.info("Asgard loaded: {} potions ({} from data, plus Blessing), {} brewing recipes, {} unknown effects skipped; "
-				+ "3 relics, {} blocks", pending.size(), fromData, pending.size(), effectsSkipped, AsgardBlocks.count());
+				+ "3 relics, {} blocks, 3 creatures", pending.size(), fromData, pending.size(), effectsSkipped, AsgardBlocks.count());
 	}
 
 	private static ResourceKey<Item> itemKey(String path) {
