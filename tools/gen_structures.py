@@ -111,6 +111,15 @@ def sphere_cells(x, y, z, r):
                     yield ix, iy, iz
 
 
+def ellipsoid_cells(x, y, z, r, sy=0.62):
+    ry = r * sy
+    for ix in range(math.floor(x - r), math.ceil(x + r) + 1):
+        for iy in range(math.floor(y - ry), math.ceil(y + ry) + 1):
+            for iz in range(math.floor(z - r), math.ceil(z + r) + 1):
+                if ((ix - x) / r) ** 2 + ((iy - y) / ry) ** 2 + ((iz - z) / r) ** 2 <= 1.0:
+                    yield ix, iy, iz
+
+
 def axis_of(dx, dy, dz):
     if abs(dy) > max(abs(dx), abs(dz)):
         return "y"
@@ -124,14 +133,14 @@ def yggdrasil(seed):
 
     def trunk_r(y, th):
         if y < 16:
-            base = 8.6 + (16 - y) * 0.5
+            base = 8.6 + (16 - y) * 0.3
         elif y < 62:
             base = 8.6 - (y - 16) * 0.075
         else:
             base = 5.2 - (y - 62) * 0.15
         base = max(base, 3.0)
         ridge = 1.2 * math.sin(7 * th + phase + y * 0.05) + 0.6 * math.sin(13 * th + phase * 2)
-        buttress = max(0, 16 - y) / 16 * 3.4 * max(0, math.sin(9 * th + phase))
+        buttress = max(0, 16 - y) / 16 * 2.6 * max(0, math.sin(9 * th + phase))
         return base + ridge * (0.5 if y >= 16 else 1.0) + buttress
 
     # trunk
@@ -143,14 +152,14 @@ def yggdrasil(seed):
                     s.put(x, y, z, log("y"))
 
     # roots: meandering ridges that flow out and down
-    for k in range(rnd.randint(14, 18)):
-        a = k * math.tau / 16 + rnd.uniform(-0.2, 0.2)
-        r, y, t0 = 7.0, rnd.uniform(17, 26), 0
+    for k in range(rnd.randint(10, 13)):
+        a = k * math.tau / 11 + rnd.uniform(-0.2, 0.2)
+        r, y, t0 = 9.0, rnd.uniform(16, 24), 0
         for step in range(62):
             a += rnd.gauss(0, 0.05)
             r += rnd.uniform(0.75, 1.05)
             y = max(3.2, y - (0.55 if y > 8 else 0.3) * rnd.uniform(0.6, 1.4))
-            rad = max(1.2, 3.7 - step * 0.055)
+            rad = max(1.2, 3.0 - step * 0.045)
             x, z = CX + math.cos(a) * r, CZ + math.sin(a) * r
             if not (4 <= x < W - 4 and 4 <= z < W - 4) or r > 38:
                 break
@@ -180,11 +189,11 @@ def yggdrasil(seed):
                 next_sub = tstep + rnd.randint(4, 7)
                 side = rnd.choice((-1, 1)) * rnd.uniform(0.7, 1.2)
                 branch(x, y, z, ang + side, rnd.uniform(0.2, 0.5), rnd.randint(11, 17), 1.7, 0.8, 1)
-        clumps.append((pts[-1][0], pts[-1][1] + 1, pts[-1][2], rnd.uniform(6, 9) if depth == 0 else rnd.uniform(4.5, 7)))
+        clumps.append((pts[-1][0], pts[-1][1] + (3.2 if depth == 0 else 2.4), pts[-1][2], rnd.uniform(6, 9) if depth == 0 else rnd.uniform(4.5, 7)))
         if depth == 0:
             for uu in (0.35, 0.55, 0.78):
                 p = pts[int(len(pts) * uu)]
-                clumps.append((p[0], p[1] + 2.5, p[2], rnd.uniform(5, 7.5)))
+                clumps.append((p[0], p[1] + 4.2, p[2], rnd.uniform(4.5, 6.5)))
             branch_paths.append(pts)
         return pts
 
@@ -193,7 +202,7 @@ def yggdrasil(seed):
         a = k * math.tau / nb + rnd.uniform(-0.25, 0.25)
         y0 = 46 + (k / nb) * 20 + rnd.uniform(-2, 2)
         branch(CX + math.cos(a) * 3, y0, CZ + math.sin(a) * 3, a, 0.4, rnd.randint(28, 36), 4.2, 1.3)
-    clumps.append((CX, 88, CZ, 16))            # the crown
+    clumps.append((CX, 86, CZ, 16))            # the crown
     clumps.append((CX + rnd.uniform(-6, 6), 78, CZ + rnd.uniform(-6, 6), 11))
 
     # leaves: lumpy ellipsoids with gaps
@@ -201,7 +210,7 @@ def yggdrasil(seed):
         n_off = [(rnd.uniform(-r * .4, r * .4), rnd.uniform(-r * .2, r * .2), rnd.uniform(-r * .4, r * .4), r * rnd.uniform(.55, .85)) for _ in range(4)]
         n_off.append((0, 0, 0, r))
         for ox, oy, oz, rr in n_off:
-            for ix, iy, iz in sphere_cells(cx_ + ox, cy_ + oy, cz_ + oz, rr):
+            for ix, iy, iz in ellipsoid_cells(cx_ + ox, cy_ + oy * 0.5, cz_ + oz, rr):
                 if 0 <= ix < W and 0 <= iy < H and 0 <= iz < W and (ix, iy, iz) not in s.blocks:
                     if hole(ix, iy, iz + seed * 31) < 7:
                         continue
@@ -218,7 +227,7 @@ def yggdrasil(seed):
             for off in (0.0, math.pi):
                 ang = a0 + y * 0.21 + off
                 diff = (math.atan2(dz, dx) - ang + math.pi) % math.tau - math.pi
-                if abs(diff) * d < 1.8 and hole(x, y // 2, z) < 86:
+                if abs(diff) * d < 2.4 and hole(x, y // 2, z) < 86:
                     s.put(x, y, z, RUNE_GLOW)
 
     # a walkway along the top of one long branch: planks, fences, lanterns
