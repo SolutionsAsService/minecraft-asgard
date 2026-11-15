@@ -10,8 +10,8 @@ Version 0.2 adds the rest of the Norse world:
   [`content.json`](src/main/resources/assets/asgard/content.json), which the site reads too.
 - **Yggdrasil**: log, leaves (drop a leaf or a fruit), a fruit to eat, and the Potion of Blessing (leaf on Awkward
   Potion).
-- **Structures** in new worlds: Yggdrasil (a 41 by 41 by 50 tree with a hollow), Thor's shrine, and the rune circle,
-  each with a chest that can hold a relic. Rune stone is a craftable block.
+- **Structures** in new worlds: Yggdrasil (an 85 by 85 by 100 world tree in six random variants: gold rune spiral, root ridges, branches, a lantern walkway, waterfalls, vines, an amethyst hollow), Thor's shrine, and the rune circle,
+  each with a chest that can hold a relic. Rune stone is a craftable block; the glowing Yggdrasil Rune is found on the tree.
 
 Status: the mod builds and loads on a 1.21.4 Fabric server; all three structures generate with `/place structure`;
 the icons and structures show in a real client. Using the relics, brewing, and natural spawning in a fresh survival world

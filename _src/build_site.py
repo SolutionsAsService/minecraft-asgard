@@ -406,9 +406,9 @@ def build_index(data, gods, palette, names):
         gallery = (f'<section class="band"><h2>In the game</h2><div class="shots two">{figs}</div>'
                    f'<p class="meta">Captured from a Minecraft 1.21.4 client joined to a Fabric dedicated server with this mod. The pillars, the arch, the item frames and the signs were built with server commands in a flat test world; only the items and potions are the mod.</p></section>')
     world = ""
-    if shot("yggdrasil") and shot("shrine"):
+    if shot("yggdrasil-dusk") and shot("shrine"):
         world = (f'<section class="band"><h2>Out in the world</h2><div class="shots two">'
-                 f'<figure class="shot"><img src="{shot("yggdrasil")}" alt="Yggdrasil, a giant tree, standing on a flat plain." width="854" height="480" loading="lazy"><figcaption>Yggdrasil, 50 blocks high. <a href="/structures.html#yggdrasil">The structures</a></figcaption></figure>'
+                 f'<figure class="shot"><img src="{shot("yggdrasil-dusk")}" alt="Yggdrasil at dusk: a giant tree with root ridges and two waterfalls under an orange sky." width="854" height="480" loading="lazy"><figcaption>Yggdrasil at dusk, 100 blocks high. <a href="/structures.html#yggdrasil">The structures</a></figcaption></figure>'
                  f'<figure class="shot"><img src="{shot("shrine")}" alt="Thor\'s shrine: four lightning-rod pillars around a spire." width="854" height="480" loading="lazy"><figcaption>Thor\'s shrine holds Mjölnir. <a href="/relics.html">The relics</a></figcaption></figure></div>'
                  f'<p class="meta">Captured in a flat test world on a Minecraft 1.21.4 client; the structures and items are the mod, the grass and sky are vanilla.</p></section>')
     body = f"""
@@ -554,7 +554,7 @@ def copy_content_items():
     import shutil
     for n in ("mjolnir", "gungnir", "gjallarhorn", "yggdrasil_leaf", "yggdrasil_fruit"):
         shutil.copyfile(ASSETS / "textures/item" / f"{n}.png", SITE / "img/items" / f"{n}.png")
-    for n in ("rune_stone", "yggdrasil_log", "yggdrasil_leaves"):
+    for n in ("rune_stone", "yggdrasil_log", "yggdrasil_leaves", "yggdrasil_rune"):
         shutil.copyfile(ASSETS / "textures/block" / f"{n}.png", SITE / "img/items" / f"{n}.png")
 
 
@@ -598,7 +598,8 @@ def build_relics(data, gods, manifest):
   <h2>Blocks</h2>
   <div class="relics">
   {relic_card("yggdrasil_log", "Yggdrasil Log", "Block", ["A log: it burns, an axe breaks it fastest, and it is in the logs tag."], "yggdrasil_log")}
-  {relic_card("yggdrasil_leaves", "Yggdrasil Leaves", "Block", ["Leaves that do not decay. They drop a leaf or a fruit."], "yggdrasil_leaves")}
+  {relic_card("yggdrasil_leaves", "Yggdrasil Leaves", "Block", ["Leaves that do not decay. They drop a leaf or a fruit, and now and then a gold mote drifts from the underside."], "yggdrasil_leaves")}
+  {relic_card("yggdrasil_rune", "Yggdrasil Rune", "Block", ["A glowing gold rune set in the world tree's bark: light level 12, and it sheds sparks. Axe-mineable; found on Yggdrasil, not crafted."], "yggdrasil_rune")}
   {relic_card("rune_stone", "Rune Stone", "Block", ["Craft four from 4 stone bricks and 1 gold nugget. Found building the shrine and the rune circle."], "rune_stone")}
   </div>
   <p class="meta">Status: the items load, their icons show in a Minecraft 1.21.4 client, and the numbers above are read from the mod's own data file. Using them (the lightning, the horn, the spear's glow) and brewing the Blessing are not yet tested in a world.</p>
@@ -613,7 +614,7 @@ def structure_card(slug, title, blurb, chest, relic_item, shot_names, extra):
     chance = chest_chance(chest, relic_item)
     figs = "".join(f'<figure class="shot"><img src="{shot(nm)}" alt="{esc(al)}" width="854" height="480" loading="lazy"><figcaption>{esc(cap)}</figcaption></figure>'
                    for nm, al, cap in shot_names if shot(nm))
-    rows = (f"<tr><th scope=\"row\">Size</th><td>{sx} by {sz} blocks, {sy} high ({n['blocks']:,} blocks)</td></tr>"
+    rows = (f"<tr><th scope=\"row\">Size</th><td>{sx} by {sz} blocks, {sy} high (about {n['blocks']:,} blocks{', six variants' if slug == 'yggdrasil' else ''})</td></tr>"
             f"<tr><th scope=\"row\">Spacing</th><td>One in every {s['spacing']} by {s['spacing']} chunks, at least {s['separation']} chunks from the next</td></tr>"
             f"<tr><th scope=\"row\">Biomes</th><td>{esc(', '.join(biomes(slug)))}</td></tr>"
             f"<tr><th scope=\"row\">Chest</th><td>{esc(extra)} {chance[0]} in {chance[1]} chests ({pct(*chance)}) hold the relic.</td></tr>")
@@ -623,10 +624,13 @@ def structure_card(slug, title, blurb, chest, relic_item, shot_names, extra):
 
 def build_structures(data, gods, manifest):
     cards = "".join([
-        structure_card("yggdrasil", "Yggdrasil", "A giant hollow tree, 41 blocks across and 50 high, with roots, branches, a canopy cut by shafts of sunlight and lanterns hung beneath it. A doorway at the foot leads to a chest inside.",
+        structure_card("yggdrasil", "Yggdrasil", "The world tree: a buttressed trunk with a gold rune spiral, root ridges that run out along the ground, sprawling branches under raised leaf clusters, a walkway with lanterns along one branch, vines and hanging lanterns, two waterfalls falling into stone-ringed pools, and an amethyst hollow at its foot with a doorway and a chest. Six variants are in the world pool, so no two trees need match.",
                        "yggdrasil_hollow", "asgard:gjallarhorn",
-                       [("yggdrasil", "Yggdrasil from a distance: a broad dark tree on a flat plain.", "Yggdrasil from a distance, in a flat test world."),
-                        ("yggdrasil-door", "The foot of Yggdrasil: roots and a doorway into the trunk.", "The doorway at the foot, with the chest inside.")],
+                       [("yggdrasil", "Yggdrasil by day: a huge tree with root ridges, two waterfalls and a wide canopy.", "By day. A flat test world; the grass and sky are vanilla."),
+                        ("yggdrasil-dusk", "Yggdrasil at dusk against an orange sky.", "At dusk."),
+                        ("yggdrasil-glow", "Looking up the trunk: a spiral of gold runes beside a waterfall.", "Looking up the trunk, along the rune spiral."),
+                        ("yggdrasil-lanterns", "Under a branch: glowing gold runes set into the wood, with leaves and the sunset beyond.", "Rune veins under a branch."),
+                        ("yggdrasil-door", "The root ridges and the doorway at the foot of the tree.", "The foot of the tree and its doorway.")],
                        "The hollow holds the Gjallarhorn, fruit, leaves and a golden apple."),
         structure_card("thors_shrine", "Thor's shrine", "A stone dais with four lightning-rod pillars, a spire, a gold block altar and a chest. Lightning strikes the rods in a storm.",
                        "thors_shrine", "asgard:mjolnir",
@@ -641,7 +645,7 @@ def build_structures(data, gods, manifest):
 <section class="page">
   <p class="eyebrow">Structures</p>
   <h1 class="mc-h">Norse structures in the world</h1>
-  <p class="lede">Three structures generate in new worlds. Each hides a relic in its chest. Walk, look, and bring a sword.</p>
+  <p class="lede">Three structures generate in new worlds. Each hides a relic in its chest. Walk, look, and bring a sword. Yggdrasil is the largest.</p>
   {cards}
   <p class="meta">Status: all three generate with the game's <code>/place structure</code> command on a Minecraft 1.21.4 server, and the captures above are from that client in a flat test world (the stone, trees and sky are vanilla). That the structures appear on their own in a fresh survival world is not yet confirmed: the game's <code>/locate</code> found nothing near spawn on the test seed, and the same search for a vanilla village also found nothing, so that test proved neither way.</p>
 </section>"""
@@ -661,7 +665,7 @@ def build_install(data, gods, manifest):
 cd minecraft-asgard
 gradle build
 # the jar is in build/libs/asgard-{esc(manifest['version'])}.jar</code></pre>
-  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(gods) + 1} potions ({len(gods)} from data, plus Blessing), {len(gods) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, 3 blocks</code> confirms the registration.</p>
+  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(gods) + 1} potions ({len(gods)} from data, plus Blessing), {len(gods) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, 4 blocks</code> confirms the registration.</p>
   <h2>Status</h2>
   <p>Builds on Fabric Loom 1.11.8 and Gradle 8. Loaded on a Fabric dedicated server for 1.21.4, and a client joined that server and showed the ingredients, potions, relics and structures (the screenshots on this site). Brewing in a stand, drinking the potions, using the relics and natural structure spawning are not yet tested.</p>
 </section>"""
