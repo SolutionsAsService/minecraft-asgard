@@ -149,6 +149,23 @@ def yggdrasil():
                     if d > floor and hole(x, y, z) < 12:
                         continue
                     s.put(x, y, z, LEAVES)
+    # sun shafts: open columns through the canopy so light reaches the trunk, and lanterns hung under the branches
+    for ring_r, count in ((6.5, 8), (12.5, 12)):
+        for k in range(count):
+            a = k * 2 * math.pi / count + (0.3 if ring_r > 10 else 0.0)
+            sx, sz = round(cx + math.cos(a) * ring_r), round(cz + math.sin(a) * ring_r)
+            for y in range(H):
+                for ox in (0, 1):
+                    for oz in (0, 1):
+                        if s.blocks.get((sx + ox, y, sz + oz)) == LEAVES:
+                            s.remove(sx + ox, y, sz + oz)
+    for k in range(10):
+        a = k * 2 * math.pi / 10 + 0.15
+        lx, lz = round(cx + math.cos(a) * 9), round(cz + math.sin(a) * 9)
+        for y in range(34, 24, -1):
+            if s.blocks.get((lx, y + 1, lz)) == LEAVES and (lx, y, lz) not in s.blocks:
+                s.put(lx, y, lz, state("minecraft:lantern", hanging="true", waterlogged="false"))
+                break
     # the hollow at the foot: a doorway to the south, a chest, a hanging lantern
     for y in range(4, 7):
         for z in range(W):
