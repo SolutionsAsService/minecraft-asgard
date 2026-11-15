@@ -24,6 +24,11 @@ Version 0.3 starts the [expansion design](design/expand.md) (Phase 1):
 - **Five more divine potions** (Freyr's Blessing, Tyr's Courage, Idunn's Elixir, Mimir's Knowledge, Yggdrasil's Essence),
   Yggdrasil Sap, Sacred Root, Heartwood, Ancient Bark and Golden World Tree Leaves, with crafting recipes.
 
+Version 0.4 adds the first creatures (Phase 2): the **Draugr** (an undead Norse warrior that never burns), the **Troll**
+(large, hits hard, and turns to stone in daylight) and **Odin's Raven** (a tameable black bird). They reuse the zombie and
+parrot models with their own skins, spawn naturally in taiga, forest and mountain biomes and in the shrines and Yggdrasil, drop
+runes, bones and feathers, and have spawn eggs and advancements. Not yet built: Ratatoskr, other beasts, bosses.
+
 Not yet built from the design: creatures, the Nine Realms, bosses and events, armour, rune magic, the three wells.
 
 Status: the mod builds and loads on a 1.21.4 Fabric server; all three structures generate with `/place structure`;

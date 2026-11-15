@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creatures: draugr, trolls and ravens</title>
+<meta name="description" content="The first creatures of the Asgard mod: the draugr, the troll and Odin’s raven, with stats, spawns and drops.">
+<meta property="og:title" content="Creatures: draugr, trolls and ravens">
+<meta property="og:description" content="The first creatures of the Asgard mod: the draugr, the troll and Odin’s raven, with stats, spawns and drops.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://minecraft-asgard.shadw.app/creatures.html">
+<meta property="og:image" content="https://minecraft-asgard.shadw.app/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="/index.html"><span class="brand-mark" aria-hidden="true"></span>ASGARD</a>
+  <nav aria-label="Primary"><a href="/index.html">Home</a><a href="/gods.html">Gods</a><a href="/relics.html">Relics</a><a href="/structures.html">Structures</a><a href="/shrines.html">Shrines</a><a href="/creatures.html" aria-current="page">Creatures</a><a href="/install.html">Install</a><a href="/developers.html">Developers</a></nav>
+</header>
+<main id="main" tabindex="-1">
+
+<section class="page">
+  <p class="eyebrow">Creatures</p>
+  <h1 class="mc-h">Draugr, trolls and ravens</h1>
+  <p class="lede">The first three creatures of the design’s Phase 2. They reuse Minecraft’s zombie and parrot models with skins painted for the mod.</p>
+  <figure class="shot wide"><img src="/img/shots/creatures.png" alt="A troll between two draugr, with two ravens, in a flat Minecraft test world." width="854" height="480"><figcaption>All three, summoned in a flat test world with their AI switched off for the photograph.</figcaption></figure>
+  <section class="struct" id="draugr"><h2>Draugr</h2><p>An undead Norse warrior in a rusted iron helm, with a glowing blue stare. It is tougher and slower than a zombie, never burns in sunlight, and carries an iron axe or sword. It uses the zombie model with its own skin.</p><figure class="shot"><img src="/img/shots/creature-draugr.png" alt="A Draugr in a flat Minecraft test world." width="854" height="480" loading="lazy"><figcaption>Draugr, in a flat test world.</figcaption></figure><table class="data"><caption class="sr">Draugr: facts</caption><tbody><tr><th scope="row">Stats</th><td>34 health (17 hearts), 5 attack damage, 6 armour, knockback resistance 0.3</td></tr><tr><th scope="row">Spawns</th><td>taiga, forest, mountain biomes; groups of 1 to 3, spawn weight 14. Also haunts the rune circle and Tyr’s shrine.</td></tr><tr><th scope="row">Drops</th><td>Bone, Rotten Flesh, Iron Nugget, Rune Stone, Yggdrasil Sap, Iron Ingot</td></tr><tr><th scope="row">Spawn egg</th><td>In the Spawn Eggs tab, and <code>/summon asgard:draugr</code></td></tr></tbody></table></section><section class="struct" id="troll"><h2>Troll</h2><p>A hulking mountain troll, one and a half times a player’s size, with stone patches, moss and tusks. It hits hard and shrugs off knockback, and in open daylight it turns to stone: it stops moving and attacking until night, or until it is under cover. It uses the zombie model, scaled up.</p><figure class="shot"><img src="/img/shots/creature-troll.png" alt="A Troll in a flat Minecraft test world." width="854" height="480" loading="lazy"><figcaption>Troll, in a flat test world.</figcaption></figure><table class="data"><caption class="sr">Troll: facts</caption><tbody><tr><th scope="row">Stats</th><td>70 health (35 hearts), 10 attack damage, 4 armour, knockback resistance 0.7, 1.5 times scale</td></tr><tr><th scope="row">Spawns</th><td>mountain, taiga biomes; one at a time, spawn weight 4. Also guards Tyr’s shrine, rarely.</td></tr><tr><th scope="row">Drops</th><td>Cobblestone, Rotten Flesh, Bone, Iron Ingot, Rune Stone, Sacred Root, Emerald</td></tr><tr><th scope="row">Spawn egg</th><td>In the Spawn Eggs tab, and <code>/summon asgard:troll</code></td></tr></tbody></table></section><section class="struct" id="raven"><h2>Raven</h2><p>Odin’s black bird. It flies, can be tamed with seeds, and mimics the sounds around it like a parrot. It uses the parrot model with a black skin.</p><figure class="shot"><img src="/img/shots/creature-raven.png" alt="A Raven in a flat Minecraft test world." width="854" height="480" loading="lazy"><figcaption>Raven, in a flat test world.</figcaption></figure><table class="data"><caption class="sr">Raven: facts</caption><tbody><tr><th scope="row">Stats</th><td>The parrot’s: 6 health, flies, tameable with seeds.</td></tr><tr><th scope="row">Spawns</th><td>taiga, forest, mountain biomes; groups of 2 to 4, spawn weight 6. Lives around Yggdrasil and Odin’s shrine.</td></tr><tr><th scope="row">Drops</th><td>Feather, Ender Pearl</td></tr><tr><th scope="row">Spawn egg</th><td>In the Spawn Eggs tab, and <code>/summon asgard:raven</code></td></tr></tbody></table></section>
+  <h2>Not built yet</h2>
+  <p>The design also lists Ratatoskr, other mythical beasts, companions and bosses. Creatures with their own models and animations need custom model code and are planned for later.</p>
+  <p class="meta">Status: all three load and render in a Minecraft 1.21.4 client when summoned, and the first batch dropped bones, iron nuggets, rune stones, feathers and cobblestone when it was killed, so the loot tables work. Their natural spawn rules and the troll’s daylight petrification are written but not yet watched over a full day and night, and no advancement has been earned in play.</p>
+</section>
+</main>
+<footer class="foot">
+  <p>A Minecraft mod for the Nordic Pantheon pack. Source: <a href="https://github.com/SolutionsAsService/minecraft-asgard">minecraft-asgard</a>. Built with <a href="https://github.com/SolutionsAsService/shadw-modding">shadw-modding</a>. Credit: SolutionsAsService. Dark&nbsp;theme&nbsp;only. English&nbsp;only.</p>
+</footer>
+</body>
+</html>

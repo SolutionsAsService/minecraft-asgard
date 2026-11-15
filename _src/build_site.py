@@ -827,7 +827,7 @@ def build_creatures(data, gods, manifest, names):
                      + (f", knockback resistance {a['knockback']:g}" if 'knockback' in a else "") + (f", {a['scale']:g} times scale" if 'scale' in a else "") + "</td></tr>")
         else:
             stats = "<tr><th scope=\"row\">Stats</th><td>The parrot's: 6 health, flies, tameable with seeds.</td></tr>"
-        spawn = (f"<tr><th scope=\"row\">Spawns</th><td>{esc(', '.join(rule.get('biomes', [])))} biomes; groups of {rule.get('lo', '?')} to {rule.get('hi', '?')}, spawn weight {rule.get('weight', '?')}. {esc(where)}</td></tr>") if rule else ""
+        spawn = (f"<tr><th scope=\"row\">Spawns</th><td>{esc(', '.join(rule.get('biomes', [])))} biomes; {('one at a time' if rule.get('lo') == rule.get('hi') == 1 else 'groups of ' + str(rule.get('lo', '?')) + ' to ' + str(rule.get('hi', '?')))}, spawn weight {rule.get('weight', '?')}. {esc(where)}</td></tr>") if rule else ""
         fig = (f'<figure class="shot"><img src="{shot(shot_name)}" alt="A {esc(name)} in a flat Minecraft test world." width="854" height="480" loading="lazy"><figcaption>{esc(name)}, in a flat test world.</figcaption></figure>') if shot(shot_name) else ""
         cards += (f'<section class="struct" id="{key}"><h2>{esc(name)}</h2><p>{esc(blurb)}</p>{fig}'
                   f'<table class="data"><caption class="sr">{esc(name)}: facts</caption><tbody>{stats}{spawn}'
@@ -844,7 +844,7 @@ def build_creatures(data, gods, manifest, names):
   {cards}
   <h2>Not built yet</h2>
   <p>The design also lists Ratatoskr, other mythical beasts, companions and bosses. Creatures with their own models and animations need custom model code and are planned for later.</p>
-  <p class="meta">Status: all three load and render in a Minecraft 1.21.4 client when summoned. Their spawn rules, drops and the troll's daylight petrification are written but not yet watched over a full day and night, and no advancement has been earned in play.</p>
+  <p class="meta">Status: all three load and render in a Minecraft 1.21.4 client when summoned, and the first batch dropped bones, iron nuggets, rune stones, feathers and cobblestone when it was killed, so the loot tables work. Their natural spawn rules and the troll's daylight petrification are written but not yet watched over a full day and night, and no advancement has been earned in play.</p>
 </section>"""
     return page("Creatures: draugr, trolls and ravens", "The first creatures of the Asgard mod: the draugr, the troll and Odin's raven, with stats, spawns and drops.", body, "creatures", "creatures.html")
 
