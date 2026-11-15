@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "asgard:yggdrasil_log"
+    "asgard:yggdrasil_log",
+    "asgard:yggdrasil_rune"
   ]
 }

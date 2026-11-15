@@ -158,6 +158,17 @@ def leaves(x, y):
     return (31, 90, 36)
 
 
+def yggdrasil_rune(x, y):
+    n = h(x, y, 5)
+    c = shade((72, 48, 30), (n % 11) - 5)
+    glyph = {(7, yy) for yy in range(3, 13)} | {(8, yy) for yy in range(3, 13)} | {(9, 5), (10, 6), (10, 7), (9, 8), (6, 5), (5, 6)}
+    if (x, y) in glyph:
+        return DYE["yellow"]
+    if any(abs(x - gx) + abs(y - gy) == 1 for gx, gy in glyph):
+        return (214, 140, 38)
+    return c
+
+
 def rune_stone(x, y):
     n = h(x, y, 4)
     base = (108, 110, 114)
@@ -196,6 +207,7 @@ LANG = {
     "block.asgard.yggdrasil_log": "Yggdrasil Log",
     "block.asgard.yggdrasil_leaves": "Yggdrasil Leaves",
     "block.asgard.rune_stone": "Rune Stone",
+    "block.asgard.yggdrasil_rune": "Yggdrasil Rune",
     "item.minecraft.potion.effect.blessing": "Potion of Blessing",
     "item.minecraft.splash_potion.effect.blessing": "Splash Blessing",
     "item.minecraft.lingering_potion.effect.blessing": "Lingering Blessing",
@@ -218,6 +230,7 @@ def main():
     tex(log_top).save(ASSETS / "textures/block/yggdrasil_log_top.png")
     tex(leaves).save(ASSETS / "textures/block/yggdrasil_leaves.png")
     tex(rune_stone).save(ASSETS / "textures/block/rune_stone.png")
+    tex(yggdrasil_rune).save(ASSETS / "textures/block/yggdrasil_rune.png")
 
     # item models and definitions
     for name, parent in (("mjolnir", "minecraft:item/handheld"), ("gungnir", "minecraft:item/handheld"),
@@ -239,8 +252,11 @@ def main():
         "axis=x": {"model": f"{NS}:block/yggdrasil_log_horizontal", "x": 90, "y": 90},
         "axis=z": {"model": f"{NS}:block/yggdrasil_log_horizontal", "x": 90}}})
     write_json(ASSETS / "blockstates/yggdrasil_leaves.json", {"variants": {"": {"model": f"{NS}:block/yggdrasil_leaves"}}})
+    write_json(ASSETS / "models/block/yggdrasil_rune.json",
+               {"parent": "minecraft:block/cube_all", "textures": {"all": f"{NS}:block/yggdrasil_rune"}})
+    write_json(ASSETS / "blockstates/yggdrasil_rune.json", {"variants": {"": {"model": f"{NS}:block/yggdrasil_rune"}}})
     write_json(ASSETS / "blockstates/rune_stone.json", {"variants": {"": {"model": f"{NS}:block/rune_stone"}}})
-    for name in ("yggdrasil_log", "yggdrasil_leaves", "rune_stone"):
+    for name in ("yggdrasil_log", "yggdrasil_leaves", "rune_stone", "yggdrasil_rune"):
         item_def(name, f"{NS}:block/{name}")
     # language entries merged by gen_assets.py
     write_json(HERE / "content_lang.json", LANG)

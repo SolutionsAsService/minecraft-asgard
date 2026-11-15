@@ -607,7 +607,7 @@ def build_relics(data, gods, manifest):
 
 
 def structure_card(slug, title, blurb, chest, relic_item, shot_names, extra):
-    n = nbt_facts(slug)
+    n = nbt_facts("yggdrasil_0" if slug == "yggdrasil" else slug)
     s = spread(slug)
     sx, sy, sz = n["size"]
     chance = chest_chance(chest, relic_item)

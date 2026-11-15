@@ -9,6 +9,7 @@ biome tags) in src/main/resources/data/asgard/. Stdlib only.
 """
 
 import math
+import random
 import sys
 from pathlib import Path
 
@@ -94,91 +95,206 @@ def hole(x, y, z):
     return ((x * 73856093) ^ (y * 19349663) ^ (z * 83492791)) % 100
 
 
-# ---------- Yggdrasil: a giant hollow tree ----------
+# ---------- Yggdrasil: the world tree, six seeded variants ----------
 
-def yggdrasil():
-    W, H = 41, 50
+RUNE_GLOW = state("asgard:yggdrasil_rune")
+VARIANTS = 6
+W, H = 65, 80
+CX = CZ = 32
+
+
+def sphere_cells(x, y, z, r):
+    for ix in range(math.floor(x - r), math.ceil(x + r) + 1):
+        for iy in range(math.floor(y - r), math.ceil(y + r) + 1):
+            for iz in range(math.floor(z - r), math.ceil(z + r) + 1):
+                if (ix - x) ** 2 + (iy - y) ** 2 + (iz - z) ** 2 <= r * r + 0.25:
+                    yield ix, iy, iz
+
+
+def axis_of(dx, dy, dz):
+    if abs(dy) > max(abs(dx), abs(dz)):
+        return "y"
+    return "x" if abs(dx) >= abs(dz) else "z"
+
+
+def yggdrasil(seed):
+    rnd = random.Random(seed * 7919 + 13)
     s = Structure(W, H, W)
-    cx = cz = 20
+    phase = rnd.random() * math.tau
 
-    def dist(x, z):
-        return math.hypot(x - cx, z - cz)
+    def trunk_r(y, th):
+        if y < 14:
+            base = 8.8 + (14 - y) * 0.5
+        elif y < 50:
+            base = 8.8 - (y - 14) * 0.07
+        else:
+            base = 6.3 - (y - 50) * 0.2
+        base = max(base, 3.0)
+        ridge = 1.2 * math.sin(7 * th + phase + y * 0.05) + 0.6 * math.sin(13 * th + phase * 2)
+        buttress = max(0, 14 - y) / 14 * 3.0 * max(0, math.sin(9 * th + phase))
+        return base + ridge * (0.5 if y >= 14 else 1.0) + buttress
 
-    # trunk, tapering from 4.6 to about 3.3 blocks
-    for y in range(0, 44):
-        r = 5.0 if y < 3 else 4.6 - (y - 3) * 0.032
-        if y >= 33:
-            r = 2.4
+    # trunk
+    for y in range(0, 64):
         for z in range(W):
             for x in range(W):
-                if dist(x, z) <= r:
+                dx, dz = x - CX, z - CZ
+                if dx * dx + dz * dz <= 18 * 18 and math.hypot(dx, dz) <= trunk_r(y, math.atan2(dz, dx)):
                     s.put(x, y, z, log("y"))
-    # roots: eight arms flaring out and down
-    for k in range(8):
-        a = k * math.pi / 4 + 0.2
-        for t in range(0, 13):
-            rx = cx + math.cos(a) * (4 + t)
-            rz = cz + math.sin(a) * (4 + t)
-            ry = max(0, int(5 - t * 0.4))
-            axis = "x" if abs(math.cos(a)) >= abs(math.sin(a)) else "z"
-            for yy in range(0, ry + (1 if t < 7 else 0) + 1):
-                s.put(round(rx), yy, round(rz), log(axis))
-                if t < 6:
-                    s.put(round(rx), yy, round(rz) + 1, log(axis))
-    # main branches, rising outward from the upper trunk
-    for k in range(6):
-        a = k * math.pi / 3 + 0.26
-        y0 = 24 + (k % 3) * 3
-        for t in range(0, 15):
-            bx = cx + math.cos(a) * (3 + t)
-            bz = cz + math.sin(a) * (3 + t)
-            by = int(y0 + t * 0.6)
-            axis = "x" if abs(math.cos(a)) >= abs(math.sin(a)) else "z"
-            s.put(round(bx), by, round(bz), log(axis))
-            if t < 5:
-                s.put(round(bx), by + 1, round(bz), log(axis))
-                s.put(round(bx) + 1, by, round(bz), log(axis))
-    # canopy: a wide ellipsoid with gaps, and a lower skirt around the branches
-    for cy, rx, ry, floor in ((38, 19, 10, 0.45), (30, 14, 5, 0.35)):
-        for y in range(H):
-            for z in range(W):
-                for x in range(W):
-                    d = ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 + ((z - cz) / rx) ** 2
-                    if d > 1.0 or (x, y, z) in s.blocks:
-                        continue
-                    if d > floor and hole(x, y, z) < 12:
-                        continue
-                    s.put(x, y, z, LEAVES)
-    # sun shafts: open columns through the canopy so light reaches the trunk, and lanterns hung under the branches
-    for ring_r, count in ((6.5, 8), (12.5, 12)):
-        for k in range(count):
-            a = k * 2 * math.pi / count + (0.3 if ring_r > 10 else 0.0)
-            sx, sz = round(cx + math.cos(a) * ring_r), round(cz + math.sin(a) * ring_r)
-            for y in range(H):
-                for ox in (0, 1):
-                    for oz in (0, 1):
-                        if s.blocks.get((sx + ox, y, sz + oz)) == LEAVES:
-                            s.remove(sx + ox, y, sz + oz)
-    for k in range(10):
-        a = k * 2 * math.pi / 10 + 0.15
-        lx, lz = round(cx + math.cos(a) * 9), round(cz + math.sin(a) * 9)
-        for y in range(34, 24, -1):
-            if s.blocks.get((lx, y + 1, lz)) == LEAVES and (lx, y, lz) not in s.blocks:
-                s.put(lx, y, lz, state("minecraft:lantern", hanging="true", waterlogged="false"))
+
+    # roots: meandering ridges that flow out and down
+    for k in range(rnd.randint(12, 16)):
+        a = k * math.tau / 14 + rnd.uniform(-0.2, 0.2)
+        r, y, t0 = 7.0, rnd.uniform(15, 23), 0
+        for step in range(48):
+            a += rnd.gauss(0, 0.05)
+            r += rnd.uniform(0.75, 1.05)
+            y = max(3.2, y - (0.55 if y > 8 else 0.3) * rnd.uniform(0.6, 1.4))
+            rad = max(1.15, 3.3 - step * 0.06)
+            x, z = CX + math.cos(a) * r, CZ + math.sin(a) * r
+            if not (4 <= x < W - 4 and 4 <= z < W - 4) or r > 27:
                 break
-    # the hollow at the foot: a doorway to the south, a chest, a hanging lantern
-    for y in range(4, 7):
+            ax = axis_of(math.cos(a), -0.4, math.sin(a))
+            for ix, iy, iz in sphere_cells(x, y, z, rad):
+                if iy >= 0:
+                    s.put(ix, iy, iz, log(ax))
+
+    # branches: curving tubes, sub-branches, leaf clumps
+    clumps, branch_paths = [], []
+
+    def branch(sx, sy, sz, ang, elev, length, r0, r1, depth=0):
+        pts, x, y, z = [], sx, sy, sz
+        next_sub = rnd.randint(5, 8)
+        for tstep in range(length):
+            u = tstep / length
+            ang += rnd.gauss(0, 0.04)
+            x += math.cos(ang)
+            z += math.sin(ang)
+            y += elev * (1 - 1.5 * u)
+            rad = r0 + (r1 - r0) * u
+            ax = axis_of(math.cos(ang), elev, math.sin(ang))
+            for ix, iy, iz in sphere_cells(x, y, z, rad):
+                s.put(ix, iy, iz, log(ax))
+            pts.append((x, y, z, rad, ang))
+            if depth == 0 and tstep >= next_sub and tstep < length - 6:
+                next_sub = tstep + rnd.randint(5, 9)
+                side = rnd.choice((-1, 1)) * rnd.uniform(0.7, 1.2)
+                branch(x, y, z, ang + side, rnd.uniform(0.2, 0.5), rnd.randint(8, 13), 1.5, 0.8, 1)
+        clumps.append((pts[-1][0], pts[-1][1] + 1, pts[-1][2], rnd.uniform(4.5, 7) if depth == 0 else rnd.uniform(3.5, 5.5)))
+        if depth == 0:
+            for uu in (0.55, 0.78):
+                p = pts[int(len(pts) * uu)]
+                clumps.append((p[0], p[1] + 2.5, p[2], rnd.uniform(4, 6)))
+            branch_paths.append(pts)
+        return pts
+
+    nb = rnd.randint(8, 10)
+    for k in range(nb):
+        a = k * math.tau / nb + rnd.uniform(-0.25, 0.25)
+        y0 = 40 + (k / nb) * 18 + rnd.uniform(-2, 2)
+        branch(CX + math.cos(a) * 3, y0, CZ + math.sin(a) * 3, a, 0.38, rnd.randint(21, 27), 3.8, 1.2)
+    clumps.append((CX, 66, CZ, 12))            # the crown
+    clumps.append((CX + rnd.uniform(-5, 5), 61, CZ + rnd.uniform(-5, 5), 9))
+
+    # leaves: lumpy ellipsoids with gaps
+    for cx_, cy_, cz_, r in clumps:
+        n_off = [(rnd.uniform(-r * .4, r * .4), rnd.uniform(-r * .2, r * .2), rnd.uniform(-r * .4, r * .4), r * rnd.uniform(.55, .85)) for _ in range(4)]
+        n_off.append((0, 0, 0, r))
+        for ox, oy, oz, rr in n_off:
+            for ix, iy, iz in sphere_cells(cx_ + ox, cy_ + oy, cz_ + oz, rr):
+                if 0 <= ix < W and 0 <= iy < H and 0 <= iz < W and (ix, iy, iz) not in s.blocks:
+                    if hole(ix, iy, iz + seed * 31) < 7:
+                        continue
+                    s.put(ix, iy, iz, LEAVES)
+
+    # the glowing rune spiral winding up the trunk
+    a0 = rnd.random() * math.tau
+    for (x, y, z), blk in list(s.blocks.items()):
+        if blk[0] != "asgard:yggdrasil_log" or not 12 <= y <= 56:
+            continue
+        dx, dz = x - CX, z - CZ
+        d = math.hypot(dx, dz)
+        if d > trunk_r(y, math.atan2(dz, dx)) - 0.5 or d > 11:
+            for off in (0.0, math.pi):
+                ang = a0 + y * 0.21 + off
+                diff = (math.atan2(dz, dx) - ang + math.pi) % math.tau - math.pi
+                if abs(diff) * d < 1.1 and hole(x, y // 2, z) < 78:
+                    s.put(x, y, z, RUNE_GLOW)
+
+    # a walkway along the top of one long branch: planks, fences, lanterns
+    path = max(branch_paths, key=len)
+    for i, (x, y, z, rad, ang) in enumerate(path[3:-4], 3):
+        px, pz = -math.sin(ang), math.cos(ang)
+        top = math.ceil(y + rad) + (0 if rad > 1.9 else 1)
+        for w in (-1, 0, 1):
+            bx, bz = round(x + px * w), round(z + pz * w)
+            for yy in range(top + 1, top + 4):
+                if s.blocks.get((bx, yy, bz)) == LEAVES:
+                    s.remove(bx, yy, bz)
+            s.put(bx, top, bz, state("minecraft:dark_oak_planks"))
+            if abs(w) == 1 and i % 3 == 0:
+                s.put(bx, top + 1, bz, state("minecraft:dark_oak_fence", east="false", north="false", south="false", waterlogged="false", west="false"))
+                if i % 6 == 0:
+                    s.put(bx, top + 2, bz, state("minecraft:lantern", hanging="false", waterlogged="false"))
+
+    # waterfalls from two branches into stone-ringed pools
+    for bi in rnd.sample(range(len(branch_paths)), 2):
+        pts = branch_paths[bi]
+        x, y, z, rad, _ = pts[int(len(pts) * 0.72)]
+        wx, wz = round(x), round(z)
+        if not (5 <= wx < W - 5 and 5 <= wz < W - 5):
+            continue
+        for yy in range(math.floor(y - rad) - 1, 2, -1):
+            if (wx, yy, wz) not in s.blocks or s.blocks[(wx, yy, wz)] == LEAVES:
+                s.put(wx, yy, wz, state("minecraft:water", level="0"))
+        for dz in range(-4, 5):
+            for dx in range(-4, 5):
+                d = math.hypot(dx, dz)
+                if d <= 2.6:
+                    for yy in (2, 3):
+                        s.put(wx + dx, yy, wz + dz, state("minecraft:water", level="0"))
+                elif d <= 3.6:
+                    for yy in (2, 3, 4):
+                        s.put(wx + dx, yy, wz + dz, state("minecraft:mossy_stone_bricks"))
+
+    # the hollow at the foot: an amethyst cave, a doorway to the south, a chest
+    for y in range(3, 9):
         for z in range(W):
             for x in range(W):
-                if dist(x, z) <= 2.2:
+                if math.hypot(x - CX, z - CZ) <= 4.2 and s.blocks.get((x, y, z), ("",))[0] == "asgard:yggdrasil_log":
                     s.remove(x, y, z)
-    for y in (4, 5):
-        for z in range(cz + 1, cz + 7):
-            for x in (cx - 1, cx, cx + 1):
+    for y in range(3, 7):
+        for z in range(CZ, W):
+            for x in (CX - 1, CX, CX + 1):
                 s.remove(x, y, z)
+    for k in range(7):
+        a = k * math.tau / 7 + 0.4
+        s.put(round(CX + math.cos(a) * 3.2), 3, round(CZ + math.sin(a) * 3.2), state("minecraft:amethyst_cluster", facing="up", waterlogged="false"))
+    s.put(CX - 3, 3, CZ + 1, state("minecraft:amethyst_block"))
+    s.put(CX + 3, 3, CZ - 1, state("minecraft:amethyst_block"))
+    for k in range(4):
+        a = k * math.tau / 4 + 0.8
+        s.put(round(CX + math.cos(a) * 2.6), 8, round(CZ + math.sin(a) * 2.6), state("minecraft:soul_lantern", hanging="true", waterlogged="false"))
     blk, tag = chest("south", "asgard:chests/yggdrasil_hollow")
-    s.put(cx, 4, cz - 1, blk, tag)
-    s.put(cx, 6, cz, state("minecraft:lantern", hanging="true", waterlogged="false"))
+    s.put(CX, 3, CZ - 2, blk, tag)
+
+    # finishing: lanterns, glow fruit and vines hanging under the leaves, moss on the roots
+    for (x, y, z), blk in list(s.blocks.items()):
+        if blk == LEAVES:
+            below = (x, y - 1, z)
+            r = hole(x + 5, y, z + seed)
+            if below not in s.blocks:
+                if r < 4:
+                    s.put(*below, state("minecraft:lantern", hanging="true", waterlogged="false"))
+                elif r < 12:
+                    for n in range(rnd.randint(2, 6)):
+                        if (x, y - 1 - n, z) in s.blocks:
+                            break
+                        s.put(x, y - 1 - n, z, state("minecraft:vine", up="true", north="false", south="false", east="false", west="false"))
+            elif r > 98:
+                s.put(x, y, z, state("minecraft:shroomlight"))
+        elif blk[0] == "asgard:yggdrasil_log" and y <= 26 and (x, y + 1, z) not in s.blocks and hole(x, y, z + 3) < 30:
+            s.put(x, y + 1, z, state("minecraft:moss_carpet"))
     return s
 
 
@@ -236,7 +352,11 @@ def rune_circle():
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    for name, build in (("yggdrasil", yggdrasil), ("thors_shrine", thors_shrine), ("rune_circle", rune_circle)):
+    for old in OUT.glob("yggdrasil*.nbt"):
+        old.unlink()
+    builds = [(f"yggdrasil_{i}", (lambda i=i: yggdrasil(i))) for i in range(VARIANTS)]
+    builds += [("thors_shrine", thors_shrine), ("rune_circle", rune_circle)]
+    for name, build in builds:
         st = build()
         data = st.dumps()
         (OUT / f"{name}.nbt").write_bytes(data)

@@ -30,6 +30,10 @@ public final class AsgardBlocks {
 			BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE)
 					.requiresCorrectToolForDrops().setId(key)));
 
+	/** The gold runes that wind up Yggdrasil's trunk: they glow. */
+	public static final Block YGGDRASIL_RUNE = register("yggdrasil_rune", key -> new Block(
+			BlockBehaviour.Properties.of().strength(3.0F).sound(SoundType.WOOD).lightLevel(state -> 12).ignitedByLava().setId(key)));
+
 	private AsgardBlocks() {}
 
 	private static Block register(String path, Function<ResourceKey<Block>, Block> factory) {

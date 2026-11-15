@@ -96,6 +96,7 @@ public class Mod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
 			entries.accept(AsgardBlocks.YGGDRASIL_LOG);
 			entries.accept(AsgardBlocks.YGGDRASIL_LEAVES);
+			entries.accept(AsgardBlocks.YGGDRASIL_RUNE);
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS)
 				.register(entries -> entries.accept(AsgardBlocks.RUNE_STONE));
@@ -108,7 +109,7 @@ public class Mod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS)
 				.register(entries -> entries.accept(AsgardItems.YGGDRASIL_FRUIT));
 		LOGGER.info("Asgard loaded: {} potions ({} from data, plus Blessing), {} brewing recipes, {} unknown effects skipped; "
-				+ "3 relics, 3 blocks", pending.size(), fromData, pending.size(), effectsSkipped);
+				+ "3 relics, 4 blocks", pending.size(), fromData, pending.size(), effectsSkipped);
 	}
 
 	private static ResourceKey<Item> itemKey(String path) {
