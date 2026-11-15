@@ -3,6 +3,21 @@
 The gods of Asgard as potions, for Minecraft Java Edition (Fabric, 1.21.4). Six gods, six ingredients, six
 draughts. Each potion is brewed from an Awkward Potion and one ingredient that belongs to Asgard.
 
+Version 0.2 adds the rest of the Norse world:
+
+- **Relics**: Mjölnir (right-click calls lightning where you look), Gungnir (what it hits glows), Gjallarhorn
+  (a horn that reveals what is near). Their numbers live in
+  [`content.json`](src/main/resources/assets/asgard/content.json), which the site reads too.
+- **Yggdrasil**: log, leaves (drop a leaf or a fruit), a fruit to eat, and the Potion of Blessing (leaf on Awkward
+  Potion).
+- **Structures** in new worlds: Yggdrasil (a 41 by 41 by 50 tree with a hollow), Thor's shrine, and the rune circle,
+  each with a chest that can hold a relic. Rune stone is a craftable block.
+
+Status: the mod builds and loads on a 1.21.4 Fabric server; all three structures generate with `/place structure`;
+the icons and structures show in a real client. Using the relics, brewing, and natural spawning in a fresh survival world
+are not yet tested (`/locate` was inconclusive on the test seed). Regenerate the generated files with
+`python3 tools/gen_structures.py`, `python3 tools/gen_content.py` and `python3 tools/gen_assets.py`.
+
 Part of the **Nordic Pantheon** mod pack, built with the SHADW modding stack
 ([shadw-modding](https://github.com/SolutionsAsService/shadw-modding)).
 

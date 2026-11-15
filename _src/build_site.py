@@ -284,7 +284,8 @@ def bottle(hue, size=64, label=""):
 
 # ---------- page shell ----------
 
-NAV = [("index.html", "Home", "home"), ("gods.html", "Gods", "gods"), ("install.html", "Install", "install"),
+NAV = [("index.html", "Home", "home"), ("gods.html", "Gods", "gods"), ("relics.html", "Relics", "relics"),
+       ("structures.html", "Structures", "structures"), ("install.html", "Install", "install"),
        ("developers.html", "Developers", "developers")]
 
 
@@ -404,12 +405,18 @@ def build_index(data, gods, palette, names):
         figs = "".join(f'<figure class="shot"><img src="{shot(n)}" alt="{esc(a)}" width="1280" height="720" loading="lazy"><figcaption>{esc(c)}</figcaption></figure>' for n, a, c in ingame)
         gallery = (f'<section class="band"><h2>In the game</h2><div class="shots two">{figs}</div>'
                    f'<p class="meta">Captured from a Minecraft 1.21.4 client joined to a Fabric dedicated server with this mod. The pillars, the arch, the item frames and the signs were built with server commands in a flat test world; only the items and potions are the mod.</p></section>')
+    world = ""
+    if shot("yggdrasil") and shot("shrine"):
+        world = (f'<section class="band"><h2>Out in the world</h2><div class="shots two">'
+                 f'<figure class="shot"><img src="{shot("yggdrasil")}" alt="Yggdrasil, a giant tree, standing on a flat plain." width="854" height="480" loading="lazy"><figcaption>Yggdrasil, 50 blocks high. <a href="/structures.html#yggdrasil">The structures</a></figcaption></figure>'
+                 f'<figure class="shot"><img src="{shot("shrine")}" alt="Thor\'s shrine: four lightning-rod pillars around a spire." width="854" height="480" loading="lazy"><figcaption>Thor\'s shrine holds Mjölnir. <a href="/relics.html">The relics</a></figcaption></figure></div>'
+                 f'<p class="meta">Captured in a flat test world on a Minecraft 1.21.4 client; the structures and items are the mod, the grass and sky are vanilla.</p></section>')
     body = f"""
 <section class="hero" aria-labelledby="h1">
   <div class="hero-inner">
     <div class="hero-title"><p class="eyebrow">Minecraft mod · Nordic Pantheon</p><h1 id="h1" class="mc">ASGARD</h1></div>
-    <div class="hero-tag"><p class="tag">The six gods as potions. Each has its own ingredient and brewing recipe.</p>
-    <p class="meta">The recipes are registered in code; brewing in a world is not yet tested.</p></div>
+    <div class="hero-tag"><p class="tag">The Norse world in Minecraft: six gods as potions, Mjölnir and two more relics, and structures to find them in.</p>
+    <p class="meta">Registered in code and loaded on a real server. Brewing, using the relics and natural structure spawning are not yet tested.</p></div>
     <p class="action"><a class="btn" href="/gods.html">Meet the gods</a> <a class="btn btn-alt" href="/install.html">Install</a> <a class="btn btn-quiet" href="/developers.html">For developers</a></p>
     <div class="hero-fig">{hall}{tiles}</div>
   </div>
@@ -421,8 +428,9 @@ def build_index(data, gods, palette, names):
   <p class="meta">The picture shows Thor's Valor. The bottles are illustrations, not captures from the game, and the potion's bottle colour here is a design choice. A brew in a world is not yet tested.</p>
 </section>
 {gallery}
+{world}
 """
-    return page("Asgard: the six gods as Minecraft potions", "A Minecraft mod: Thor, Frigg, Heimdall, Odin, Freyja and Loki as potions, each with its own ingredient.", body, "home", "index.html")
+    return page("Asgard: the Norse world in Minecraft", "A Minecraft mod: the six gods as potions, Mjölnir and two more relics, Yggdrasil, Thor's shrine and rune circles.", body, "home", "index.html")
 
 
 def build_gods(data, gods, palette, names):
@@ -500,6 +508,146 @@ def build_god(i, g, gods, palette, names):
     return page(f"{g['god']}: {g['name']}", f"{g['god']}, {g['epithet']}: the potion {g['name']}, its effects, ingredient and lore.", body, "gods", f"gods/{g['slug']}.html", hue=g["hue"], hue_text=hue_text)
 
 
+# ---------- relics and structures: every figure is read from the mod's own data ----------
+
+DATA = REPO / "src/main/resources/data/asgard"
+
+
+def content():
+    return read_json(ASSETS / "content.json")
+
+
+def nbt_facts(name):
+    import sys
+    sys.path.insert(0, str(REPO / "tools"))
+    import nbt
+    root = nbt.loads((DATA / "structure" / f"{name}.nbt").read_bytes())
+    return {"size": tuple(root["size"][1][1]), "blocks": len(root["blocks"][1][1])}
+
+
+def spread(name):
+    return read_json(DATA / "worldgen/structure_set" / f"{name}.json")["placement"]
+
+
+def biomes(name):
+    vals = read_json(DATA / "tags/worldgen/biome/has_structure" / f"{name}.json")["values"]
+    return [v.replace("#minecraft:is_", "").replace("#minecraft:", "").replace("minecraft:", "").replace("_", " ") for v in vals]
+
+
+def chest_chance(chest, item):
+    """Chance that a chest's first pool gives `item`: weight over the pool's total weight (one roll)."""
+    entries = read_json(DATA / "loot_table/chests" / f"{chest}.json")["pools"][0]["entries"]
+    total = sum(e["weight"] for e in entries)
+    mine = sum(e["weight"] for e in entries if e.get("name") == item)
+    return mine, total
+
+
+def pct(a, b):
+    return f"{round(100 * a / b)}%"
+
+
+def sprite(name, size=96, label=""):
+    return (f'<img class="px" src="/img/items/{name}.png" width="{size}" height="{size}" alt="{esc(label)}">')
+
+
+def copy_content_items():
+    import shutil
+    for n in ("mjolnir", "gungnir", "gjallarhorn", "yggdrasil_leaf", "yggdrasil_fruit"):
+        shutil.copyfile(ASSETS / "textures/item" / f"{n}.png", SITE / "img/items" / f"{n}.png")
+    for n in ("rune_stone", "yggdrasil_log", "yggdrasil_leaves"):
+        shutil.copyfile(ASSETS / "textures/block" / f"{n}.png", SITE / "img/items" / f"{n}.png")
+
+
+def relic_card(name, title, god, lines, sprite_name):
+    li = "".join(f"<li>{x}</li>" for x in lines)
+    return (f'<article class="relic"><div class="relic-art">{sprite(sprite_name, 96, title)}</div>'
+            f'<div><h3>{esc(title)}</h3><p class="meta">{esc(god)}</p><ul class="fx">{li}</ul></div></article>')
+
+
+def build_relics(data, gods, manifest):
+    c = content()
+    mj, gu, gj, fr, bl = c["mjolnir"], c["gungnir"], c["gjallarhorn"], c["yggdrasil_fruit"], c["blessing"]
+    sw, st = chest_chance("thors_shrine", "asgard:mjolnir"), chest_chance("rune_circle", "asgard:gungnir")
+    sg = chest_chance("yggdrasil_hollow", "asgard:gjallarhorn")
+    hit = lambda d: f"{d:g} attack damage plus the 1 of an empty hand (about {d + 1:g} per swing)"
+    body = f"""
+<section class="page">
+  <p class="eyebrow">Relics</p>
+  <h1 class="mc-h">Three relics and the world tree</h1>
+  <p class="lede">Mjölnir, Gungnir and Gjallarhorn are found in the Norse structures, not crafted. Yggdrasil gives a leaf for one more potion and a fruit to eat.</p>
+  <div class="relics">
+  {relic_card("mjolnir", "Mjölnir", "Thor's hammer", [
+      f"Heavy weapon: +{mj['damage']:g} attack damage ({mj['damage'] + 1:g} with the base 1), attack speed modifier {mj['attack_speed_modifier']:g} (a slow swing), {mj['durability']} durability.",
+      f"Right-click: lightning strikes where you look, up to {mj['lightning_range']:g} blocks away. Costs {mj['durability_cost']} durability and has a {mj['cooldown_ticks'] / 20:g}-second cooldown.",
+      f"Found in Thor's shrine chests: {sw[0]} in {sw[1]} chests ({pct(*sw)}) hold it."], "mjolnir")}
+  {relic_card("gungnir", "Gungnir", "Odin's spear", [
+      f"Spear: +{gu['damage']:g} attack damage ({gu['damage'] + 1:g} with the base 1), attack speed modifier {gu['attack_speed_modifier']:g}, {gu['durability']} durability.",
+      f"What it hits glows for {gu['glow_seconds']} seconds, through walls.",
+      f"Found in rune circle chests: {st[0]} in {st[1]} chests ({pct(*st)}) hold it."], "gungnir")}
+  {relic_card("gjallarhorn", "Gjallarhorn", "Heimdall's horn", [
+      f"Right-click: a horn blast. Everything living within {gj['radius']:g} blocks glows for {gj['glow_seconds']} seconds, and you run (Speed {roman(gj['speed_amplifier'] + 1)}) for {gj['speed_seconds']} seconds.",
+      f"{gj['cooldown_ticks'] / 20:g}-second cooldown, {gj['durability']} uses.",
+      f"Found in Yggdrasil's hollow: {sg[0]} in {sg[1]} chests ({pct(*sg)}) hold it."], "gjallarhorn")}
+  {relic_card("yggdrasil_fruit", "Yggdrasil Fruit", "Fruit of the world tree", [
+      f"Food: restores {fr['nutrition']} hunger. A little saturation ({fr['saturation_modifier']:g}), nothing else.",
+      "Dropped by Yggdrasil leaves (5% of the time) and found in its hollow."], "yggdrasil_fruit")}
+  {relic_card("yggdrasil_leaf", "Yggdrasil Leaf", "Ingredient", [
+      f"Brew it onto an Awkward Potion for the Potion of Blessing: Regeneration {roman(bl['amplifier'] + 1)} for {dur(bl['regeneration_seconds'])}.",
+      "Dropped by Yggdrasil leaves (25% of the time) and found in its hollow."], "yggdrasil_leaf")}
+  </div>
+  <h2>Blocks</h2>
+  <div class="relics">
+  {relic_card("yggdrasil_log", "Yggdrasil Log", "Block", ["A log: it burns, an axe breaks it fastest, and it is in the logs tag."], "yggdrasil_log")}
+  {relic_card("yggdrasil_leaves", "Yggdrasil Leaves", "Block", ["Leaves that do not decay. They drop a leaf or a fruit."], "yggdrasil_leaves")}
+  {relic_card("rune_stone", "Rune Stone", "Block", ["Craft four from 4 stone bricks and 1 gold nugget. Found building the shrine and the rune circle."], "rune_stone")}
+  </div>
+  <p class="meta">Status: the items load, their icons show in a Minecraft 1.21.4 client, and the numbers above are read from the mod's own data file. Using them (the lightning, the horn, the spear's glow) and brewing the Blessing are not yet tested in a world.</p>
+</section>"""
+    return page("Relics: Mjölnir, Gungnir and Gjallarhorn", "The Asgard mod's three relics, the Yggdrasil items and blocks, with their numbers and where to find them.", body, "relics", "relics.html")
+
+
+def structure_card(slug, title, blurb, chest, relic_item, shot_names, extra):
+    n = nbt_facts(slug)
+    s = spread(slug)
+    sx, sy, sz = n["size"]
+    chance = chest_chance(chest, relic_item)
+    figs = "".join(f'<figure class="shot"><img src="{shot(nm)}" alt="{esc(al)}" width="854" height="480" loading="lazy"><figcaption>{esc(cap)}</figcaption></figure>'
+                   for nm, al, cap in shot_names if shot(nm))
+    rows = (f"<tr><th scope=\"row\">Size</th><td>{sx} by {sz} blocks, {sy} high ({n['blocks']:,} blocks)</td></tr>"
+            f"<tr><th scope=\"row\">Spacing</th><td>One in every {s['spacing']} by {s['spacing']} chunks, at least {s['separation']} chunks from the next</td></tr>"
+            f"<tr><th scope=\"row\">Biomes</th><td>{esc(', '.join(biomes(slug)))}</td></tr>"
+            f"<tr><th scope=\"row\">Chest</th><td>{esc(extra)} {chance[0]} in {chance[1]} chests ({pct(*chance)}) hold the relic.</td></tr>")
+    return (f'<section class="struct" id="{slug}"><h2>{esc(title)}</h2><p>{esc(blurb)}</p><div class="shots two">{figs}</div>'
+            f'<table class="data"><caption class="sr">{esc(title)}: facts</caption><tbody>{rows}</tbody></table></section>')
+
+
+def build_structures(data, gods, manifest):
+    cards = "".join([
+        structure_card("yggdrasil", "Yggdrasil", "A giant hollow tree, 41 blocks across and 50 high, with roots, branches, a canopy cut by shafts of sunlight and lanterns hung beneath it. A doorway at the foot leads to a chest inside.",
+                       "yggdrasil_hollow", "asgard:gjallarhorn",
+                       [("yggdrasil", "Yggdrasil from a distance: a broad dark tree on a flat plain.", "Yggdrasil from a distance, in a flat test world."),
+                        ("yggdrasil-door", "The foot of Yggdrasil: roots and a doorway into the trunk.", "The doorway at the foot, with the chest inside.")],
+                       "The hollow holds the Gjallarhorn, fruit, leaves and a golden apple."),
+        structure_card("thors_shrine", "Thor's shrine", "A stone dais with four lightning-rod pillars, a spire, a gold block altar and a chest. Lightning strikes the rods in a storm.",
+                       "thors_shrine", "asgard:mjolnir",
+                       [("shrine", "Thor's shrine: four pillars topped with lightning rods around a central spire.", "Thor's shrine in a flat test world.")],
+                       "The altar chest holds Mjölnir, metal and rune stone."),
+        structure_card("rune_circle", "Rune circle", "Eight rune-stone pillars around a mossy floor, a chest and a soul lantern at the centre.",
+                       "rune_circle", "asgard:gungnir",
+                       [("rune-circle", "The rune circle: eight pillars carved with gold runes around a mossy floor.", "The rune circle in a flat test world.")],
+                       "The chest holds Gungnir, ingredients for the gods' potions and rune stone."),
+    ])
+    body = f"""
+<section class="page">
+  <p class="eyebrow">Structures</p>
+  <h1 class="mc-h">Norse structures in the world</h1>
+  <p class="lede">Three structures generate in new worlds. Each hides a relic in its chest. Walk, look, and bring a sword.</p>
+  {cards}
+  <p class="meta">Status: all three generate with the game's <code>/place structure</code> command on a Minecraft 1.21.4 server, and the captures above are from that client in a flat test world (the stone, trees and sky are vanilla). That the structures appear on their own in a fresh survival world is not yet confirmed: the game's <code>/locate</code> found nothing near spawn on the test seed, and the same search for a vanilla village also found nothing, so that test proved neither way.</p>
+</section>"""
+    return page("Structures: Yggdrasil, Thor's shrine and the rune circle", "The three Norse structures in the Asgard mod, where they generate and what is in their chests.", body, "structures", "structures.html")
+
+
 def build_install(data, gods, manifest):
     body = f"""
 <section class="page">
@@ -513,9 +661,9 @@ def build_install(data, gods, manifest):
 cd minecraft-asgard
 gradle build
 # the jar is in build/libs/asgard-{esc(manifest['version'])}.jar</code></pre>
-  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(gods)} potions, {len(gods)} brewing recipes, 0 unknown effects skipped</code> confirms the registration.</p>
+  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(gods) + 1} potions ({len(gods)} from data, plus Blessing), {len(gods) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, 3 blocks</code> confirms the registration.</p>
   <h2>Status</h2>
-  <p>Builds on Fabric Loom 1.11.8 and Gradle 8. Loaded on a Fabric dedicated server for 1.21.4, and a client joined that server and showed the ingredients and potions (the screenshots on the home page). Brewing in a stand and drinking the potions are not yet tested.</p>
+  <p>Builds on Fabric Loom 1.11.8 and Gradle 8. Loaded on a Fabric dedicated server for 1.21.4, and a client joined that server and showed the ingredients, potions, relics and structures (the screenshots on this site). Brewing in a stand, drinking the potions, using the relics and natural structure spawning are not yet tested.</p>
 </section>"""
     return page("Install Asgard", "How to build and install the Asgard Minecraft mod.", body, "install", "install.html")
 
@@ -569,10 +717,13 @@ def main():
     names = effect_names()
     SITE.mkdir(exist_ok=True)
     copy_items(gods)
+    copy_content_items()
     write("index.html", build_index(data, gods, palette, names))
     write("gods.html", build_gods(data, gods, palette, names))
     for i, g in enumerate(gods):
         write(f"gods/{g['slug']}.html", build_god(i, g, gods, palette, names))
+    write("relics.html", build_relics(data, gods, manifest))
+    write("structures.html", build_structures(data, gods, manifest))
     write("install.html", build_install(data, gods, manifest))
     write("developers.html", build_developers(data, gods, manifest))
     pages = len(list(SITE.rglob("*.html")))

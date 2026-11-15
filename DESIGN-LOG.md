@@ -210,3 +210,24 @@ purple-and-black item in the first capture, which no panel could have seen from 
 
 **Skipped:** the R0 panel; `check_floor.py`; the light-mode contrast check; the A3 reports of Mace and Bringhurst; the
 ledger import. No grade was given, so none is recorded.
+
+
+## Run 2: Extend (Norse content, relics and structures)
+
+**Brief:** Yggdrasil and the other Norse structures belong in Asgard, not only the potions; Thor's hammer should spawn
+in the game; expand the mod and the site. Mode: Adaptive. Run type: Extend (new pages in the existing system; the
+palette, type and hall are unchanged).
+
+**Moves**
+- X1: Relics page: one card per item with its real sprite, numbers read from `content.json`, loot chances computed from
+  the loot tables (Mjölnir 2 in 5 shrine chests). Damage stated as the stored modifier and the total with the base 1.
+- X2: Structures page: real in-game captures, facts read from the NBT header, structure set and biome tags.
+- X3: Home: tagline widened to the whole mod; a second gallery band with Yggdrasil and the shrine.
+
+**Found by looking at the captures (not by a panel):** the Yggdrasil trunk rendered black under a solid canopy
+(light), and the bark was too dark. Fixed in the structure (sun shafts, hanging lanterns) and the texture; retaken.
+
+**Not done, stated plainly:** no critic panel was run on these pages; item use, brewing and natural structure
+spawning are untested; the `/locate` check failed for the structures and for a vanilla village alike, so it proved
+nothing; the captures use a flat test world and `/place template` for framing; light mode and the pixel font stay
+deferred. Layout measured with Playwright at 1280 by 800 and 375 by 812: no horizontal scroll on the three pages.
