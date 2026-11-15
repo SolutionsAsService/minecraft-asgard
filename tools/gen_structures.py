@@ -311,6 +311,34 @@ def yggdrasil(seed):
                 s.put(x, y, z, state("minecraft:shroomlight"))
         elif blk[0] == "asgard:yggdrasil_log" and y <= 26 and (x, y + 1, z) not in s.blocks and hole(x, y, z + 3) < 30:
             s.put(x, y + 1, z, state("minecraft:moss_carpet"))
+    # glowing veins: runes creep along the root ridges and under the branches
+    for (x, y, z), blk in list(s.blocks.items()):
+        if blk[0] != "asgard:yggdrasil_log":
+            continue
+        if y <= 26 and (x, y + 1, z) not in s.blocks and hole(x + 9, y, z) < 4:
+            s.put(x, y, z, RUNE_GLOW)
+        elif y >= 40 and (x, y - 1, z) not in s.blocks and hole(x, y, z + 11) < 3:
+            s.put(x, y, z, RUNE_GLOW)
+
+    # invisible light: warm pockets through the canopy and a glow along the waterfalls
+    light = lambda lv: state("minecraft:light", level=str(lv), waterlogged="false")
+    pockets = 0
+    for y in range(44, 92, 3):
+        for z in range(6, W - 6, 4):
+            for x in range(6, W - 6, 4):
+                if (x, y, z) in s.blocks or hole(x, y, z + seed) > 22 or pockets > 260:
+                    continue
+                near = sum(1 for d in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
+                           if s.blocks.get((x + d[0], y + d[1], z + d[2])) == LEAVES)
+                if near >= 2:
+                    s.put(x, y, z, light(11))
+                    pockets += 1
+    for (x, y, z), blk in list(s.blocks.items()):
+        if blk[0] == "minecraft:water" and y % 5 == 0 and y > 4:
+            for d in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                if (x + d[0], y, z + d[1]) not in s.blocks:
+                    s.put(x + d[0], y, z + d[1], light(9))
+                    break
     return s
 
 

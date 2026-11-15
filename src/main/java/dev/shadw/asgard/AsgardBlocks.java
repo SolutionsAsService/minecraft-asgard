@@ -19,7 +19,7 @@ public final class AsgardBlocks {
 	public static final Block YGGDRASIL_LOG = register("yggdrasil_log", key -> new RotatedPillarBlock(
 			BlockBehaviour.Properties.of().strength(3.0F).sound(SoundType.WOOD).ignitedByLava().setId(key)));
 
-	public static final Block YGGDRASIL_LEAVES = register("yggdrasil_leaves", key -> new LeavesBlock(
+	public static final Block YGGDRASIL_LEAVES = register("yggdrasil_leaves", key -> new YggdrasilLeavesBlock(
 			BlockBehaviour.Properties.of().strength(0.2F).sound(SoundType.AZALEA_LEAVES).noOcclusion()
 					.isValidSpawn((state, getter, pos, type) -> false)
 					.isSuffocating((state, getter, pos) -> false)
@@ -31,7 +31,7 @@ public final class AsgardBlocks {
 					.requiresCorrectToolForDrops().setId(key)));
 
 	/** The gold runes that wind up Yggdrasil's trunk: they glow. */
-	public static final Block YGGDRASIL_RUNE = register("yggdrasil_rune", key -> new Block(
+	public static final Block YGGDRASIL_RUNE = register("yggdrasil_rune", key -> new RuneGlowBlock(
 			BlockBehaviour.Properties.of().strength(3.0F).sound(SoundType.WOOD).lightLevel(state -> 12).ignitedByLava().setId(key)));
 
 	private AsgardBlocks() {}
