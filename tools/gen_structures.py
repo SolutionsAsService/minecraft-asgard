@@ -285,8 +285,48 @@ def yggdrasil(seed):
     for k in range(4):
         a = k * math.tau / 4 + 0.8
         s.put(round(CX + math.cos(a) * 2.6), 8, round(CZ + math.sin(a) * 2.6), state("minecraft:soul_lantern", hanging="true", waterlogged="false"))
-    blk, tag = chest("south", "asgard:chests/yggdrasil_hollow")
-    s.put(CX, 3, CZ - 2, blk, tag)
+    blk, tag = chest("east", "asgard:chests/yggdrasil_hollow")
+    s.put(CX - 3, 3, CZ + 1, blk, tag)
+
+    # Valhalla: a hall on the crown, reached by a ladder up the trunk from the hollow
+    PL = 80
+    for y in range(PL, 96):
+        for z in range(W):
+            for x in range(W):
+                if math.hypot(x - CX, z - CZ) <= 12.8:
+                    s.remove(x, y, z)
+    for z in range(W):
+        for x in range(W):
+            d = math.hypot(x - CX, z - CZ)
+            if d <= 12.5:
+                s.put(x, PL, z, state("minecraft:dark_oak_planks"))
+            if 8.2 <= d <= 9.2:
+                s.put(x, PL, z, state("minecraft:stone_bricks"))
+            if 3.4 <= d <= 4.5:
+                s.put(x, PL, z, RUNE_GLOW)
+            if 11.6 <= d <= 12.5:
+                s.put(x, PL + 1, z, state("minecraft:dark_oak_fence", east="false", north="false", south="false", waterlogged="false", west="false"))
+                if hole(x, 7, z) < 22:
+                    s.put(x, PL + 2, z, state("minecraft:lantern", hanging="false", waterlogged="false"))
+    for z in range(W):
+        for x in range(W):
+            if 5.6 <= math.hypot(x - CX, z - CZ) <= 10.6:
+                s.put(x, PL + 7, z, state("minecraft:dark_oak_planks"))
+    for k in range(8):
+        a = k * math.tau / 8
+        px, pz = round(CX + math.cos(a) * 8.7), round(CZ + math.sin(a) * 8.7)
+        for y in range(PL + 1, PL + 7):
+            s.put(px, y, pz, RUNE_GLOW if y == PL + 4 else log("y"))
+        s.put(px, PL + 8, pz, state("minecraft:lightning_rod", facing="up", powered="false", waterlogged="false"))
+        lx, lz = round(CX + math.cos(a + math.pi / 8) * 6.6), round(CZ + math.sin(a + math.pi / 8) * 6.6)
+        s.put(lx, PL + 6, lz, state("minecraft:lantern", hanging="true", waterlogged="false"))
+    s.put(CX, PL + 1, CZ, state("minecraft:gold_block"))
+    vblk, vtag = chest("south", "asgard:chests/valhalla")
+    s.put(CX, PL + 2, CZ, vblk, vtag)
+    for y in range(3, 9):
+        s.put(CX, y, CZ - 2, log("y"))
+    for y in range(3, PL + 1):
+        s.put(CX, y, CZ - 1, state("minecraft:ladder", facing="south", waterlogged="false"))
 
     # finishing: strands hang from small log knots (leaves cannot support a lantern or a vine), moss on the roots
     chain = state("minecraft:chain", axis="y", waterlogged="false")
@@ -295,13 +335,19 @@ def yggdrasil(seed):
             below = (x, y - 1, z)
             r = hole(x + 5, y, z + seed)
             if below not in s.blocks and y > 20:
-                if r < 3:                                   # a chain and a lantern
+                if r < 5:                                   # a chain and a lantern
                     s.put(x, y, z, log("y"))
                     n = rnd.randint(1, 3)
                     for k in range(n):
                         s.put(x, y - 1 - k, z, chain)
                     s.put(x, y - 1 - n, z, state("minecraft:lantern", hanging="true", waterlogged="false"))
-                elif r < 11:                                # a curtain of vines
+                elif r < 8:                                 # glowing fruit on a chain
+                    s.put(x, y, z, log("y"))
+                    s.put(x, y - 1, z, chain)
+                    s.put(x, y - 2, z, state("minecraft:shroomlight"))
+                    if hole(x, y, z + 2) < 45 and (x, y - 3, z) not in s.blocks:
+                        s.put(x, y - 3, z, state("minecraft:shroomlight"))
+                elif r < 15:                                # a curtain of vines
                     s.put(x, y, z, log("y"))
                     for k in range(rnd.randint(3, 8)):
                         if (x, y - 1 - k, z) in s.blocks:
@@ -311,6 +357,11 @@ def yggdrasil(seed):
                 s.put(x, y, z, state("minecraft:shroomlight"))
         elif blk[0] == "asgard:yggdrasil_log" and y <= 26 and (x, y + 1, z) not in s.blocks and hole(x, y, z + 3) < 30:
             s.put(x, y + 1, z, state("minecraft:moss_carpet"))
+    # lanterns hung straight from the undersides of the branches
+    for (x, y, z), blk in list(s.blocks.items()):
+        if blk[0] == "asgard:yggdrasil_log" and 40 <= y < 80 and (x, y - 1, z) not in s.blocks and hole(x + 2, y, z + 6) < 2:
+            s.put(x, y - 1, z, state("minecraft:lantern", hanging="true", waterlogged="false"))
+
     # glowing veins: runes creep along the root ridges and under the branches
     for (x, y, z), blk in list(s.blocks.items()):
         if blk[0] != "asgard:yggdrasil_log":
@@ -342,51 +393,93 @@ def yggdrasil(seed):
     return s
 
 
-# ---------- Thor's shrine ----------
+# ---------- Thor's shrine: three variants ----------
 
-def thors_shrine():
-    s = Structure(13, 12, 13)
-    s.fill(0, 0, 0, 12, 0, 12, state("minecraft:stone_bricks"))
-    s.fill(1, 1, 1, 11, 1, 11, state("minecraft:polished_andesite"))
-    for i in range(1, 12):
-        for edge in (1, 11):
-            s.put(i, 1, edge, state("minecraft:stone_bricks"))
-            s.put(edge, 1, i, state("minecraft:stone_bricks"))
-    for i in range(2, 11):                       # a cross of rune stones
-        s.put(6, 1, i, RUNE)
-        s.put(i, 1, 6, RUNE)
-    for px, pz in ((2, 2), (10, 2), (2, 10), (10, 10)):   # four pillars with lightning rods
-        s.put(px, 2, pz, state("minecraft:chiseled_stone_bricks"))
-        for y in (3, 4, 5):
-            s.put(px, y, pz, state("minecraft:stone_bricks"))
-        s.put(px, 6, pz, state("minecraft:chiseled_stone_bricks"))
-        s.put(px, 7, pz, state("minecraft:lightning_rod", facing="up", powered="false", waterlogged="false"))
-    s.fill(5, 2, 5, 7, 2, 7, state("minecraft:smooth_stone"))      # the altar
-    s.put(6, 2, 6, state("minecraft:gold_block"))
+SHRINE_VARIANTS = 3
+CIRCLE_VARIANTS = 3
+ROD = state("minecraft:lightning_rod", facing="up", powered="false", waterlogged="false")
+
+
+def weathered(seed, x, y, z):
+    r = hole(x + seed * 5, y, z)
+    if r < 14:
+        return state("minecraft:cracked_stone_bricks")
+    if r < 26:
+        return state("minecraft:mossy_stone_bricks")
+    return state("minecraft:stone_bricks")
+
+
+def thors_shrine(seed):
+    rnd = random.Random(seed * 104729 + 7)
+    N, c = 21, 10
+    s = Structure(N, 17, N)
+    for z in range(N):
+        for x in range(N):
+            s.put(x, 0, z, weathered(seed, x, 0, z))
+            dx, dz = abs(x - c), abs(z - c)
+            if max(dx, dz) <= 9:
+                s.put(x, 1, z, weathered(seed, x, 1, z) if max(dx, dz) == 9 else state("minecraft:polished_andesite"))
+            if max(dx, dz) <= 7:
+                s.put(x, 2, z, weathered(seed, x, 2, z) if max(dx, dz) == 7 else state("minecraft:smooth_stone"))
+    for i in range(-6, 7):                                   # a glowing rune cross and ring
+        s.put(c + i, 2, c, RUNE_GLOW)
+        s.put(c, 2, c + i, RUNE_GLOW)
+    for z in range(N):
+        for x in range(N):
+            if 3.6 <= math.hypot(x - c, z - c) <= 4.5 and (x, 2, z) in s.blocks and s.blocks[(x, 2, z)] != RUNE_GLOW:
+                s.put(x, 2, z, RUNE)
+    broken = rnd.randrange(4)
+    for k, (sx, sz) in enumerate(((-6, -6), (6, -6), (-6, 6), (6, 6))):
+        px, pz = c + sx, c + sz
+        h = rnd.randint(7, 10)
+        if k == broken:
+            h = rnd.randint(2, 4)
+            for _ in range(5):
+                s.put(px + rnd.randint(-2, 2), 3, pz + rnd.randint(-2, 2), weathered(seed, px, 3, pz))
+        for y in range(3, 3 + h):
+            s.put(px, y, pz, RUNE_GLOW if (y == 3 + h - 3 and k != broken) else weathered(seed, px, y, pz))
+        if k != broken:
+            s.put(px, 3 + h, pz, state("minecraft:chiseled_stone_bricks"))
+            s.put(px, 4 + h, pz, ROD)
+    for bx, bz in ((c - 8, c), (c + 8, c), (c, c - 8), (c, c + 8)):      # braziers
+        s.put(bx, 3, bz, state("minecraft:campfire", facing="north", lit="true", signal_fire="false", waterlogged="false"))
+    s.fill(c - 1, 3, c - 1, c + 1, 3, c + 1, state("minecraft:gold_block"))
     blk, tag = chest("south", "asgard:chests/thors_shrine")
-    s.put(6, 3, 6, blk, tag)
-    for y in range(4, 10):                                          # the spire
-        s.put(6, y, 6, state("minecraft:lightning_rod", facing="up", powered="false", waterlogged="false"))
+    s.put(c, 4, c, blk, tag)
+    for y in range(5, 5 + rnd.randint(7, 9)):                           # the spire
+        s.put(c, y, c, ROD)
     return s
 
 
-# ---------- the rune circle ----------
+# ---------- the rune circle: three variants ----------
 
-def rune_circle():
-    s = Structure(13, 6, 13)
-    c = 6
-    for z in range(13):
-        for x in range(13):
+def rune_circle(seed):
+    rnd = random.Random(seed * 15485863 + 3)
+    N, c = 17, 8
+    s = Structure(N, 9, N)
+    for z in range(N):
+        for x in range(N):
             d = math.hypot(x - c, z - c)
-            if d <= 6.3:
-                s.put(x, 0, z, state("minecraft:mossy_cobblestone") if hole(x, 0, z) < 30
-                      else state("minecraft:polished_andesite"))
-    for k in range(8):
-        a = k * math.pi / 4
-        px, pz = c + round(math.cos(a) * 5), c + round(math.sin(a) * 5)
-        for y in (1, 2, 3):
+            if d <= 8.3:
+                r = hole(x + seed * 7, 0, z)
+                s.put(x, 0, z, state("minecraft:mossy_cobblestone") if r < 28 else state("minecraft:polished_andesite") if r < 70
+                      else state("minecraft:stone_bricks"))
+            if 3.4 <= d <= 4.5:
+                s.put(x, 0, z, RUNE_GLOW)
+    n = rnd.randint(8, 11)
+    for k in range(n):
+        a = k * math.tau / n + rnd.uniform(-0.1, 0.1)
+        px, pz = c + round(math.cos(a) * 7), c + round(math.sin(a) * 7)
+        h = rnd.randint(3, 6)
+        if rnd.random() < 0.25:
+            h = rnd.randint(1, 2)
+            s.put(px + rnd.choice((-1, 1)), 1, pz + rnd.choice((-1, 1)), RUNE)
+        for y in range(1, h + 1):
             s.put(px, y, pz, RUNE)
-        s.put(px, 4, pz, state("minecraft:stone_brick_slab", type="bottom", waterlogged="false"))
+        if h >= 3:
+            s.put(px, h + 1, pz, state("minecraft:stone_brick_slab", type="bottom", waterlogged="false") if k % 3 else RUNE_GLOW)
+            if k % 3 == 1:
+                s.put(px, h + 2, pz, state("minecraft:soul_lantern", hanging="false", waterlogged="false"))
     s.put(c, 0, c, state("minecraft:mossy_stone_bricks"))
     blk, tag = chest("south", "asgard:chests/rune_circle")
     s.put(c, 1, c, blk, tag)
@@ -396,10 +489,12 @@ def rune_circle():
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    for old in OUT.glob("yggdrasil*.nbt"):
-        old.unlink()
+    for pattern in ("yggdrasil*.nbt", "thors_shrine*.nbt", "rune_circle*.nbt"):
+        for old in OUT.glob(pattern):
+            old.unlink()
     builds = [(f"yggdrasil_{i}", (lambda i=i: yggdrasil(i))) for i in range(VARIANTS)]
-    builds += [("thors_shrine", thors_shrine), ("rune_circle", rune_circle)]
+    builds += [(f"thors_shrine_{i}", (lambda i=i: thors_shrine(i))) for i in range(SHRINE_VARIANTS)]
+    builds += [(f"rune_circle_{i}", (lambda i=i: rune_circle(i))) for i in range(CIRCLE_VARIANTS)]
     for name, build in builds:
         st = build()
         data = st.dumps()

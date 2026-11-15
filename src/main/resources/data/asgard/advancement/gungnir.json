@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "asgard:gungnir"
+    },
+    "title": {
+      "text": "The Spear That Never Misses"
+    },
+    "description": {
+      "text": "Find Gungnir."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "asgard:gungnir"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "asgard:rune_circle"
+}

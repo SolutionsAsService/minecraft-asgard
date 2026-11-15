@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "asgard:yggdrasil_leaf"
+    },
+    "title": {
+      "text": "A Leaf for the Blessing"
+    },
+    "description": {
+      "text": "Pick up a Yggdrasil Leaf."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "asgard:yggdrasil_leaf"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "asgard:yggdrasil"
+}

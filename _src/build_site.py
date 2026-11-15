@@ -518,6 +518,8 @@ def content():
 
 
 def nbt_facts(name):
+    if not (DATA / "structure" / f"{name}.nbt").exists():
+        name = f"{name}_0"
     import sys
     sys.path.insert(0, str(REPO / "tools"))
     import nbt
@@ -608,7 +610,7 @@ def build_relics(data, gods, manifest):
 
 
 def structure_card(slug, title, blurb, chest, relic_item, shot_names, extra):
-    n = nbt_facts("yggdrasil_0" if slug == "yggdrasil" else slug)
+    n = nbt_facts(slug)
     s = spread(slug)
     sx, sy, sz = n["size"]
     chance = chest_chance(chest, relic_item)
@@ -622,23 +624,37 @@ def structure_card(slug, title, blurb, chest, relic_item, shot_names, extra):
             f'<table class="data"><caption class="sr">{esc(title)}: facts</caption><tbody>{rows}</tbody></table></section>')
 
 
+def advancement_titles():
+    out = []
+    for f in sorted((DATA / "advancement").glob("*.json")):
+        d = read_json(f)
+        if f.stem != "root":
+            out.append(d["display"]["title"]["text"])
+    return out
+
+
 def build_structures(data, gods, manifest):
+    adv_list = ", ".join(esc(x) for x in advancement_titles())
     cards = "".join([
-        structure_card("yggdrasil", "Yggdrasil", "The world tree: a buttressed trunk with a gold rune spiral, root ridges that run out along the ground, sprawling branches under raised leaf clusters, a walkway with lanterns along one branch, vines and hanging lanterns, two waterfalls falling into stone-ringed pools, and an amethyst hollow at its foot with a doorway and a chest. Six variants are in the world pool, so no two trees need match.",
+        structure_card("yggdrasil", "Yggdrasil", "The world tree: a buttressed trunk with a gold rune spiral, root ridges that run out along the ground, sprawling branches under raised leaf clusters, a walkway with lanterns along one branch, vines, hanging lanterns and glowing fruit, and two waterfalls falling into stone-ringed pools. An amethyst hollow at its foot has a doorway and a chest, and a ladder climbs the trunk from the hollow to Valhalla, a hall on the crown with a chest of its own. Six variants are in the world pool, so no two trees need match.",
                        "yggdrasil_hollow", "asgard:gjallarhorn",
                        [("yggdrasil", "Yggdrasil by day: a huge tree with root ridges, two waterfalls and a wide canopy.", "By day. A flat test world; the grass and sky are vanilla."),
                         ("yggdrasil-dusk", "Yggdrasil at dusk against an orange sky.", "At dusk."),
+                        ("yggdrasil-top", "The crown of Yggdrasil from the side, with the roofed hall of Valhalla at the top.", "The crown, with Valhalla at the top."),
+                        ("valhalla", "Inside Valhalla: a ring of pillars, a roof with an open centre, lanterns, and a chest on a gold block.", "Inside Valhalla."),
                         ("yggdrasil-glow", "Looking up the trunk: a spiral of gold runes beside a waterfall.", "Looking up the trunk, along the rune spiral."),
                         ("yggdrasil-lanterns", "Under a branch: glowing gold runes set into the wood, with leaves and the sunset beyond.", "Rune veins under a branch."),
                         ("yggdrasil-door", "The root ridges and the doorway at the foot of the tree.", "The foot of the tree and its doorway.")],
-                       "The hollow holds the Gjallarhorn, fruit, leaves and a golden apple."),
-        structure_card("thors_shrine", "Thor's shrine", "A stone dais with four lightning-rod pillars, a spire, a gold block altar and a chest. Lightning strikes the rods in a storm.",
+                       "The hollow holds the Gjallarhorn, fruit, leaves and a golden apple. Valhalla, up the ladder, holds a relic more often."),
+        structure_card("thors_shrine", "Thor's shrine", "A three-tier stone dais with four lightning-rod pillars, glowing rune inlays, braziers at the four sides and a tall lightning-rod spire over a gold altar and chest. Three variants: one pillar is broken in each, and the stone is cracked and mossy to different degrees.",
                        "thors_shrine", "asgard:mjolnir",
-                       [("shrine", "Thor's shrine: four pillars topped with lightning rods around a central spire.", "Thor's shrine in a flat test world.")],
+                       [("shrine", "Thor's shrine by day: tiered stone dais, four pillars topped with lightning rods and a central spire.", "By day."),
+                        ("shrine-dusk", "Thor's shrine at dusk, with braziers lit and rune inlays glowing.", "At dusk.")],
                        "The altar chest holds Mjölnir, metal and rune stone."),
-        structure_card("rune_circle", "Rune circle", "Eight rune-stone pillars around a mossy floor, a chest and a soul lantern at the centre.",
+        structure_card("rune_circle", "Rune circle", "Eight to eleven rune-stone pillars of uneven height around a floor of mossy stone, a glowing rune ring, soul lanterns on some capitals and a chest at the centre. Three variants; some pillars have fallen.",
                        "rune_circle", "asgard:gungnir",
-                       [("rune-circle", "The rune circle: eight pillars carved with gold runes around a mossy floor.", "The rune circle in a flat test world.")],
+                       [("rune-circle", "A rune circle by day: pillars carved with gold runes around a mossy floor.", "By day."),
+                        ("rune-circle-dusk", "The rune circle at dusk, its runes glowing.", "At dusk.")],
                        "The chest holds Gungnir, ingredients for the gods' potions and rune stone."),
     ])
     body = f"""
@@ -647,7 +663,9 @@ def build_structures(data, gods, manifest):
   <h1 class="mc-h">Norse structures in the world</h1>
   <p class="lede">Three structures generate in new worlds. Each hides a relic in its chest. Walk, look, and bring a sword. Yggdrasil is the largest.</p>
   {cards}
-  <p class="meta">Status: all three generate with the game's <code>/place structure</code> command on a Minecraft 1.21.4 server, and the captures above are from that client in a flat test world (the stone, trees and sky are vanilla). That the structures appear on their own in a fresh survival world is not yet confirmed: the game's <code>/locate</code> found nothing near spawn on the test seed, and the same search for a vanilla village also found nothing, so that test proved neither way.</p>
+  <h2>Advancements</h2>
+  <p>The mod adds a small tree of advancements: {adv_list}.</p>
+  <p class="meta">Status: the structures generate with the game's <code>/place structure</code> command on a Minecraft 1.21.4 server (Yggdrasil, the shrine and the circle were each placed that way; the variants and Valhalla's ladder and chest were placed as templates for the captures, and nobody has climbed the ladder yet). The advancements load without errors but none has been earned in play, and the captures above are from that client in a flat test world (the stone, trees and sky are vanilla). That the structures appear on their own in a fresh survival world is not yet confirmed: the game's <code>/locate</code> found nothing near spawn on the test seed, and the same search for a vanilla village also found nothing, so that test proved neither way.</p>
 </section>"""
     return page("Structures: Yggdrasil, Thor's shrine and the rune circle", "The three Norse structures in the Asgard mod, where they generate and what is in their chests.", body, "structures", "structures.html")
 

@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "asgard:gjallarhorn"
+    },
+    "title": {
+      "text": "Heimdall's Watch"
+    },
+    "description": {
+      "text": "Find the Gjallarhorn."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "asgard:gjallarhorn"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "asgard:yggdrasil"
+}

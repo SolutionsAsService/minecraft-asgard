@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "id": "asgard:yggdrasil_leaves"
+    },
+    "title": {
+      "text": "Beneath the World Tree"
+    },
+    "description": {
+      "text": "Stand within Yggdrasil."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "asgard:yggdrasil"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "asgard:rune_circle"
+}
