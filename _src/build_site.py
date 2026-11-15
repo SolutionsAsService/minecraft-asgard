@@ -291,7 +291,7 @@ def bottle(hue, size=64, label=""):
 # ---------- page shell ----------
 
 NAV = [("index.html", "Home", "home"), ("gods.html", "Gods", "gods"), ("relics.html", "Relics", "relics"),
-       ("structures.html", "Structures", "structures"), ("shrines.html", "Shrines", "shrines"), ("install.html", "Install", "install"),
+       ("structures.html", "Structures", "structures"), ("shrines.html", "Shrines", "shrines"), ("creatures.html", "Creatures", "creatures"), ("install.html", "Install", "install"),
        ("developers.html", "Developers", "developers")]
 
 
@@ -771,6 +771,84 @@ def build_shrines(data, gods, manifest, names):
     return page("Shrines: seven gods, seven altars", "The seven god shrines in the Asgard mod, their altars and offerings, and what their chests hold.", body, "shrines", "shrines.html")
 
 
+
+# ---------- creatures: stats are read from the entity classes, loot from the loot tables ----------
+
+JAVA = REPO / "src/main/java/dev/shadw/asgard"
+
+
+def entity_attrs(cls):
+    src = (JAVA / f"{cls}.java").read_text()
+    out = {}
+    for key, name in (("MAX_HEALTH", "health"), ("ATTACK_DAMAGE", "damage"), ("ARMOR", "armour"), ("MOVEMENT_SPEED", "speed"),
+                      ("KNOCKBACK_RESISTANCE", "knockback"), ("SCALE", "scale")):
+        m = re.search(rf"Attributes\.{key},\s*([0-9.]+)", src)
+        if m:
+            out[name] = float(m.group(1))
+    return out
+
+
+def spawn_rules():
+    src = (JAVA / "AsgardEntities.java").read_text()
+    rules = {}
+    for m in re.finditer(r"BiomeModifications\.addSpawn\((.*?),\s*MobCategory\.(\w+),\s*(\w+),\s*(\d+),\s*(\d+),\s*(\d+)\)", src, re.S):
+        tags = re.findall(r"BiomeTags\.IS_(\w+)", m.group(1))
+        rules[m.group(3)] = dict(biomes=[x.lower() for x in tags], weight=int(m.group(4)), lo=int(m.group(5)), hi=int(m.group(6)))
+    return rules
+
+
+def entity_loot(name):
+    d = read_json(DATA / "loot_table/entities" / f"{name}.json")
+    out = []
+    for pool in d["pools"]:
+        for e in pool["entries"]:
+            label = item_label(e["name"])
+            if label not in out:
+                out.append(label)
+    return out
+
+
+CREATURES = [  # key, class, name, blurb, shot, in-structure note
+    ("draugr", "Draugr", "Draugr", "An undead Norse warrior in a rusted iron helm, with a glowing blue stare. It is tougher and slower than a zombie, never burns in sunlight, and carries an iron axe or sword. It uses the zombie model with its own skin.", "creature-draugr", "Also haunts the rune circle and Tyr's shrine."),
+    ("troll", "Troll", "Troll", "A hulking mountain troll, one and a half times a player's size, with stone patches, moss and tusks. It hits hard and shrugs off knockback, and in open daylight it turns to stone: it stops moving and attacking until night, or until it is under cover. It uses the zombie model, scaled up.", "creature-troll", "Also guards Tyr's shrine, rarely."),
+    ("raven", "Raven", "Raven", "Odin's black bird. It flies, can be tamed with seeds, and mimics the sounds around it like a parrot. It uses the parrot model with a black skin.", "creature-raven", "Lives around Yggdrasil and Odin's shrine."),
+]
+
+
+def build_creatures(data, gods, manifest, names):
+    rules = spawn_rules()
+    cards = ""
+    for key, cls, name, blurb, shot_name, where in CREATURES:
+        a = entity_attrs(cls) if (JAVA / f"{cls}.java").exists() and cls != "Raven" else {}
+        rule = rules.get(key.upper(), {})
+        stats = ""
+        if a:
+            stats = (f"<tr><th scope=\"row\">Stats</th><td>{a['health']:g} health ({a['health'] / 2:g} hearts), {a['damage']:g} attack damage, {a['armour']:g} armour"
+                     + (f", knockback resistance {a['knockback']:g}" if 'knockback' in a else "") + (f", {a['scale']:g} times scale" if 'scale' in a else "") + "</td></tr>")
+        else:
+            stats = "<tr><th scope=\"row\">Stats</th><td>The parrot's: 6 health, flies, tameable with seeds.</td></tr>"
+        spawn = (f"<tr><th scope=\"row\">Spawns</th><td>{esc(', '.join(rule.get('biomes', [])))} biomes; groups of {rule.get('lo', '?')} to {rule.get('hi', '?')}, spawn weight {rule.get('weight', '?')}. {esc(where)}</td></tr>") if rule else ""
+        fig = (f'<figure class="shot"><img src="{shot(shot_name)}" alt="A {esc(name)} in a flat Minecraft test world." width="854" height="480" loading="lazy"><figcaption>{esc(name)}, in a flat test world.</figcaption></figure>') if shot(shot_name) else ""
+        cards += (f'<section class="struct" id="{key}"><h2>{esc(name)}</h2><p>{esc(blurb)}</p>{fig}'
+                  f'<table class="data"><caption class="sr">{esc(name)}: facts</caption><tbody>{stats}{spawn}'
+                  f'<tr><th scope="row">Drops</th><td>{esc(", ".join(entity_loot(key)))}</td></tr>'
+                  f'<tr><th scope="row">Spawn egg</th><td>In the Spawn Eggs tab, and <code>/summon asgard:{key}</code></td></tr></tbody></table></section>')
+    hero = shot("creatures")
+    group = (f'<figure class="shot wide"><img src="{hero}" alt="A troll between two draugr, with two ravens, in a flat Minecraft test world." width="854" height="480"><figcaption>All three, summoned in a flat test world with their AI switched off for the photograph.</figcaption></figure>') if hero else ""
+    body = f"""
+<section class="page">
+  <p class="eyebrow">Creatures</p>
+  <h1 class="mc-h">Draugr, trolls and ravens</h1>
+  <p class="lede">The first three creatures of the design's Phase 2. They reuse Minecraft's zombie and parrot models with skins painted for the mod.</p>
+  {group}
+  {cards}
+  <h2>Not built yet</h2>
+  <p>The design also lists Ratatoskr, other mythical beasts, companions and bosses. Creatures with their own models and animations need custom model code and are planned for later.</p>
+  <p class="meta">Status: all three load and render in a Minecraft 1.21.4 client when summoned. Their spawn rules, drops and the troll's daylight petrification are written but not yet watched over a full day and night, and no advancement has been earned in play.</p>
+</section>"""
+    return page("Creatures: draugr, trolls and ravens", "The first creatures of the Asgard mod: the draugr, the troll and Odin's raven, with stats, spawns and drops.", body, "creatures", "creatures.html")
+
+
 def build_install(data, gods, manifest):
     body = f"""
 <section class="page">
@@ -784,7 +862,7 @@ def build_install(data, gods, manifest):
 cd minecraft-asgard
 gradle build
 # the jar is in build/libs/asgard-{esc(manifest['version'])}.jar</code></pre>
-  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(data['potions']) + 1} potions ({len(data['potions'])} from data, plus Blessing), {len(data['potions']) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, {len(list((ASSETS / 'blockstates').glob('*.json')))} blocks</code> confirms the registration.</p>
+  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(data['potions']) + 1} potions ({len(data['potions'])} from data, plus Blessing), {len(data['potions']) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, {len(list((ASSETS / 'blockstates').glob('*.json')))} blocks, 3 creatures</code> confirms the registration.</p>
   <h2>Status</h2>
   <p>Builds on Fabric Loom 1.11.8 and Gradle 8. Loaded on a Fabric dedicated server for 1.21.4, and a client joined that server and showed the ingredients, potions, relics and structures (the screenshots on this site). Brewing in a stand, drinking the potions, using the relics and natural structure spawning are not yet tested.</p>
 </section>"""
@@ -849,6 +927,7 @@ def main():
     write("relics.html", build_relics(data, gods, manifest))
     write("structures.html", build_structures(data, gods, manifest))
     write("shrines.html", build_shrines(data, gods, manifest, names))
+    write("creatures.html", build_creatures(data, gods, manifest, names))
     write("install.html", build_install(data, gods, manifest))
     write("developers.html", build_developers(data, gods, manifest))
     pages = len(list(SITE.rglob("*.html")))
