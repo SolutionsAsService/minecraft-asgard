@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "asgard:block/yggdrasil_log_top",
+    "side": "asgard:block/yggdrasil_log"
+  }
+}

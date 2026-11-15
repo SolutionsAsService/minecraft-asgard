@@ -55,7 +55,11 @@ def lang():
 def write_lang():
     path = ASSETS / "lang/en_us.json"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(lang(), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    entries = lang()
+    extra = Path(__file__).resolve().parent / "content_lang.json"   # written by tools/gen_content.py
+    if extra.exists():
+        entries.update(json.loads(extra.read_text(encoding="utf-8")))
+    path.write_text(json.dumps(entries, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def write_models():

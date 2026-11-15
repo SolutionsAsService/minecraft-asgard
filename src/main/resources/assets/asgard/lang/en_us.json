@@ -29,5 +29,21 @@
   "item.asgard.serpent_scale.lore": "Loki's gift is a way out of every room. The wearer is simply not there to be seen.",
   "item.minecraft.potion.effect.trickster_draught": "Potion of Trickster's Draught",
   "item.minecraft.splash_potion.effect.trickster_draught": "Splash Trickster's Draught",
-  "item.minecraft.lingering_potion.effect.trickster_draught": "Lingering Trickster's Draught"
+  "item.minecraft.lingering_potion.effect.trickster_draught": "Lingering Trickster's Draught",
+  "item.asgard.mjolnir": "Mjölnir",
+  "item.asgard.mjolnir.lore": "Thor's hammer. Right-click to call lightning where you look.",
+  "item.asgard.gungnir": "Gungnir",
+  "item.asgard.gungnir.lore": "Odin's spear. What it strikes, it marks for all to see.",
+  "item.asgard.gjallarhorn": "Gjallarhorn",
+  "item.asgard.gjallarhorn.lore": "Heimdall's horn. Right-click to reveal what is near, and to run.",
+  "item.asgard.yggdrasil_leaf": "Yggdrasil Leaf",
+  "item.asgard.yggdrasil_leaf.lore": "A leaf from the world tree. The ingredient of the Blessing.",
+  "item.asgard.yggdrasil_fruit": "Yggdrasil Fruit",
+  "item.asgard.yggdrasil_fruit.lore": "Fruit of the world tree. It feeds the body and little else.",
+  "block.asgard.yggdrasil_log": "Yggdrasil Log",
+  "block.asgard.yggdrasil_leaves": "Yggdrasil Leaves",
+  "block.asgard.rune_stone": "Rune Stone",
+  "item.minecraft.potion.effect.blessing": "Potion of Blessing",
+  "item.minecraft.splash_potion.effect.blessing": "Splash Blessing",
+  "item.minecraft.lingering_potion.effect.blessing": "Lingering Blessing"
 }

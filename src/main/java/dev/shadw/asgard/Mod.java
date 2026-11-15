@@ -41,6 +41,8 @@ public class Mod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		AsgardBlocks.init();
+		AsgardItems.init();
 		JsonObject root = load();
 		JsonArray potions = root.getAsJsonArray("potions");
 		List<Pending> pending = new ArrayList<>();
@@ -78,6 +80,9 @@ public class Mod implements ModInitializer {
 			pending.add(new Pending(item, potion));
 		}
 
+		int fromData = pending.size();
+		pending.add(new Pending(AsgardItems.YGGDRASIL_LEAF, AsgardItems.BLESSING));
+
 		FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
 			for (Pending p : pending) {
 				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(p.ingredient()), p.potion());
@@ -88,8 +93,22 @@ public class Mod implements ModInitializer {
 				entries.accept(p.ingredient());
 			}
 		});
-		LOGGER.info("Asgard loaded: {} potions, {} brewing recipes, {} unknown effects skipped",
-				pending.size(), pending.size(), effectsSkipped);
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+			entries.accept(AsgardBlocks.YGGDRASIL_LOG);
+			entries.accept(AsgardBlocks.YGGDRASIL_LEAVES);
+		});
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS)
+				.register(entries -> entries.accept(AsgardBlocks.RUNE_STONE));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
+			entries.accept(AsgardItems.MJOLNIR);
+			entries.accept(AsgardItems.GUNGNIR);
+		});
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES)
+				.register(entries -> entries.accept(AsgardItems.GJALLARHORN));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS)
+				.register(entries -> entries.accept(AsgardItems.YGGDRASIL_FRUIT));
+		LOGGER.info("Asgard loaded: {} potions ({} from data, plus Blessing), {} brewing recipes, {} unknown effects skipped; "
+				+ "3 relics, 3 blocks", pending.size(), fromData, pending.size(), effectsSkipped);
 	}
 
 	private static ResourceKey<Item> itemKey(String path) {

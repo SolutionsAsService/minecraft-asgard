@@ -1,0 +1,32 @@
+{
+  "mjolnir": {
+    "damage": 8.0,
+    "attack_speed_modifier": -3.0,
+    "durability": 1561,
+    "lightning_range": 40.0,
+    "cooldown_ticks": 60,
+    "durability_cost": 3
+  },
+  "gungnir": {
+    "damage": 7.0,
+    "attack_speed_modifier": -2.4,
+    "durability": 1200,
+    "glow_seconds": 10
+  },
+  "gjallarhorn": {
+    "radius": 48.0,
+    "glow_seconds": 10,
+    "speed_seconds": 10,
+    "speed_amplifier": 1,
+    "cooldown_ticks": 600,
+    "durability": 64
+  },
+  "yggdrasil_fruit": {
+    "nutrition": 4,
+    "saturation_modifier": 0.3
+  },
+  "blessing": {
+    "regeneration_seconds": 45,
+    "amplifier": 1
+  }
+}
