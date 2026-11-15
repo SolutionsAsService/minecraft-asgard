@@ -137,12 +137,18 @@ def effect_names():
     return mod.EFFECT_NAMES
 
 
+_MORE = []
+
+
 def load():
     data = read_json(ASSETS / "potions.json")
     manifest = read_json(REPO / "shadw.mod.json")
     gods = []
     for p in data["potions"]:
+        if p["god"] not in GOD_DYE:
+            continue
         gods.append({**p, "slug": p["god"].lower(), "dye": GOD_DYE[p["god"]], "hue": DYE[GOD_DYE[p["god"]]]})
+    _MORE[:] = [p for p in data["potions"] if p["god"] not in GOD_DYE]
     return data, manifest, gods
 
 
@@ -285,7 +291,7 @@ def bottle(hue, size=64, label=""):
 # ---------- page shell ----------
 
 NAV = [("index.html", "Home", "home"), ("gods.html", "Gods", "gods"), ("relics.html", "Relics", "relics"),
-       ("structures.html", "Structures", "structures"), ("install.html", "Install", "install"),
+       ("structures.html", "Structures", "structures"), ("shrines.html", "Shrines", "shrines"), ("install.html", "Install", "install"),
        ("developers.html", "Developers", "developers")]
 
 
@@ -433,7 +439,16 @@ def build_index(data, gods, palette, names):
     return page("Asgard: the Norse world in Minecraft", "A Minecraft mod: the six gods as potions, Mjölnir and two more relics, Yggdrasil, Thor's shrine and rune circles.", body, "home", "index.html")
 
 
+def more_potion_card(pt, names):
+    fx = "".join(f"<li>{esc(fx_text(names, e))}</li>" for e in pt["effects"])
+    ing = pt["ingredient"].replace("_", " ").title()
+    return (f'<article class="relic"><div class="relic-art">{sprite(pt["ingredient"], 80, ing)}</div>'
+            f'<div><h3>{esc(pt["name"])}</h3><p class="meta">{esc(pt["god"])}, {esc(pt["epithet"])} · {esc(pt["domain"])}</p>'
+            f'<ul class="fx">{fx}</ul><p class="meta">Brewed from an Awkward Potion and {esc(ing)}. {esc(pt["lore"])}</p></div></article>')
+
+
 def build_gods(data, gods, palette, names):
+    more_cards = "".join(more_potion_card(pt, names) for pt in _MORE)
     roll = ""
     for g in gods:
         pic = shot(g["slug"])
@@ -456,6 +471,10 @@ def build_gods(data, gods, palette, names):
   <p class="lede">Six pillars, six gods, six draughts. Each page has the potion, its effects and durations, the ingredient and its lore, and the recipe.</p>
   <p class="meta">The photographs are close-ups of the test-world pillars. The epithets, domains and lore lines are the mod's own flavour text, not scholarship. The potion effects are game design.</p>
   <div class="rolls">{roll}</div>
+  <h2>The wider pantheon</h2>
+  <p>Five more draughts, from the shrines and the world tree. Their ingredients are found in shrine chests; Yggdrasil's Essence is crafted.</p>
+  <div class="relics">{more_cards}</div>
+  <p class="meta">Honest limits: the design asks for crop growth, extra experience and knockback resistance. Vanilla potion effects cannot do those, so Freyr's Blessing gives Luck and Saturation, Mimir's Knowledge gives Night Vision and Luck, and Tyr's Courage gives Strength and Resistance. The brew recipes are registered; brewing in a world is not yet tested.</p>
   <h2>Colours</h2>
   <p>Each god has one colour, taken from Minecraft's dye colours: {', '.join(esc(g['god']) + ' ' + esc(g['dye'].replace('_', ' ')) for g in gods)}. The colour is never the only cue: every god also has a name and an emblem. The smallest difference between any two god colours (CIE76) is ΔE {palette['min_delta_e']}, between {esc(palette['min_pair'])}. The build fails below 30.</p>
 </section>"""
@@ -554,9 +573,9 @@ def sprite(name, size=96, label=""):
 
 def copy_content_items():
     import shutil
-    for n in ("mjolnir", "gungnir", "gjallarhorn", "yggdrasil_leaf", "yggdrasil_fruit"):
+    for n in ("mjolnir", "gungnir", "gjallarhorn", "yggdrasil_leaf", "yggdrasil_fruit", "yggdrasil_sap", "sacred_root"):
         shutil.copyfile(ASSETS / "textures/item" / f"{n}.png", SITE / "img/items" / f"{n}.png")
-    for n in ("rune_stone", "yggdrasil_log", "yggdrasil_leaves", "yggdrasil_rune"):
+    for n in ("rune_stone", "yggdrasil_log", "yggdrasil_leaves", "yggdrasil_rune", "yggdrasil_heartwood", "ancient_bark", "golden_leaves"):
         shutil.copyfile(ASSETS / "textures/block" / f"{n}.png", SITE / "img/items" / f"{n}.png")
 
 
@@ -597,11 +616,26 @@ def build_relics(data, gods, manifest):
       f"Brew it onto an Awkward Potion for the Potion of Blessing: Regeneration {roman(bl['amplifier'] + 1)} for {dur(bl['regeneration_seconds'])}.",
       "Dropped by Yggdrasil leaves (25% of the time) and found in its hollow."], "yggdrasil_leaf")}
   </div>
+  <h2>World tree materials</h2>
+  <div class="relics">
+  {relic_card("yggdrasil_sap", "Yggdrasil Sap", "Ingredient", ["Amber sap. Yggdrasil's logs drop it 6% of the time, golden leaves 12%, and shrine chests hold it.", "Crafted into heartwood and divine essence."], "yggdrasil_sap")}
+  {relic_card("sacred_root", "Sacred Root", "Ingredient", ["Found in the god shrines' chests, never grown. Kept for the later recipes in the design doc."], "sacred_root")}
+  </div>
+  <h2>Recipes</h2>
+  <table class="data"><caption class="sr">Crafting recipes</caption><tbody>
+  <tr><th scope="row">Yggdrasil Heartwood &times;4</th><td>4 Yggdrasil Logs and 1 Yggdrasil Sap, shapeless</td></tr>
+  <tr><th scope="row">Ancient Bark &times;3</th><td>4 Yggdrasil Logs in a 2 by 2 square</td></tr>
+  <tr><th scope="row">Divine Essence</th><td>1 Yggdrasil Sap, 1 Golden Apple, 1 Nether Wart, 1 Rune Stone, shapeless. The brewing ingredient for Yggdrasil's Essence.</td></tr>
+  <tr><th scope="row">Rune Stone &times;4</th><td>4 Stone Bricks and 1 Gold Nugget, shapeless</td></tr>
+  </tbody></table>
   <h2>Blocks</h2>
   <div class="relics">
   {relic_card("yggdrasil_log", "Yggdrasil Log", "Block", ["A log: it burns, an axe breaks it fastest, and it is in the logs tag."], "yggdrasil_log")}
   {relic_card("yggdrasil_leaves", "Yggdrasil Leaves", "Block", ["Leaves that do not decay. They drop a leaf or a fruit, and now and then a gold mote drifts from the underside."], "yggdrasil_leaves")}
   {relic_card("yggdrasil_rune", "Yggdrasil Rune", "Block", ["A glowing gold rune set in the world tree's bark: light level 12, and it sheds sparks. Axe-mineable; found on Yggdrasil, not crafted."], "yggdrasil_rune")}
+  {relic_card("yggdrasil_heartwood", "Yggdrasil Heartwood", "Block", ["A dense building block crafted from logs and sap. Axe-mineable."], "yggdrasil_heartwood")}
+  {relic_card("ancient_bark", "Ancient Bark", "Block", ["Weathered grey bark. Craft three from four logs."], "ancient_bark")}
+  {relic_card("golden_leaves", "Golden World Tree Leaves", "Block", ["Light level 9, and golden motes drift from them often. They drop sap, a leaf or a fruit. Found among Yggdrasil's green leaves."], "golden_leaves")}
   {relic_card("rune_stone", "Rune Stone", "Block", ["Craft four from 4 stone bricks and 1 gold nugget. Found building the shrine and the rune circle."], "rune_stone")}
   </div>
   <p class="meta">Status: the items load, their icons show in a Minecraft 1.21.4 client, and the numbers above are read from the mod's own data file. Using them (the lightning, the horn, the spear's glow) and brewing the Blessing are not yet tested in a world.</p>
@@ -670,6 +704,73 @@ def build_structures(data, gods, manifest):
     return page("Structures: Yggdrasil, Thor's shrine and the rune circle", "The three Norse structures in the Asgard mod, where they generate and what is in their chests.", body, "structures", "structures.html")
 
 
+
+# ---------- the Shrines page: seven gods, their altars, offerings and chests ----------
+
+SHRINES = [  # god key, shrine slug, display name, epithet, blurb, shot names (day, dusk)
+    ("thor", "thors_shrine", "Thor", "God of Thunder", "The first shrine: a tiered stone dais, lightning-rod pillars, braziers and a spire over a gold altar.", ("shrine", "shrine-dusk")),
+    ("odin", "odin_shrine", "Odin", "Allfather", "A stone monolith with glowing runes, a one-eyed statue under a wide hat, two raven statues, and lanterns hanging from carved posts.", ("shrine-odin", "shrine-odin-dusk")),
+    ("freyja", "freyja_shrine", "Freyja", "Goddess of Love and Magic", "A garden of golden and pink flowers, crystals that glow, a cherry pergola and quartz cat statues.", ("shrine-freyja", "shrine-freyja-dusk")),
+    ("loki", "loki_shrine", "Loki", "God of Mischief", "A hidden underground altar under a hatch: green froglight flames, strange statues, cobwebs and slime.", ("shrine-loki", "shrine-loki-surface")),
+    ("freyr", "freyr_shrine", "Freyr", "God of Prosperity", "A walled farm of ripe golden wheat watered by two channels, with carved totems and hay-bale seats around the altar.", ("shrine-freyr",)),
+    ("tyr", "tyr_shrine", "Tyr", "God of War", "A battlefield monument: two huge crossed swords, a wall of shields (target blocks) and red banners.", ("shrine-tyr",)),
+    ("heimdall", "heimdall_shrine", "Heimdall", "Guardian of the Bifrost", "A 34-block watchtower with golden corner pillars, rainbow glass windows, a ladder inside and a lookout of rainbow crystals.", ("shrine-heimdall", "shrine-heimdall-dusk")),
+]
+
+
+def item_label(rid):
+    return rid.split(":")[-1].replace("_", " ").title()
+
+
+def chest_contents(slug):
+    pools = read_json(DATA / "loot_table/chests" / f"{slug}.json")["pools"]
+    names = []
+    for pool in pools:
+        for e in pool["entries"]:
+            if e.get("type") == "minecraft:empty":
+                continue
+            if e.get("name") == "minecraft:potion":
+                pid = e["functions"][0]["id"]
+                label = "Potion of " + next((q["name"] for q in read_json(ASSETS / "potions.json")["potions"] if "asgard:" + q["id"] == pid), item_label(pid))
+            else:
+                label = item_label(e["name"])
+            if label not in names:
+                names.append(label)
+    return names
+
+
+def shrine_section(god, slug, name, epithet, blurb, shots, names):
+    alt = content()["altars"][god]
+    fx = ", ".join(f"{names.get(e[0], e[0].split(':')[-1].replace('_', ' ').title())} {roman(e[2] + 1)} for {dur(e[1])}" for e in alt["effects"])
+    figs = "".join(f'<figure class="shot"><img src="{shot(n)}" alt="{esc(name)}\'s shrine." width="854" height="480" loading="lazy"><figcaption>{esc(name)}\'s shrine.</figcaption></figure>' for n in shots if shot(n))
+    n0 = nbt_facts(slug)
+    sx, sy, sz = n0["size"]
+    s = spread(slug)
+    variants = len(list((DATA / "structure").glob(f"{slug}_*.nbt")))
+    rows = (f"<tr><th scope=\"row\">Size</th><td>{sx} by {sz} blocks, {sy} high; {variants} variants</td></tr>"
+            f"<tr><th scope=\"row\">Spacing</th><td>One in every {s['spacing']} by {s['spacing']} chunks</td></tr>"
+            f"<tr><th scope=\"row\">Biomes</th><td>{esc(', '.join(biomes(slug)))}</td></tr>"
+            f"<tr><th scope=\"row\">Altar</th><td>Hold {alt['count']} {esc(item_label(alt['offering']))} and use the altar: {esc(fx)}.</td></tr>"
+            f"<tr><th scope=\"row\">Chest</th><td>{esc(', '.join(chest_contents(slug)))}</td></tr>")
+    return (f'<section class="struct" id="{slug}"><p class="eyebrow">{esc(epithet)}</p><h2>{esc(name)}</h2><p>{esc(blurb)}</p>'
+            f'<div class="shots two">{figs}</div><table class="data"><caption class="sr">{esc(name)}\'s shrine: facts</caption><tbody>{rows}</tbody></table></section>')
+
+
+def build_shrines(data, gods, manifest, names):
+    secs = "".join(shrine_section(g, sl, n, e, b, sh, names) for g, sl, n, e, b, sh in SHRINES)
+    body = f"""
+<section class="page">
+  <p class="eyebrow">Shrines</p>
+  <h1 class="mc-h">Seven shrines, seven altars</h1>
+  <p class="lede">Each god has a shrine in the world and an altar block to make an offering at. Hold the offering, use the altar, and the blessing is yours.</p>
+  {secs}
+  <h2>Not built yet</h2>
+  <p>The <a href="https://github.com/SolutionsAsService/minecraft-asgard/blob/main/design/expand.md">expansion design</a> also names rewards this phase does not have: Seidr magic and the feathered cloak (Freyja), the Trickster's Ring (Loki), sacred farming tools and extra crop growth (Freyr), Tyr's Shield, Bifrost fragments, and Gungnir fragments. They are planned for the later phases.</p>
+  <p class="meta">Status: the shrines were placed in a Minecraft 1.21.4 test world with the game's template command and photographed from a client; the offering altars load, but no offering has been made in play and no advancement earned. Natural spawning in a fresh survival world is not yet confirmed.</p>
+</section>"""
+    return page("Shrines: seven gods, seven altars", "The seven god shrines in the Asgard mod, their altars and offerings, and what their chests hold.", body, "shrines", "shrines.html")
+
+
 def build_install(data, gods, manifest):
     body = f"""
 <section class="page">
@@ -683,7 +784,7 @@ def build_install(data, gods, manifest):
 cd minecraft-asgard
 gradle build
 # the jar is in build/libs/asgard-{esc(manifest['version'])}.jar</code></pre>
-  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(gods) + 1} potions ({len(gods)} from data, plus Blessing), {len(gods) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, 4 blocks</code> confirms the registration.</p>
+  <p>Copy the jar into your <code>mods</code> folder and start the game. The server log line <code>Asgard loaded: {len(data['potions']) + 1} potions ({len(data['potions'])} from data, plus Blessing), {len(data['potions']) + 1} brewing recipes, 0 unknown effects skipped; 3 relics, {len(list((ASSETS / 'blockstates').glob('*.json')))} blocks</code> confirms the registration.</p>
   <h2>Status</h2>
   <p>Builds on Fabric Loom 1.11.8 and Gradle 8. Loaded on a Fabric dedicated server for 1.21.4, and a client joined that server and showed the ingredients, potions, relics and structures (the screenshots on this site). Brewing in a stand, drinking the potions, using the relics and natural structure spawning are not yet tested.</p>
 </section>"""
@@ -719,11 +820,12 @@ python3 _src/build_site.py       # this site</code></pre>
 
 
 def copy_items(gods):
+    global _ALL_POTIONS
     import shutil
     out = SITE / "img/items"
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir(parents=True, exist_ok=True)
-    for g in gods:
+    for g in gods + _MORE:
         shutil.copyfile(ASSETS / "textures/item" / f"{g['ingredient']}.png", out / f"{g['ingredient']}.png")
 
 
@@ -746,6 +848,7 @@ def main():
         write(f"gods/{g['slug']}.html", build_god(i, g, gods, palette, names))
     write("relics.html", build_relics(data, gods, manifest))
     write("structures.html", build_structures(data, gods, manifest))
+    write("shrines.html", build_shrines(data, gods, manifest, names))
     write("install.html", build_install(data, gods, manifest))
     write("developers.html", build_developers(data, gods, manifest))
     pages = len(list(SITE.rglob("*.html")))
