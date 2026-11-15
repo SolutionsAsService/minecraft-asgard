@@ -42,7 +42,7 @@ class Skin:
         self.px[(x, y)] = c
 
     def save(self, path):
-        pix = [(*self.px.get((x, y), (0, 0, 0)), 255) for y in range(self.h) for x in range(self.w)]
+        pix = [(*self.px[(x, y)], 255) if (x, y) in self.px else (0, 0, 0, 0) for y in range(self.h) for x in range(self.w)]   # unpainted = transparent (the hat layer)
         path.parent.mkdir(parents=True, exist_ok=True)
         ga.write_png(path, self.w, self.h, pix)
 
