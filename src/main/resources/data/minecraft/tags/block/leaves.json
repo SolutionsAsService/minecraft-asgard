@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "asgard:golden_leaves",
     "asgard:yggdrasil_leaves"
   ]
 }

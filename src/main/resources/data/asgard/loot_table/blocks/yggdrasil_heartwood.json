@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "asgard:blocks/yggdrasil_heartwood",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "asgard:yggdrasil_heartwood"
+        }
+      ]
+    }
+  ]
+}

@@ -147,6 +147,141 @@
           "amplifier": 0
         }
       ]
+    },
+    {
+      "id": "freyrs_blessing",
+      "name": "Freyr's Blessing",
+      "god": "Freyr",
+      "epithet": "Lord of the Harvest",
+      "domain": "Plenty and peace",
+      "hue": "#E8C040",
+      "realm": "asgard",
+      "ingredient": "golden_sheaf",
+      "lore": "A sheaf bound with gold thread from Freyr's fields. Good fortune, and a full stomach.",
+      "effects": [
+        {
+          "effect": "minecraft:luck",
+          "seconds": 300,
+          "amplifier": 1
+        },
+        {
+          "effect": "minecraft:saturation",
+          "seconds": 10,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "tyrs_courage",
+      "name": "Tyr's Courage",
+      "god": "Tyr",
+      "epithet": "The One-Handed",
+      "domain": "Law and war",
+      "hue": "#B02E26",
+      "realm": "asgard",
+      "ingredient": "oath_stone",
+      "lore": "Tyr put his hand in the wolf's mouth to keep an oath. Strength for whoever keeps theirs.",
+      "effects": [
+        {
+          "effect": "minecraft:strength",
+          "seconds": 180,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "seconds": 180,
+          "amplifier": 1
+        }
+      ]
+    },
+    {
+      "id": "idunns_elixir",
+      "name": "Idunn's Elixir",
+      "god": "Idunn",
+      "epithet": "Keeper of the Apples",
+      "domain": "Youth and renewal",
+      "hue": "#80C71F",
+      "realm": "asgard",
+      "ingredient": "idunn_apple_core",
+      "lore": "The gods stay young on Idunn's apples. This is the core of one, still bright.",
+      "effects": [
+        {
+          "effect": "minecraft:regeneration",
+          "seconds": 40,
+          "amplifier": 2
+        },
+        {
+          "effect": "minecraft:absorption",
+          "seconds": 90,
+          "amplifier": 1
+        }
+      ]
+    },
+    {
+      "id": "mimirs_knowledge",
+      "name": "Mimir's Knowledge",
+      "god": "Mimir",
+      "epithet": "Keeper of the Well",
+      "domain": "Wisdom",
+      "hue": "#3C44AA",
+      "realm": "asgard",
+      "ingredient": "mimir_pearl",
+      "lore": "Odin gave an eye for one drink from Mimir's well. A pearl of its water costs less.",
+      "effects": [
+        {
+          "effect": "minecraft:night_vision",
+          "seconds": 300,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:luck",
+          "seconds": 180,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "yggdrasils_essence",
+      "name": "Yggdrasil's Essence",
+      "god": "Yggdrasil",
+      "epithet": "The World Tree",
+      "domain": "All things",
+      "hue": "#FED83D",
+      "realm": "asgard",
+      "ingredient": "divine_essence",
+      "lore": "Sap, a golden apple and a root of the Nether, boiled down. A little of everything the gods give.",
+      "effects": [
+        {
+          "effect": "minecraft:regeneration",
+          "seconds": 45,
+          "amplifier": 1
+        },
+        {
+          "effect": "minecraft:strength",
+          "seconds": 120,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:speed",
+          "seconds": 120,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "seconds": 120,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:night_vision",
+          "seconds": 120,
+          "amplifier": 0
+        },
+        {
+          "effect": "minecraft:luck",
+          "seconds": 120,
+          "amplifier": 0
+        }
+      ]
     }
   ]
 }

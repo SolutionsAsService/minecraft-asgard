@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "asgard:yggdrasil_sap",
+    "minecraft:golden_apple",
+    "minecraft:nether_wart",
+    "asgard:rune_stone"
+  ],
+  "result": {
+    "id": "asgard:divine_essence",
+    "count": 1
+  }
+}

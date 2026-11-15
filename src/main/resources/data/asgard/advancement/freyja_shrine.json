@@ -1,0 +1,36 @@
+{
+  "parent": "asgard:rune_circle",
+  "display": {
+    "icon": {
+      "id": "asgard:freyja_altar"
+    },
+    "title": {
+      "text": "A Garden of Gold and Crystal"
+    },
+    "description": {
+      "text": "Find Freyja's shrine."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "asgard:freyja_shrine"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

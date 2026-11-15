@@ -1,0 +1,36 @@
+{
+  "parent": "asgard:rune_circle",
+  "display": {
+    "icon": {
+      "id": "asgard:tyr_altar"
+    },
+    "title": {
+      "text": "Where the Oath Was Kept"
+    },
+    "description": {
+      "text": "Find Tyr's shrine."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "asgard:tyr_shrine"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

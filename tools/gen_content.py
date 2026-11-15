@@ -22,10 +22,12 @@ ROOT = HERE.parent
 NS = "asgard"
 ASSETS = ROOT / "src/main/resources/assets" / NS
 
-DYE = dict(white=(249, 255, 254), orange=(249, 128, 29), yellow=(254, 216, 61), light_blue=(58, 179, 218),
+DYE = dict(magenta=(199, 78, 189), pink=(243, 139, 170), white=(249, 255, 254), orange=(249, 128, 29), yellow=(254, 216, 61), light_blue=(58, 179, 218),
            light_gray=(157, 157, 151), gray=(71, 79, 82), brown=(131, 84, 50), lime=(128, 199, 31),
            green=(94, 124, 22), red=(176, 46, 38))
 INK = (11, 11, 13)
+GOD_HUE = dict(thor="light_blue", odin="magenta", freyja="pink", loki="lime", freyr="yellow", tyr="red", heimdall="orange")
+GOD_NAME = dict(thor="Thor", odin="Odin", freyja="Freyja", loki="Loki", freyr="Freyr", tyr="Tyr", heimdall="Heimdall")
 
 
 class Pix:
@@ -119,6 +121,31 @@ def gjallarhorn():
     return p
 
 
+def sap():
+    p = Pix()
+    p.disc(7.5, 9, 4.5, DYE["orange"])
+    p.rect(7, 2, 8, 5, DYE["orange"])
+    p.put(7, 6, DYE["orange"]); p.put(8, 6, DYE["orange"])
+    p.put(6, 8, DYE["yellow"]); p.put(6, 9, DYE["yellow"]); p.put(7, 7, DYE["yellow"])
+    p.rect(9, 11, 10, 12, (176, 90, 20))
+    p.outline()
+    return p
+
+
+def sacred_root():
+    p = Pix()
+    brown, dark = (131, 84, 50), (91, 58, 32)
+    p.line(2, 13, 6, 9, brown, 2)
+    p.line(6, 9, 10, 8, brown, 2)
+    p.line(10, 8, 13, 3, brown, 2)
+    p.line(6, 9, 5, 5, dark, 1)
+    p.line(3, 13, 2, 15, dark, 1)
+    p.rect(12, 1, 14, 2, DYE["lime"])
+    p.put(13, 3, DYE["yellow"]); p.put(4, 12, DYE["green"]); p.put(8, 9, DYE["green"])
+    p.outline()
+    return p
+
+
 # ---------- block textures (opaque 16x16) ----------
 
 def tex(fn):
@@ -169,6 +196,70 @@ def yggdrasil_rune(x, y):
     return c
 
 
+def heartwood(x, y):
+    d = math.hypot(x - 7.5, y - 7.5)
+    ring = int(d * 1.4) % 3
+    c = [(122, 58, 36), (99, 44, 28), (140, 72, 42)][ring]
+    if h(x, y, 8) < 7:
+        c = DYE["yellow"] if h(x, y, 9) < 50 else (214, 160, 40)
+    return shade(c, (h(x, y, 10) % 7) - 3)
+
+
+def ancient_bark(x, y):
+    base = (86, 76, 62)
+    c = shade(base, -22 if x % 5 == 0 else (10 if x % 5 == 2 else 0))
+    if h(x, y, 11) < 12:
+        c = (60, 54, 44)
+    elif h(x, y, 12) < 8:
+        c = (88, 130, 56)
+    return c
+
+
+def golden_leaves(x, y):
+    n = h(x, y, 13)
+    if n < 5:
+        return DYE["white"]
+    if n < 35:
+        return (250, 205, 70)
+    if n < 65:
+        return (214, 160, 36)
+    return (160, 116, 24)
+
+
+def altar_side(god):
+    hue = DYE[GOD_HUE[god]]
+
+    def fn(x, y):
+        n = h(x, y, 14)
+        c = shade((112, 114, 118), (n % 9) - 4)
+        if y in (0, 15) or x in (0, 15):
+            c = (70, 72, 76)
+        if y in (6, 7, 8, 9) and 1 <= x <= 14:
+            c = hue if y in (7, 8) else shade(hue, -50)
+        if y in (7, 8) and x in (7, 8):
+            c = DYE["white"]
+        return c
+    return fn
+
+
+def altar_top(god):
+    hue = DYE[GOD_HUE[god]]
+
+    def fn(x, y):
+        c = shade((96, 98, 102), (h(x, y, 15) % 7) - 3)
+        d = math.hypot(x - 7.5, y - 7.5)
+        if 4.6 <= d <= 6.2:
+            c = shade(hue, -40)
+        if d <= 3.0:
+            c = hue
+        if d <= 1.2:
+            c = DYE["white"]
+        if x in (0, 15) or y in (0, 15):
+            c = (60, 62, 66)
+        return c
+    return fn
+
+
 def rune_stone(x, y):
     n = h(x, y, 4)
     base = (108, 110, 114)
@@ -208,10 +299,21 @@ LANG = {
     "block.asgard.yggdrasil_leaves": "Yggdrasil Leaves",
     "block.asgard.rune_stone": "Rune Stone",
     "block.asgard.yggdrasil_rune": "Yggdrasil Rune",
+    "item.asgard.yggdrasil_sap": "Yggdrasil Sap",
+    "item.asgard.yggdrasil_sap.lore": "Amber sap from the world tree. A drop of it goes into every great working.",
+    "item.asgard.sacred_root": "Sacred Root",
+    "item.asgard.sacred_root.lore": "A root of Yggdrasil, still warm. Found in the shrines, never grown.",
+    "block.asgard.yggdrasil_heartwood": "Yggdrasil Heartwood",
+    "block.asgard.ancient_bark": "Ancient Bark",
+    "block.asgard.golden_leaves": "Golden World Tree Leaves",
     "item.minecraft.potion.effect.blessing": "Potion of Blessing",
     "item.minecraft.splash_potion.effect.blessing": "Splash Blessing",
     "item.minecraft.lingering_potion.effect.blessing": "Lingering Blessing",
 }
+
+
+for _g, _n in GOD_NAME.items():
+    LANG[f"block.asgard.{_g}_altar"] = f"Altar of {_n}"
 
 
 def main():
@@ -231,10 +333,18 @@ def main():
     tex(leaves).save(ASSETS / "textures/block/yggdrasil_leaves.png")
     tex(rune_stone).save(ASSETS / "textures/block/rune_stone.png")
     tex(yggdrasil_rune).save(ASSETS / "textures/block/yggdrasil_rune.png")
+    tex(heartwood).save(ASSETS / "textures/block/yggdrasil_heartwood.png")
+    tex(ancient_bark).save(ASSETS / "textures/block/ancient_bark.png")
+    tex(golden_leaves).save(ASSETS / "textures/block/golden_leaves.png")
+    sap().save(ASSETS / "textures/item/yggdrasil_sap.png")
+    sacred_root().save(ASSETS / "textures/item/sacred_root.png")
+    for god in GOD_NAME:
+        tex(altar_side(god)).save(ASSETS / f"textures/block/{god}_altar_side.png")
+        tex(altar_top(god)).save(ASSETS / f"textures/block/{god}_altar_top.png")
 
     # item models and definitions
     for name, parent in (("mjolnir", "minecraft:item/handheld"), ("gungnir", "minecraft:item/handheld"),
-                         ("gjallarhorn", "minecraft:item/generated"), ("yggdrasil_leaf", "minecraft:item/generated"),
+                         ("gjallarhorn", "minecraft:item/generated"), ("yggdrasil_leaf", "minecraft:item/generated"), ("yggdrasil_sap", "minecraft:item/generated"), ("sacred_root", "minecraft:item/generated"),
                          ("yggdrasil_fruit", "minecraft:item/generated")):
         write_json(ASSETS / "models/item" / f"{name}.json", {"parent": parent, "textures": {"layer0": f"{NS}:item/{name}"}})
         item_def(name, f"{NS}:item/{name}")
@@ -255,6 +365,18 @@ def main():
     write_json(ASSETS / "models/block/yggdrasil_rune.json",
                {"parent": "minecraft:block/cube_all", "textures": {"all": f"{NS}:block/yggdrasil_rune"}})
     write_json(ASSETS / "blockstates/yggdrasil_rune.json", {"variants": {"": {"model": f"{NS}:block/yggdrasil_rune"}}})
+    for name in ("yggdrasil_heartwood", "ancient_bark"):
+        write_json(ASSETS / f"models/block/{name}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"{NS}:block/{name}"}})
+        write_json(ASSETS / f"blockstates/{name}.json", {"variants": {"": {"model": f"{NS}:block/{name}"}}})
+        item_def(name, f"{NS}:block/{name}")
+    write_json(ASSETS / "models/block/golden_leaves.json", {"parent": "minecraft:block/leaves", "textures": {"all": f"{NS}:block/golden_leaves"}})
+    write_json(ASSETS / "blockstates/golden_leaves.json", {"variants": {"": {"model": f"{NS}:block/golden_leaves"}}})
+    item_def("golden_leaves", f"{NS}:block/golden_leaves")
+    for god in GOD_NAME:
+        write_json(ASSETS / f"models/block/{god}_altar.json", {"parent": "minecraft:block/cube_bottom_top", "textures": {
+            "top": f"{NS}:block/{god}_altar_top", "bottom": f"{NS}:block/{god}_altar_side", "side": f"{NS}:block/{god}_altar_side"}})
+        write_json(ASSETS / f"blockstates/{god}_altar.json", {"variants": {"": {"model": f"{NS}:block/{god}_altar"}}})
+        item_def(f"{god}_altar", f"{NS}:block/{god}_altar")
     write_json(ASSETS / "blockstates/rune_stone.json", {"variants": {"": {"model": f"{NS}:block/rune_stone"}}})
     for name in ("yggdrasil_log", "yggdrasil_leaves", "rune_stone", "yggdrasil_rune"):
         item_def(name, f"{NS}:block/{name}")

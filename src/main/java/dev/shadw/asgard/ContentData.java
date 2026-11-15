@@ -28,6 +28,10 @@ final class ContentData {
 		return root;
 	}
 
+	static JsonObject altar(String god) {
+		return root().getAsJsonObject("altars").getAsJsonObject(god);
+	}
+
 	static double d(String item, String field) {
 		return root().getAsJsonObject(item).get(field).getAsDouble();
 	}

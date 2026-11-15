@@ -1,0 +1,36 @@
+{
+  "parent": "asgard:rune_circle",
+  "display": {
+    "icon": {
+      "id": "asgard:loki_altar"
+    },
+    "title": {
+      "text": "Under the Ground, Smiling"
+    },
+    "description": {
+      "text": "Find Loki's hidden altar."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "asgard:loki_shrine"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

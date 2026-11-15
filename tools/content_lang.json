@@ -13,7 +13,21 @@
   "block.asgard.yggdrasil_leaves": "Yggdrasil Leaves",
   "block.asgard.rune_stone": "Rune Stone",
   "block.asgard.yggdrasil_rune": "Yggdrasil Rune",
+  "item.asgard.yggdrasil_sap": "Yggdrasil Sap",
+  "item.asgard.yggdrasil_sap.lore": "Amber sap from the world tree. A drop of it goes into every great working.",
+  "item.asgard.sacred_root": "Sacred Root",
+  "item.asgard.sacred_root.lore": "A root of Yggdrasil, still warm. Found in the shrines, never grown.",
+  "block.asgard.yggdrasil_heartwood": "Yggdrasil Heartwood",
+  "block.asgard.ancient_bark": "Ancient Bark",
+  "block.asgard.golden_leaves": "Golden World Tree Leaves",
   "item.minecraft.potion.effect.blessing": "Potion of Blessing",
   "item.minecraft.splash_potion.effect.blessing": "Splash Blessing",
-  "item.minecraft.lingering_potion.effect.blessing": "Lingering Blessing"
+  "item.minecraft.lingering_potion.effect.blessing": "Lingering Blessing",
+  "block.asgard.thor_altar": "Altar of Thor",
+  "block.asgard.odin_altar": "Altar of Odin",
+  "block.asgard.freyja_altar": "Altar of Freyja",
+  "block.asgard.loki_altar": "Altar of Loki",
+  "block.asgard.freyr_altar": "Altar of Freyr",
+  "block.asgard.tyr_altar": "Altar of Tyr",
+  "block.asgard.heimdall_altar": "Altar of Heimdall"
 }

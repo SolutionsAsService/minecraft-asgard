@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "asgard:block/yggdrasil_heartwood"
+  }
+}

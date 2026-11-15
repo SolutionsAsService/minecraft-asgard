@@ -28,5 +28,126 @@
   "blessing": {
     "regeneration_seconds": 45,
     "amplifier": 1
+  },
+  "altars": {
+    "thor": {
+      "offering": "minecraft:lightning_rod",
+      "count": 1,
+      "message": "Thor hears you. The thunder is yours.",
+      "effects": [
+        [
+          "minecraft:strength",
+          300,
+          0
+        ],
+        [
+          "minecraft:resistance",
+          120,
+          0
+        ]
+      ]
+    },
+    "odin": {
+      "offering": "minecraft:ender_eye",
+      "count": 1,
+      "message": "Odin's ravens watch for you.",
+      "effects": [
+        [
+          "minecraft:night_vision",
+          300,
+          0
+        ],
+        [
+          "minecraft:luck",
+          300,
+          0
+        ]
+      ]
+    },
+    "freyja": {
+      "offering": "minecraft:peony",
+      "count": 1,
+      "message": "Freyja smiles on you.",
+      "effects": [
+        [
+          "minecraft:regeneration",
+          20,
+          1
+        ],
+        [
+          "minecraft:resistance",
+          90,
+          0
+        ]
+      ]
+    },
+    "loki": {
+      "offering": "minecraft:fermented_spider_eye",
+      "count": 1,
+      "message": "Loki grins. You are not quite here.",
+      "effects": [
+        [
+          "minecraft:invisibility",
+          180,
+          0
+        ],
+        [
+          "minecraft:speed",
+          180,
+          1
+        ]
+      ]
+    },
+    "freyr": {
+      "offering": "minecraft:wheat",
+      "count": 8,
+      "message": "Freyr blesses the harvest.",
+      "effects": [
+        [
+          "minecraft:luck",
+          600,
+          0
+        ],
+        [
+          "minecraft:saturation",
+          5,
+          0
+        ]
+      ]
+    },
+    "tyr": {
+      "offering": "minecraft:iron_ingot",
+      "count": 4,
+      "message": "Tyr accepts your oath.",
+      "effects": [
+        [
+          "minecraft:strength",
+          300,
+          0
+        ],
+        [
+          "minecraft:resistance",
+          120,
+          1
+        ]
+      ]
+    },
+    "heimdall": {
+      "offering": "minecraft:amethyst_shard",
+      "count": 2,
+      "message": "Heimdall sees far for you.",
+      "effects": [
+        [
+          "minecraft:night_vision",
+          300,
+          0
+        ],
+        [
+          "minecraft:speed",
+          120,
+          1
+        ]
+      ]
+    }
   }
 }

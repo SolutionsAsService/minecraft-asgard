@@ -32,7 +32,7 @@ EFFECT_NAMES = {
     "minecraft:absorption": "Absorption", "minecraft:glowing": "Glowing",
     "minecraft:levitation": "Levitation", "minecraft:luck": "Luck", "minecraft:unluck": "Unluck",
     "minecraft:slow_falling": "Slow Falling", "minecraft:conduit_power": "Conduit Power",
-    "minecraft:dolphins_grace": "Dolphin's Grace", "minecraft:darkness": "Darkness",
+    "minecraft:dolphins_grace": "Dolphin's Grace", "minecraft:darkness": "Darkness", "minecraft:saturation": "Saturation",
 }
 
 REALM_HUE = {r["id"]: r["hue"] for r in DATA["realms"]}

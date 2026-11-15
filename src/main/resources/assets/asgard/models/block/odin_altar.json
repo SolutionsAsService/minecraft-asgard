@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "asgard:block/odin_altar_top",
+    "bottom": "asgard:block/odin_altar_side",
+    "side": "asgard:block/odin_altar_side"
+  }
+}

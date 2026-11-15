@@ -97,9 +97,18 @@ public class Mod implements ModInitializer {
 			entries.accept(AsgardBlocks.YGGDRASIL_LOG);
 			entries.accept(AsgardBlocks.YGGDRASIL_LEAVES);
 			entries.accept(AsgardBlocks.YGGDRASIL_RUNE);
+			entries.accept(AsgardBlocks.GOLDEN_LEAVES);
+			entries.accept(AsgardBlocks.ANCIENT_BARK);
 		});
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS)
-				.register(entries -> entries.accept(AsgardBlocks.RUNE_STONE));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
+			entries.accept(AsgardBlocks.RUNE_STONE);
+			entries.accept(AsgardBlocks.YGGDRASIL_HEARTWOOD);
+		});
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
+			for (var altar : AsgardBlocks.ALTARS) {
+				entries.accept(altar);
+			}
+		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
 			entries.accept(AsgardItems.MJOLNIR);
 			entries.accept(AsgardItems.GUNGNIR);
@@ -108,8 +117,12 @@ public class Mod implements ModInitializer {
 				.register(entries -> entries.accept(AsgardItems.GJALLARHORN));
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS)
 				.register(entries -> entries.accept(AsgardItems.YGGDRASIL_FRUIT));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(entries -> {
+			entries.accept(AsgardItems.YGGDRASIL_SAP);
+			entries.accept(AsgardItems.SACRED_ROOT);
+		});
 		LOGGER.info("Asgard loaded: {} potions ({} from data, plus Blessing), {} brewing recipes, {} unknown effects skipped; "
-				+ "3 relics, 4 blocks", pending.size(), fromData, pending.size(), effectsSkipped);
+				+ "3 relics, {} blocks", pending.size(), fromData, pending.size(), effectsSkipped, AsgardBlocks.count());
 	}
 
 	private static ResourceKey<Item> itemKey(String path) {

@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:plains",
+    "minecraft:savanna",
+    "#minecraft:is_badlands",
+    "minecraft:windswept_hills"
+  ]
+}

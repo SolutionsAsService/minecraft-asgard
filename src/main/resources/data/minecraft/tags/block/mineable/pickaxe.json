@@ -1,6 +1,13 @@
 {
   "replace": false,
   "values": [
-    "asgard:rune_stone"
+    "asgard:freyja_altar",
+    "asgard:freyr_altar",
+    "asgard:heimdall_altar",
+    "asgard:loki_altar",
+    "asgard:odin_altar",
+    "asgard:rune_stone",
+    "asgard:thor_altar",
+    "asgard:tyr_altar"
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "LL",
+    "LL"
+  ],
+  "key": {
+    "L": "asgard:yggdrasil_log"
+  },
+  "result": {
+    "id": "asgard:ancient_bark",
+    "count": 3
+  }
+}

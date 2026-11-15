@@ -1,0 +1,36 @@
+{
+  "parent": "asgard:rune_circle",
+  "display": {
+    "icon": {
+      "id": "asgard:freyr_altar"
+    },
+    "title": {
+      "text": "The Harvest Lord"
+    },
+    "description": {
+      "text": "Find Freyr's shrine."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "asgard:freyr_shrine"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

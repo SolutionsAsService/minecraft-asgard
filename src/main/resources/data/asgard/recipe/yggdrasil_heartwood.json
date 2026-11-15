@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "asgard:yggdrasil_log",
+    "asgard:yggdrasil_log",
+    "asgard:yggdrasil_log",
+    "asgard:yggdrasil_log",
+    "asgard:yggdrasil_sap"
+  ],
+  "result": {
+    "id": "asgard:yggdrasil_heartwood",
+    "count": 4
+  }
+}

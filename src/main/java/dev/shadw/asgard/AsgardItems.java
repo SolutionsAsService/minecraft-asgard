@@ -39,6 +39,10 @@ public final class AsgardItems {
 					.saturationModifier((float) ContentData.d("yggdrasil_fruit", "saturation_modifier")).build()),
 			lore("yggdrasil_fruit")));
 
+	public static final Item YGGDRASIL_SAP = item("yggdrasil_sap", p -> new LoreItem(p, lore("yggdrasil_sap")));
+
+	public static final Item SACRED_ROOT = item("sacred_root", p -> new LoreItem(p, lore("sacred_root")));
+
 	/** Awkward Potion + a Yggdrasil Leaf. */
 	public static final Holder<Potion> BLESSING = Registry.registerForHolder(BuiltInRegistries.POTION,
 			ResourceKey.create(Registries.POTION, ResourceLocation.fromNamespaceAndPath(Mod.MOD_ID, "blessing")),
