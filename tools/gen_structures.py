@@ -116,8 +116,9 @@ def ellipsoid_cells(x, y, z, r, sy=0.62):
     for ix in range(math.floor(x - r), math.ceil(x + r) + 1):
         for iy in range(math.floor(y - ry), math.ceil(y + ry) + 1):
             for iz in range(math.floor(z - r), math.ceil(z + r) + 1):
-                if ((ix - x) / r) ** 2 + ((iy - y) / ry) ** 2 + ((iz - z) / r) ** 2 <= 1.0:
-                    yield ix, iy, iz
+                d = ((ix - x) / r) ** 2 + ((iy - y) / ry) ** 2 + ((iz - z) / r) ** 2
+                if d <= 1.0:
+                    yield ix, iy, iz, d
 
 
 def axis_of(dx, dy, dz):
@@ -210,9 +211,9 @@ def yggdrasil(seed):
         n_off = [(rnd.uniform(-r * .4, r * .4), rnd.uniform(-r * .2, r * .2), rnd.uniform(-r * .4, r * .4), r * rnd.uniform(.55, .85)) for _ in range(4)]
         n_off.append((0, 0, 0, r))
         for ox, oy, oz, rr in n_off:
-            for ix, iy, iz in ellipsoid_cells(cx_ + ox, cy_ + oy * 0.5, cz_ + oz, rr):
+            for ix, iy, iz, dd in ellipsoid_cells(cx_ + ox, cy_ + oy * 0.5, cz_ + oz, rr):
                 if 0 <= ix < W and 0 <= iy < H and 0 <= iz < W and (ix, iy, iz) not in s.blocks:
-                    if hole(ix, iy, iz + seed * 31) < 7:
+                    if hole(ix, iy, iz + seed * 31) < 7 or (dd > 0.62 and hole(ix + 3, iy, iz + seed * 17) < (dd - 0.62) / 0.38 * 100):
                         continue
                     s.put(ix, iy, iz, LEAVES)
 
@@ -287,19 +288,25 @@ def yggdrasil(seed):
     blk, tag = chest("south", "asgard:chests/yggdrasil_hollow")
     s.put(CX, 3, CZ - 2, blk, tag)
 
-    # finishing: lanterns, glow fruit and vines hanging under the leaves, moss on the roots
+    # finishing: strands hang from small log knots (leaves cannot support a lantern or a vine), moss on the roots
+    chain = state("minecraft:chain", axis="y", waterlogged="false")
     for (x, y, z), blk in list(s.blocks.items()):
         if blk == LEAVES:
             below = (x, y - 1, z)
             r = hole(x + 5, y, z + seed)
-            if below not in s.blocks:
-                if r < 4:
-                    s.put(*below, state("minecraft:lantern", hanging="true", waterlogged="false"))
-                elif r < 12:
-                    for n in range(rnd.randint(2, 6)):
-                        if (x, y - 1 - n, z) in s.blocks:
+            if below not in s.blocks and y > 20:
+                if r < 3:                                   # a chain and a lantern
+                    s.put(x, y, z, log("y"))
+                    n = rnd.randint(1, 3)
+                    for k in range(n):
+                        s.put(x, y - 1 - k, z, chain)
+                    s.put(x, y - 1 - n, z, state("minecraft:lantern", hanging="true", waterlogged="false"))
+                elif r < 11:                                # a curtain of vines
+                    s.put(x, y, z, log("y"))
+                    for k in range(rnd.randint(3, 8)):
+                        if (x, y - 1 - k, z) in s.blocks:
                             break
-                        s.put(x, y - 1 - n, z, state("minecraft:vine", up="true", north="false", south="false", east="false", west="false"))
+                        s.put(x, y - 1 - k, z, state("minecraft:vine", up="true", north="false", south="false", east="false", west="false"))
             elif r > 98:
                 s.put(x, y, z, state("minecraft:shroomlight"))
         elif blk[0] == "asgard:yggdrasil_log" and y <= 26 and (x, y + 1, z) not in s.blocks and hole(x, y, z + 3) < 30:
