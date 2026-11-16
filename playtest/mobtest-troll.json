@@ -1,0 +1,22 @@
+{
+  "mob": "asgard:troll",
+  "world_ground": -58,
+  "health": 70.0,
+  "speed_attribute": 0.2,
+  "scale": 1.5,
+  "follow_range": 35.0,
+  "hostile": true,
+  "reach_distance": 12,
+  "reach_seconds": null,
+  "approach_blocks_per_second": 0.0,
+  "mob_effects_seen": [],
+  "player_health_before": 200.0,
+  "first_hit_damage": 3.0,
+  "player_health_after_8s": 180.0,
+  "effects_on_player": [],
+  "drops": [
+    "asgard:rune_stone x4",
+    "minecraft:rotten_flesh x2",
+    "minecraft:cobblestone x6"
+  ]
+}
