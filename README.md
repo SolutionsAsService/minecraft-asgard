@@ -24,12 +24,18 @@ Version 0.3 starts the [expansion design](design/expand.md) (Phase 1):
 - **Five more divine potions** (Freyr's Blessing, Tyr's Courage, Idunn's Elixir, Mimir's Knowledge, Yggdrasil's Essence),
   Yggdrasil Sap, Sacred Root, Heartwood, Ancient Bark and Golden World Tree Leaves, with crafting recipes.
 
-Version 0.4 adds the first creatures (Phase 2): the **Draugr** (an undead Norse warrior that never burns), the **Troll**
-(large, hits hard, and turns to stone in daylight) and **Odin's Raven** (a tameable black bird). They reuse the zombie and
-parrot models with their own skins, spawn naturally in taiga, forest and mountain biomes and in the shrines and Yggdrasil, drop
-runes, bones and feathers, and have spawn eggs and advancements. Not yet built: Ratatoskr, other beasts, bosses.
+Version 0.5 gives every creature its own model and adds four more (Phase 2). Seven creatures, each a hand-built model of 20 to 45 parts
+with a painted texture: the **Draugr** (an undead warrior in an iron cap, with sword and shield, never burns), the **Draugr
+Lord** (horned helm, greataxe, weakening blows, rages when hurt), the **Troll** (stooped, tusked, stone on its back; hits hard and turns
+to stone in daylight), the **Jötunn** (a frost giant with an ice hammer; slows you and stamps), the **Warg** (a big black wolf that hunts
+in packs at night and pounces), **Fenrir, the Bound Wolf** (a huge boss wolf trailing broken chains, with a boss bar; he charges, stamps
+and rages) and **Odin's Raven** (a tameable black bird with a folding wing). The six that walk are data in `mobs/*.json`, written by
+`tools/gen_models.py` and generated into `src/main/java/.../mobs` by `shadw-mod mob . gen`; the raven stays a hand-written parrot and
+takes only its model from the tool. They spawn naturally in taiga, forest, mountain and snowy biomes, drop runes, bones and more
+(Fenrir drops diamonds and netherite scrap), and have spawn eggs and advancements. Not yet built: Ratatoskr, Nidhogg, Sleipnir,
+Valkyries, Surtr and Hel, and Fenrir's underground prison.
 
-Not yet built from the design: creatures, the Nine Realms, bosses and events, armour, rune magic, the three wells.
+Not yet built from the design: the remaining creatures, the Nine Realms, bosses and events, armour, rune magic, the three wells.
 
 Status: the mod builds and loads on a 1.21.4 Fabric server; all three structures generate with `/place structure`;
 the icons and structures show in a real client. Using the relics, brewing, and natural spawning in a fresh survival world

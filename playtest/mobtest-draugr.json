@@ -8,14 +8,15 @@
   "hostile": true,
   "reach_distance": 12,
   "reach_seconds": 6.0,
-  "approach_blocks_per_second": 1.87,
+  "approach_blocks_per_second": 1.88,
   "mob_effects_seen": [],
   "player_health_before": 200.0,
   "first_hit_damage": 3.5,
   "player_health_after_8s": 175.33334,
   "effects_on_player": [],
   "drops": [
-    "asgard:rune_stone x1",
+    "minecraft:rotten_flesh x2",
+    "minecraft:bone x1",
     "minecraft:iron_nugget x3"
   ]
 }

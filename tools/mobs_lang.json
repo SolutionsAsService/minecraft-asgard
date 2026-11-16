@@ -1,0 +1,16 @@
+{
+  "entity.asgard.draugr": "Draugr",
+  "item.asgard.draugr_spawn_egg": "Draugr Spawn Egg",
+  "entity.asgard.draugr_lord": "Draugr Lord",
+  "item.asgard.draugr_lord_spawn_egg": "Draugr Lord Spawn Egg",
+  "entity.asgard.fenrir": "Fenrir, the Bound Wolf",
+  "item.asgard.fenrir_spawn_egg": "Fenrir, the Bound Wolf Spawn Egg",
+  "entity.asgard.jotunn": "Jötunn",
+  "item.asgard.jotunn_spawn_egg": "Jötunn Spawn Egg",
+  "entity.asgard.raven": "Raven",
+  "item.asgard.raven_spawn_egg": "Raven Spawn Egg",
+  "entity.asgard.troll": "Troll",
+  "item.asgard.troll_spawn_egg": "Troll Spawn Egg",
+  "entity.asgard.warg": "Warg",
+  "item.asgard.warg_spawn_egg": "Warg Spawn Egg"
+}

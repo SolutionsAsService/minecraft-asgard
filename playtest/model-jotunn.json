@@ -1,0 +1,86 @@
+{
+  "out": "playtest/models",
+  "settle": 8,
+  "steps": [
+    {
+      "tp": [
+        0,
+        "G+0.08",
+        -12.6,
+        180,
+        6
+      ],
+      "capture": "jotunn-front",
+      "wait": 6
+    },
+    {
+      "tp": [
+        5.18,
+        "G+0.08",
+        -14.82,
+        145,
+        6
+      ],
+      "capture": "jotunn-three-quarter",
+      "wait": 6
+    },
+    {
+      "tp": [
+        7.4,
+        "G+0.08",
+        -20,
+        90,
+        6
+      ],
+      "capture": "jotunn-side",
+      "wait": 6
+    },
+    {
+      "tp": [
+        0,
+        "G+0.08",
+        -27.4,
+        0,
+        6
+      ],
+      "capture": "jotunn-back",
+      "wait": 6
+    },
+    {
+      "tp": [
+        0,
+        "G+1.38",
+        -16.6,
+        180,
+        0
+      ],
+      "capture": "jotunn-face",
+      "wait": 6
+    },
+    {
+      "tp": [
+        2.72,
+        "G+1.38",
+        -17.62,
+        153,
+        0
+      ],
+      "capture": "jotunn-face-side",
+      "wait": 6
+    }
+  ],
+  "setup": [
+    "forceload add -20 -40 20 0",
+    "kill @e[type=slime]",
+    "gamerule doMobSpawning false",
+    "kill @e[type=asgard:draugr]",
+    "kill @e[type=asgard:draugr_lord]",
+    "kill @e[type=asgard:troll]",
+    "kill @e[type=asgard:jotunn]",
+    "kill @e[type=asgard:warg]",
+    "kill @e[type=asgard:fenrir]",
+    "kill @e[type=asgard:raven]",
+    "kill @e[type=item]",
+    "summon asgard:jotunn 0 $G -20 {NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}"
+  ]
+}

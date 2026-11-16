@@ -1,0 +1,24 @@
+{
+  "mob": "asgard:jotunn",
+  "world_ground": -58,
+  "health": 140.0,
+  "speed_attribute": 0.19,
+  "scale": 1.6,
+  "follow_range": 40.0,
+  "hostile": true,
+  "reach_distance": 12,
+  "reach_seconds": 7.0,
+  "approach_blocks_per_second": 1.54,
+  "mob_effects_seen": [],
+  "player_health_before": 200.0,
+  "first_hit_damage": 7.0,
+  "player_health_after_8s": 185.5,
+  "effects_on_player": [
+    "minecraft:slowness"
+  ],
+  "drops": [
+    "minecraft:bone x1",
+    "minecraft:packed_ice x1",
+    "minecraft:ice x3"
+  ]
+}

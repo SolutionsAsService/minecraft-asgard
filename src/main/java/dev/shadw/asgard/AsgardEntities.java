@@ -18,22 +18,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
 
-/** The creatures: the draugr, the troll and Odin's raven, each with a spawn egg and natural spawns. */
+/** Odin's raven, a hand-written Parrot (it flies and can be tamed). Every other creature is defined in mobs/*.json and generated into the mobs package. */
 public final class AsgardEntities {
-	public static final EntityType<Draugr> DRAUGR = register("draugr", FabricEntityType.Builder.createMob(Draugr::new, MobCategory.MONSTER,
-			b -> b.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules)
-					.defaultAttributes(Draugr::createAttributes)).sized(0.6F, 1.95F).clientTrackingRange(8));
-
-	public static final EntityType<Troll> TROLL = register("troll", FabricEntityType.Builder.createMob(Troll::new, MobCategory.MONSTER,
-			b -> b.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules)
-					.defaultAttributes(Troll::createAttributes)).sized(0.6F, 1.95F).clientTrackingRange(10));
-
 	public static final EntityType<Raven> RAVEN = register("raven", FabricEntityType.Builder.createMob(Raven::new, MobCategory.CREATURE,
 			b -> b.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Animal::checkAnimalSpawnRules)
 					.defaultAttributes(Raven::createAttributes)).sized(0.5F, 0.9F).clientTrackingRange(8));
 
-	public static final Item DRAUGR_SPAWN_EGG = egg("draugr_spawn_egg", DRAUGR);
-	public static final Item TROLL_SPAWN_EGG = egg("troll_spawn_egg", TROLL);
 	public static final Item RAVEN_SPAWN_EGG = egg("raven_spawn_egg", RAVEN);
 
 	private AsgardEntities() {}
@@ -50,10 +40,6 @@ public final class AsgardEntities {
 
 	/** Registers the entity types and their natural spawns. */
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_TAIGA).or(BiomeSelectors.tag(BiomeTags.IS_FOREST))
-				.or(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)), MobCategory.MONSTER, DRAUGR, 14, 1, 3);
-		BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN).or(BiomeSelectors.tag(BiomeTags.IS_TAIGA)),
-				MobCategory.MONSTER, TROLL, 4, 1, 1);
 		BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_TAIGA).or(BiomeSelectors.tag(BiomeTags.IS_FOREST))
 				.or(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)), MobCategory.CREATURE, RAVEN, 6, 2, 4);
 	}

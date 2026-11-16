@@ -1,0 +1,26 @@
+{
+  "mob": "asgard:fenrir",
+  "world_ground": -58,
+  "health": 320.0,
+  "speed_attribute": 0.27,
+  "scale": 2.4,
+  "follow_range": 48.0,
+  "hostile": true,
+  "reach_distance": 12,
+  "reach_seconds": 3.0,
+  "approach_blocks_per_second": 3.63,
+  "mob_effects_seen": [
+    "minecraft:speed"
+  ],
+  "player_health_before": 200.0,
+  "first_hit_damage": 8.0,
+  "player_health_after_8s": 162.0,
+  "effects_on_player": [],
+  "drops": [
+    "minecraft:diamond x3",
+    "asgard:rune_stone x5",
+    "asgard:yggdrasil_sap x4",
+    "minecraft:netherite_scrap x1",
+    "minecraft:bone x8"
+  ]
+}

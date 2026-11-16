@@ -231,3 +231,25 @@ palette, type and hall are unchanged).
 spawning are untested; the `/locate` check failed for the structures and for a vanilla village alike, so it proved
 nothing; the captures use a flat test world and `/place template` for framing; light mode and the pixel font stay
 deferred. Layout measured with Playwright at 1280 by 800 and 375 by 812: no horizontal scroll on the three pages.
+
+
+## Run 3: Extend (every creature gets its own model; four more creatures)
+
+**Brief:** give the Draugr, Troll and Raven the same model treatment as the Olympia and Khemet creatures, and add more creatures from the
+design list, a big wolf for sure. Mode: Adaptive. Run type: Extend (the site's system is unchanged; the Creatures page grows).
+
+**Moves**
+- X1: the three existing creatures were rebuilt on the shared model system (`tools/gen_models.py`): the draugr (iron cap, nose guard, braided beard,
+  mail, shield, sword), the troll (stooped, long arms, tusks, stone and moss, club) and the raven (a model-only "external" creature: its hand-written
+  parrot class stays, the generator writes only its model, texture, egg, loot and language).
+- X2: four new creatures: Draugr Lord, Jötunn (frost giant), Warg (a big wolf) and Fenrir (the boss wolf), the last two on a new quadruped builder
+  (`Rig.quadruped`) in the shared figure kit.
+- X3: the Creatures page is read from `mobs/*.json`; the pictures are composed from the six-angle photographs (`tools/creature_shots.py`).
+
+**Found by looking at the photographs, not by a panel:** the first wolf stood on stilts with its head high (leg and neck angles), the sword and club hung
+toward the ground (the held-item rotation was added to the arm's instead of opposing it), and the first raven fold hung its wings straight down like legs.
+Each was fixed and photographed again.
+
+**Not done, stated plainly:** no critic panel was run; the animation was checked in still photographs only (the raven's flight beat was not photographed);
+nothing was hand-played; each mobtest is a single run (a first batch gave empty reach times for the warg and the draugr lord that a repeat did not, so
+the table uses the repeats); natural spawning, the troll's daylight rule over a full day, and the advancements were not watched.

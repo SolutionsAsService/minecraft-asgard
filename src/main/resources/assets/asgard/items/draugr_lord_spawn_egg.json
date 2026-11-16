@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "asgard:item/draugr_lord_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 4873818
+      },
+      {
+        "type": "minecraft:constant",
+        "value": 14200880
+      }
+    ]
+  }
+}

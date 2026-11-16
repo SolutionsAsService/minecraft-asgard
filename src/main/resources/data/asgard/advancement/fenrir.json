@@ -1,0 +1,34 @@
+{
+  "parent": "asgard:tyr_shrine",
+  "display": {
+    "icon": {
+      "id": "minecraft:chain"
+    },
+    "title": {
+      "text": "The Bound Wolf"
+    },
+    "description": {
+      "text": "Kill Fenrir, who bit off Tyr's hand and broke Gleipnir."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "asgard:fenrir"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

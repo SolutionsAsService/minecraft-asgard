@@ -1,0 +1,1426 @@
+{
+  "id": "draugr",
+  "name": "Draugr",
+  "base": "zombie",
+  "hostile": true,
+  "attributes": {
+    "health": 34,
+    "damage": 5,
+    "armor": 6,
+    "speed": 0.21,
+    "knockback_resistance": 0.3
+  },
+  "flags": {
+    "sun_sensitive": false,
+    "converts_in_water": false,
+    "baby": false,
+    "reinforcements": false
+  },
+  "behaviours": [],
+  "spawn": {
+    "biomes": [
+      "minecraft:taiga",
+      "minecraft:old_growth_pine_taiga",
+      "minecraft:old_growth_spruce_taiga",
+      "minecraft:snowy_taiga",
+      "minecraft:forest",
+      "minecraft:birch_forest",
+      "minecraft:windswept_hills",
+      "minecraft:windswept_forest",
+      "minecraft:jagged_peaks",
+      "minecraft:stony_peaks",
+      "minecraft:frozen_peaks",
+      "minecraft:snowy_slopes",
+      "minecraft:grove"
+    ],
+    "weight": 14,
+    "min": 1,
+    "max": 3
+  },
+  "drops": [
+    {
+      "item": "minecraft:bone",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "item": "minecraft:rotten_flesh",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "item": "minecraft:iron_nugget",
+      "min": 1,
+      "max": 4
+    },
+    {
+      "item": "asgard:rune_stone",
+      "min": 1,
+      "max": 2,
+      "chance": 0.25
+    },
+    {
+      "item": "asgard:yggdrasil_sap",
+      "min": 1,
+      "max": 1,
+      "chance": 0.08
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "min": 1,
+      "max": 1,
+      "chance": 0.12
+    }
+  ],
+  "egg": [
+    "#68807a",
+    "#8a8e96"
+  ],
+  "tests": {
+    "reach_distance": 12,
+    "reach_max_seconds": 25
+  },
+  "model": {
+    "shadow": 0.55,
+    "paints": {
+      "dead": {
+        "type": "skin",
+        "base": "#6a827c",
+        "shade": 6
+      },
+      "dead_dark": {
+        "type": "skin",
+        "base": "#4a5e5a",
+        "shade": 5
+      },
+      "tunic": {
+        "type": "cloth",
+        "base": "#5a402c",
+        "trim": "#34261a"
+      },
+      "tunic_blue": {
+        "type": "cloth",
+        "base": "#2c3c58",
+        "trim": "#18223a"
+      },
+      "pelt": {
+        "type": "fur",
+        "base": "#a89e88",
+        "dark": "#6a6250",
+        "light": "#d8d0bc"
+      },
+      "beard": {
+        "type": "fur",
+        "base": "#b8b0a0",
+        "dark": "#7a7262",
+        "light": "#e8e4d8"
+      },
+      "iron": {
+        "type": "metal",
+        "base": "#8a8e96",
+        "dark": "#4a4e56",
+        "light": "#d0d4dc"
+      },
+      "rust": {
+        "type": "ridged",
+        "base": "#96644a",
+        "dark": "#5a3a28",
+        "light": "#b88664"
+      },
+      "mail": {
+        "type": "scales",
+        "base": "#6a6e76",
+        "dark": "#34383e",
+        "light": "#a8acb4",
+        "cell": 3
+      },
+      "leather": {
+        "type": "cloth",
+        "base": "#3a2a1e",
+        "trim": "#24180e"
+      },
+      "bone": {
+        "type": "plain",
+        "base": "#e6dfc8"
+      },
+      "wood": {
+        "type": "ridged",
+        "base": "#7a5a34",
+        "dark": "#4a3418",
+        "light": "#9a7a4a"
+      },
+      "ice_eye": {
+        "type": "plain",
+        "base": "#8ae8ff"
+      },
+      "gold": {
+        "type": "metal",
+        "base": "#d8b030",
+        "dark": "#80640e",
+        "light": "#fff0a0"
+      },
+      "cape": {
+        "type": "cloth",
+        "base": "#6a1c20",
+        "trim": "#2c0a0c"
+      },
+      "troll": {
+        "type": "skin",
+        "base": "#5c7654",
+        "shade": 7
+      },
+      "troll_dark": {
+        "type": "skin",
+        "base": "#44583e",
+        "shade": 5
+      },
+      "stone": {
+        "type": "ridged",
+        "base": "#7c7e7a",
+        "dark": "#4a4c48",
+        "light": "#a8aaa4"
+      },
+      "moss": {
+        "type": "fur",
+        "base": "#486a32",
+        "dark": "#2a4018",
+        "light": "#78a050"
+      },
+      "hide": {
+        "type": "cloth",
+        "base": "#6e5034",
+        "trim": "#3e2c1a"
+      },
+      "tusk": {
+        "type": "plain",
+        "base": "#ece4cc"
+      },
+      "eye_amber": {
+        "type": "plain",
+        "base": "#ffc830"
+      },
+      "warg": {
+        "type": "fur",
+        "base": "#3e3a38",
+        "dark": "#1a1816",
+        "light": "#6e675e"
+      },
+      "warg_belly": {
+        "type": "fur",
+        "base": "#625a50",
+        "dark": "#3a342c",
+        "light": "#8a8070"
+      },
+      "warg_mane": {
+        "type": "fur",
+        "base": "#26221f",
+        "dark": "#0e0c0b",
+        "light": "#554e46"
+      },
+      "nose": {
+        "type": "plain",
+        "base": "#0e0e10"
+      },
+      "fenrir": {
+        "type": "fur",
+        "base": "#7a8088",
+        "dark": "#2c3038",
+        "light": "#c4ccd4"
+      },
+      "fenrir_belly": {
+        "type": "fur",
+        "base": "#a8b0b8",
+        "dark": "#6a727a",
+        "light": "#e0e6ec"
+      },
+      "fenrir_mane": {
+        "type": "fur",
+        "base": "#c8d0d8",
+        "dark": "#7c848c",
+        "light": "#f4f8fc"
+      },
+      "chain": {
+        "type": "metal",
+        "base": "#5a5e66",
+        "dark": "#24262c",
+        "light": "#9ea2aa"
+      },
+      "ember": {
+        "type": "plain",
+        "base": "#ff4a30"
+      },
+      "rune": {
+        "type": "plain",
+        "base": "#ff7a30"
+      },
+      "scar": {
+        "type": "skin",
+        "base": "#5a3238",
+        "shade": 3
+      },
+      "frost": {
+        "type": "skin",
+        "base": "#a6c4dc",
+        "shade": 5
+      },
+      "frost_dark": {
+        "type": "skin",
+        "base": "#6e92b4",
+        "shade": 4
+      },
+      "ice": {
+        "type": "metal",
+        "base": "#bcdcf0",
+        "dark": "#5a86b0",
+        "light": "#f2faff"
+      },
+      "snowpelt": {
+        "type": "fur",
+        "base": "#e8eef4",
+        "dark": "#a8b8c8",
+        "light": "#ffffff"
+      },
+      "frost_cloth": {
+        "type": "cloth",
+        "base": "#3a5a82",
+        "trim": "#1c2e4a"
+      },
+      "frost_eye": {
+        "type": "plain",
+        "base": "#e8f8ff"
+      },
+      "raven": {
+        "type": "skin",
+        "base": "#14161e",
+        "shade": 3
+      },
+      "raven_sheen": {
+        "type": "skin",
+        "base": "#222a44",
+        "shade": 4
+      },
+      "raven_wing": {
+        "type": "ridged",
+        "base": "#171a26",
+        "dark": "#0c0d14",
+        "light": "#2c3558"
+      },
+      "beak": {
+        "type": "plain",
+        "base": "#2a2a30"
+      },
+      "beak_light": {
+        "type": "plain",
+        "base": "#4a4a52"
+      },
+      "claw": {
+        "type": "plain",
+        "base": "#3a3438"
+      },
+      "raven_eye": {
+        "type": "plain",
+        "base": "#e8e8f0"
+      }
+    },
+    "parts": [
+      {
+        "name": "pelvis",
+        "parent": "root",
+        "pivot": [
+          0,
+          -12,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -3.5,
+              -1,
+              -2.0
+            ],
+            "size": [
+              7,
+              3,
+              4
+            ],
+            "grow": 0,
+            "paint": "leather"
+          }
+        ]
+      },
+      {
+        "name": "body",
+        "parent": "root",
+        "pivot": [
+          0,
+          -12,
+          0
+        ],
+        "rot": [
+          7,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -3.0,
+              -5,
+              -1.5
+            ],
+            "size": [
+              6,
+              5,
+              3
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          },
+          {
+            "from": [
+              -3.2,
+              -2.2,
+              -1.7
+            ],
+            "size": [
+              6.4,
+              1.2,
+              3.4
+            ],
+            "grow": 0.3,
+            "paint": "leather"
+          }
+        ]
+      },
+      {
+        "name": "chest",
+        "parent": "body",
+        "pivot": [
+          0,
+          -5,
+          0
+        ],
+        "rot": [
+          -3.5,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -4.0,
+              -7,
+              -2.0
+            ],
+            "size": [
+              8,
+              7,
+              4
+            ],
+            "grow": 0,
+            "paint": "mail"
+          },
+          {
+            "from": [
+              -3.8,
+              -6.2,
+              -2.4
+            ],
+            "size": [
+              2.2,
+              3,
+              0.6
+            ],
+            "grow": 0.0,
+            "paint": "dead_dark"
+          },
+          {
+            "from": [
+              -4.6,
+              -7.2,
+              -2.6
+            ],
+            "size": [
+              9.2,
+              1.6,
+              5.2
+            ],
+            "grow": 0,
+            "paint": "pelt"
+          }
+        ]
+      },
+      {
+        "name": "neck",
+        "parent": "chest",
+        "pivot": [
+          0,
+          -7,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              -1,
+              -1.5
+            ],
+            "size": [
+              3,
+              2,
+              3
+            ],
+            "grow": 0,
+            "paint": "dead"
+          }
+        ]
+      },
+      {
+        "name": "head",
+        "parent": "neck",
+        "pivot": [
+          0,
+          -1,
+          0
+        ],
+        "rot": [
+          -7,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -4.0,
+              -6,
+              -4.0
+            ],
+            "size": [
+              8,
+              6,
+              8
+            ],
+            "grow": 0,
+            "paint": "dead",
+            "decals": [
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 1,
+                "y": 2,
+                "w": 2,
+                "h": 1,
+                "color": "#101820"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 5,
+                "y": 2,
+                "w": 2,
+                "h": 1,
+                "color": "#101820"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 1,
+                "y": 3,
+                "w": 2,
+                "h": 1,
+                "color": "#8ae8ff"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 5,
+                "y": 3,
+                "w": 2,
+                "h": 1,
+                "color": "#8ae8ff"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 2,
+                "y": 5,
+                "w": 4,
+                "h": 1,
+                "color": "#2a1c1c"
+              }
+            ]
+          },
+          {
+            "from": [
+              -3.0,
+              0,
+              -3.0
+            ],
+            "size": [
+              6,
+              2,
+              6
+            ],
+            "grow": 0,
+            "paint": "dead"
+          },
+          {
+            "from": [
+              -4.2,
+              -6.6,
+              -4.2
+            ],
+            "size": [
+              8.4,
+              3.4,
+              8.4
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              -4.35,
+              -3.4,
+              -4.35
+            ],
+            "size": [
+              8.7,
+              0.9,
+              8.7
+            ],
+            "grow": 0,
+            "paint": "rust"
+          },
+          {
+            "from": [
+              -0.5,
+              -3.2,
+              -4.7
+            ],
+            "size": [
+              1,
+              3.4,
+              0.9
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              -4.3,
+              -2.8,
+              -2.5
+            ],
+            "size": [
+              0.8,
+              3.2,
+              3.6
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              3.5,
+              -2.8,
+              -2.5
+            ],
+            "size": [
+              0.8,
+              3.2,
+              3.6
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              -3.2,
+              1.2,
+              -4.5
+            ],
+            "size": [
+              6.4,
+              3.8,
+              1.2
+            ],
+            "grow": 0,
+            "paint": "beard"
+          },
+          {
+            "from": [
+              -2.4,
+              3.6,
+              -4.2
+            ],
+            "size": [
+              4.8,
+              2.4,
+              1.0
+            ],
+            "grow": 0.0,
+            "paint": "beard"
+          },
+          {
+            "from": [
+              -0.8,
+              5.4,
+              -4.0
+            ],
+            "size": [
+              1.6,
+              2.0,
+              0.8
+            ],
+            "grow": 0,
+            "paint": "beard"
+          }
+        ]
+      },
+      {
+        "name": "arm_l",
+        "parent": "chest",
+        "pivot": [
+          5.5,
+          -5,
+          0
+        ],
+        "rot": [
+          -40,
+          0,
+          6
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.5,
+              -2.5,
+              -2.5
+            ],
+            "size": [
+              5,
+              3,
+              5
+            ],
+            "grow": 0.1,
+            "paint": "leather"
+          },
+          {
+            "from": [
+              -1.5,
+              -0.5,
+              -1.5
+            ],
+            "size": [
+              3,
+              5,
+              3
+            ],
+            "grow": 0,
+            "paint": "dead_dark"
+          }
+        ]
+      },
+      {
+        "name": "forearm_l",
+        "parent": "arm_l",
+        "pivot": [
+          0,
+          4.5,
+          0
+        ],
+        "rot": [
+          -30,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3,
+              5,
+              3
+            ],
+            "grow": 0,
+            "paint": "dead_dark"
+          },
+          {
+            "from": [
+              -1.5,
+              1,
+              -1.5
+            ],
+            "size": [
+              3,
+              2,
+              3
+            ],
+            "grow": 0.35,
+            "paint": "leather"
+          }
+        ]
+      },
+      {
+        "name": "hand_l",
+        "parent": "forearm_l",
+        "pivot": [
+          0,
+          5,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3,
+              2,
+              3
+            ],
+            "grow": 0.1,
+            "paint": "dead"
+          }
+        ]
+      },
+      {
+        "name": "leg_l",
+        "parent": "root",
+        "pivot": [
+          2.8,
+          -12,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              0,
+              -2.0
+            ],
+            "size": [
+              4,
+              6,
+              4
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          }
+        ]
+      },
+      {
+        "name": "shin_l",
+        "parent": "leg_l",
+        "pivot": [
+          0,
+          6,
+          0
+        ],
+        "rot": [
+          4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3,
+              4,
+              3
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          },
+          {
+            "from": [
+              -1.5,
+              0.5,
+              -2.0
+            ],
+            "size": [
+              3,
+              2,
+              1
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          }
+        ]
+      },
+      {
+        "name": "foot_l",
+        "parent": "shin_l",
+        "pivot": [
+          0,
+          4,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              0,
+              -3.5
+            ],
+            "size": [
+              4,
+              2,
+              5.5
+            ],
+            "grow": 0,
+            "paint": "leather"
+          }
+        ]
+      },
+      {
+        "name": "arm_r",
+        "parent": "chest",
+        "pivot": [
+          -5.5,
+          -5,
+          0
+        ],
+        "rot": [
+          -62,
+          0,
+          -6
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.5,
+              -2.5,
+              -2.5
+            ],
+            "size": [
+              5,
+              3,
+              5
+            ],
+            "grow": 0.1,
+            "paint": "leather"
+          },
+          {
+            "from": [
+              -1.5,
+              -0.5,
+              -1.5
+            ],
+            "size": [
+              3,
+              5,
+              3
+            ],
+            "grow": 0,
+            "paint": "dead_dark"
+          }
+        ]
+      },
+      {
+        "name": "forearm_r",
+        "parent": "arm_r",
+        "pivot": [
+          0,
+          4.5,
+          0
+        ],
+        "rot": [
+          -18,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3,
+              5,
+              3
+            ],
+            "grow": 0,
+            "paint": "dead_dark"
+          },
+          {
+            "from": [
+              -1.5,
+              1,
+              -1.5
+            ],
+            "size": [
+              3,
+              2,
+              3
+            ],
+            "grow": 0.35,
+            "paint": "leather"
+          }
+        ]
+      },
+      {
+        "name": "hand_r",
+        "parent": "forearm_r",
+        "pivot": [
+          0,
+          5,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3,
+              2,
+              3
+            ],
+            "grow": 0.1,
+            "paint": "dead"
+          }
+        ]
+      },
+      {
+        "name": "leg_r",
+        "parent": "root",
+        "pivot": [
+          -2.8,
+          -12,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              0,
+              -2.0
+            ],
+            "size": [
+              4,
+              6,
+              4
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          }
+        ]
+      },
+      {
+        "name": "shin_r",
+        "parent": "leg_r",
+        "pivot": [
+          0,
+          6,
+          0
+        ],
+        "rot": [
+          4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3,
+              4,
+              3
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          },
+          {
+            "from": [
+              -1.5,
+              0.5,
+              -2.0
+            ],
+            "size": [
+              3,
+              2,
+              1
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          }
+        ]
+      },
+      {
+        "name": "foot_r",
+        "parent": "shin_r",
+        "pivot": [
+          0,
+          4,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              0,
+              -3.5
+            ],
+            "size": [
+              4,
+              2,
+              5.5
+            ],
+            "grow": 0,
+            "paint": "leather"
+          }
+        ]
+      },
+      {
+        "name": "cape",
+        "parent": "chest",
+        "pivot": [
+          0,
+          -6.4,
+          2.4
+        ],
+        "rot": [
+          8,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -4.2,
+              0,
+              0
+            ],
+            "size": [
+              8.4,
+              10,
+              0.8
+            ],
+            "grow": 0,
+            "paint": "tunic_blue"
+          }
+        ]
+      },
+      {
+        "name": "sword",
+        "parent": "hand_r",
+        "pivot": [
+          0,
+          1.2,
+          -1
+        ],
+        "rot": [
+          -84,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -0.6,
+              -1,
+              -0.6
+            ],
+            "size": [
+              1.2,
+              4,
+              1.2
+            ],
+            "grow": 0.3,
+            "paint": "leather"
+          },
+          {
+            "from": [
+              -2.2,
+              2.6,
+              -0.6
+            ],
+            "size": [
+              4.4,
+              0.9,
+              1.2
+            ],
+            "grow": 0,
+            "paint": "rust"
+          },
+          {
+            "from": [
+              -0.7,
+              3.4,
+              -0.4
+            ],
+            "size": [
+              1.4,
+              14,
+              0.8
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              -0.5,
+              17.2,
+              -0.35
+            ],
+            "size": [
+              1.0,
+              2,
+              0.7
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              -0.5,
+              5,
+              -0.5
+            ],
+            "size": [
+              1.0,
+              5,
+              1.0
+            ],
+            "grow": 0.0,
+            "paint": "rust"
+          }
+        ]
+      },
+      {
+        "name": "shield",
+        "parent": "forearm_l",
+        "pivot": [
+          -3.2,
+          2.6,
+          0
+        ],
+        "rot": [
+          0,
+          90,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -3.6,
+              -3.6,
+              -0.6
+            ],
+            "size": [
+              7.2,
+              7.2,
+              1.2
+            ],
+            "grow": 0,
+            "paint": "wood"
+          },
+          {
+            "from": [
+              -1.0,
+              -1.0,
+              -1.4
+            ],
+            "size": [
+              2,
+              2,
+              0.9
+            ],
+            "grow": 0,
+            "paint": "iron"
+          },
+          {
+            "from": [
+              -3.6,
+              -0.5,
+              -0.9
+            ],
+            "size": [
+              7.2,
+              1,
+              0.5
+            ],
+            "grow": 0,
+            "paint": "rust"
+          }
+        ]
+      },
+      {
+        "name": "rag_f",
+        "parent": "body",
+        "pivot": [
+          0,
+          0.5,
+          -1.9
+        ],
+        "rot": [
+          4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.4,
+              0,
+              -0.5
+            ],
+            "size": [
+              4.8,
+              5,
+              0.9
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          }
+        ]
+      },
+      {
+        "name": "rag_b",
+        "parent": "body",
+        "pivot": [
+          0,
+          0.5,
+          1.9
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.4,
+              0,
+              -0.4
+            ],
+            "size": [
+              4.8,
+              6,
+              0.9
+            ],
+            "grow": 0,
+            "paint": "tunic"
+          }
+        ]
+      }
+    ],
+    "anim": [
+      {
+        "part": "head",
+        "type": "look"
+      },
+      {
+        "part": "arm_l",
+        "type": "sway",
+        "axis": "z",
+        "amp": 0.03,
+        "freq": 0.09,
+        "phase": 0
+      },
+      {
+        "part": "leg_l",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8800000000000001,
+        "phase": 3.141592653589793
+      },
+      {
+        "part": "arm_r",
+        "type": "sway",
+        "axis": "z",
+        "amp": 0.03,
+        "freq": 0.09,
+        "phase": 3.141592653589793
+      },
+      {
+        "part": "leg_r",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8800000000000001,
+        "phase": 0
+      },
+      {
+        "part": "cape",
+        "type": "sway",
+        "axis": "x",
+        "amp": 0.06,
+        "freq": 0.08,
+        "walk_amp": 0.25
+      },
+      {
+        "part": "rag_f",
+        "type": "sway",
+        "axis": "x",
+        "amp": 0.05,
+        "freq": 0.1,
+        "walk_amp": 0.2
+      }
+    ]
+  },
+  "skin": {
+    "model": true
+  }
+}

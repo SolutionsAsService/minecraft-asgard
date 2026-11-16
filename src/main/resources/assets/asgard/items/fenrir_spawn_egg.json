@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "asgard:item/fenrir_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 8028296
+      },
+      {
+        "type": "minecraft:constant",
+        "value": 16726560
+      }
+    ]
+  }
+}

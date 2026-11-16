@@ -1,0 +1,86 @@
+{
+  "out": "playtest/models",
+  "settle": 8,
+  "steps": [
+    {
+      "tp": [
+        0,
+        "G+-0.90",
+        -16.4,
+        180,
+        6
+      ],
+      "capture": "warg-front",
+      "wait": 6
+    },
+    {
+      "tp": [
+        2.52,
+        "G+-0.90",
+        -17.48,
+        145,
+        6
+      ],
+      "capture": "warg-three-quarter",
+      "wait": 6
+    },
+    {
+      "tp": [
+        3.6,
+        "G+-0.90",
+        -20,
+        90,
+        6
+      ],
+      "capture": "warg-side",
+      "wait": 6
+    },
+    {
+      "tp": [
+        0,
+        "G+-0.90",
+        -23.6,
+        0,
+        6
+      ],
+      "capture": "warg-back",
+      "wait": 6
+    },
+    {
+      "tp": [
+        0,
+        "G+-0.50",
+        -18.0,
+        180,
+        0
+      ],
+      "capture": "warg-face",
+      "wait": 6
+    },
+    {
+      "tp": [
+        1.6,
+        "G+-0.50",
+        -18.6,
+        153,
+        0
+      ],
+      "capture": "warg-face-side",
+      "wait": 6
+    }
+  ],
+  "setup": [
+    "forceload add -20 -40 20 0",
+    "kill @e[type=slime]",
+    "gamerule doMobSpawning false",
+    "kill @e[type=asgard:draugr]",
+    "kill @e[type=asgard:draugr_lord]",
+    "kill @e[type=asgard:troll]",
+    "kill @e[type=asgard:jotunn]",
+    "kill @e[type=asgard:warg]",
+    "kill @e[type=asgard:fenrir]",
+    "kill @e[type=asgard:raven]",
+    "kill @e[type=item]",
+    "summon asgard:warg 0 $G -20 {NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}"
+  ]
+}

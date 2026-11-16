@@ -1,0 +1,86 @@
+{
+  "out": "playtest/models",
+  "settle": 8,
+  "steps": [
+    {
+      "tp": [
+        0,
+        "G+0.08",
+        -11.5,
+        180,
+        6
+      ],
+      "capture": "fenrir-front",
+      "wait": 6
+    },
+    {
+      "tp": [
+        5.949999999999999,
+        "G+0.08",
+        -14.05,
+        145,
+        6
+      ],
+      "capture": "fenrir-three-quarter",
+      "wait": 6
+    },
+    {
+      "tp": [
+        8.5,
+        "G+0.08",
+        -20,
+        90,
+        6
+      ],
+      "capture": "fenrir-side",
+      "wait": 6
+    },
+    {
+      "tp": [
+        0,
+        "G+0.08",
+        -28.5,
+        0,
+        6
+      ],
+      "capture": "fenrir-back",
+      "wait": 6
+    },
+    {
+      "tp": [
+        0,
+        "G+0.78",
+        -16.0,
+        180,
+        0
+      ],
+      "capture": "fenrir-face",
+      "wait": 6
+    },
+    {
+      "tp": [
+        3.2,
+        "G+0.78",
+        -17.2,
+        153,
+        0
+      ],
+      "capture": "fenrir-face-side",
+      "wait": 6
+    }
+  ],
+  "setup": [
+    "forceload add -20 -40 20 0",
+    "kill @e[type=slime]",
+    "gamerule doMobSpawning false",
+    "kill @e[type=asgard:draugr]",
+    "kill @e[type=asgard:draugr_lord]",
+    "kill @e[type=asgard:troll]",
+    "kill @e[type=asgard:jotunn]",
+    "kill @e[type=asgard:warg]",
+    "kill @e[type=asgard:fenrir]",
+    "kill @e[type=asgard:raven]",
+    "kill @e[type=item]",
+    "summon asgard:fenrir 0 $G -20 {NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}"
+  ]
+}

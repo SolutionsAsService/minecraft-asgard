@@ -91,5 +91,13 @@
   "block.asgard.loki_altar": "Altar of Loki",
   "block.asgard.freyr_altar": "Altar of Freyr",
   "block.asgard.tyr_altar": "Altar of Tyr",
-  "block.asgard.heimdall_altar": "Altar of Heimdall"
+  "block.asgard.heimdall_altar": "Altar of Heimdall",
+  "entity.asgard.draugr_lord": "Draugr Lord",
+  "item.asgard.draugr_lord_spawn_egg": "Draugr Lord Spawn Egg",
+  "entity.asgard.fenrir": "Fenrir, the Bound Wolf",
+  "item.asgard.fenrir_spawn_egg": "Fenrir, the Bound Wolf Spawn Egg",
+  "entity.asgard.jotunn": "Jötunn",
+  "item.asgard.jotunn_spawn_egg": "Jötunn Spawn Egg",
+  "entity.asgard.warg": "Warg",
+  "item.asgard.warg_spawn_egg": "Warg Spawn Egg"
 }
