@@ -587,46 +587,109 @@
                 "face": "front",
                 "type": "rect",
                 "x": 1,
-                "y": 3,
-                "w": 2,
+                "y": 1,
+                "w": 8,
                 "h": 1,
-                "color": "#2a1c10"
+                "color": "#2a3a26"
               },
               {
                 "face": "front",
                 "type": "rect",
-                "x": 6,
-                "y": 3,
-                "w": 2,
-                "h": 1,
-                "color": "#2a1c10"
-              },
-              {
-                "face": "front",
-                "type": "rect",
-                "x": 1,
-                "y": 4,
-                "w": 2,
-                "h": 1,
-                "color": "#ffc830"
-              },
-              {
-                "face": "front",
-                "type": "rect",
-                "x": 6,
-                "y": 4,
-                "w": 2,
-                "h": 1,
-                "color": "#ffc830"
-              },
-              {
-                "face": "front",
-                "type": "rect",
-                "x": 0,
+                "x": 2,
                 "y": 2,
-                "w": 9,
+                "w": 2,
                 "h": 1,
-                "color": "#34462e"
+                "color": "#1a1208"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 2,
+                "y": 3,
+                "w": 2,
+                "h": 1,
+                "color": "#ffc830"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 6,
+                "y": 2,
+                "w": 2,
+                "h": 1,
+                "color": "#1a1208"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 6,
+                "y": 3,
+                "w": 2,
+                "h": 1,
+                "color": "#ffc830"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 3,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "color": "#201000"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 6,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "color": "#201000"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 4,
+                "y": 4,
+                "w": 2,
+                "h": 1,
+                "color": "#344a2e"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 3,
+                "y": 5,
+                "w": 1,
+                "h": 1,
+                "color": "#0e180c"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 6,
+                "y": 5,
+                "w": 1,
+                "h": 1,
+                "color": "#0e180c"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 2,
+                "y": 5,
+                "w": 1,
+                "h": 1,
+                "color": "#3a5234"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 7,
+                "y": 5,
+                "w": 1,
+                "h": 1,
+                "color": "#3a5234"
               }
             ]
           },
@@ -641,8 +704,46 @@
               3.2,
               7.4
             ],
-            "grow": 0,
-            "paint": "troll_dark"
+            "grow": 0.0,
+            "paint": "troll_dark",
+            "decals": [
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 1,
+                "y": 0,
+                "w": 8,
+                "h": 1,
+                "color": "#2a1a16"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 2,
+                "y": 1,
+                "w": 1,
+                "h": 1,
+                "color": "#ece4cc"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 4,
+                "y": 1,
+                "w": 1,
+                "h": 1,
+                "color": "#ece4cc"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 6,
+                "y": 1,
+                "w": 1,
+                "h": 1,
+                "color": "#ece4cc"
+              }
+            ]
           },
           {
             "from": [
@@ -702,14 +803,14 @@
           },
           {
             "from": [
-              -3.6,
-              -1.2,
-              -6.0
+              -3.7,
+              -1.6,
+              -5.9
             ],
             "size": [
-              1.0,
+              1.1,
               2.6,
-              0.9
+              1.0
             ],
             "grow": 0,
             "paint": "tusk"
@@ -717,29 +818,43 @@
           {
             "from": [
               2.6,
-              -1.2,
-              -6.0
+              -1.6,
+              -5.9
             ],
             "size": [
-              1.0,
+              1.1,
               2.6,
-              0.9
+              1.0
             ],
             "grow": 0,
             "paint": "tusk"
           },
           {
             "from": [
-              -3.2,
-              0.6,
-              -5.6
+              -3.4,
+              -2.4,
+              -5.7
             ],
             "size": [
-              6.4,
+              0.7,
               1.0,
               0.8
             ],
-            "grow": 0.0,
+            "grow": 0,
+            "paint": "tusk"
+          },
+          {
+            "from": [
+              2.7,
+              -2.4,
+              -5.7
+            ],
+            "size": [
+              0.7,
+              1.0,
+              0.8
+            ],
+            "grow": 0,
             "paint": "tusk"
           },
           {

@@ -253,3 +253,17 @@ Each was fixed and photographed again.
 **Not done, stated plainly:** no critic panel was run; the animation was checked in still photographs only (the raven's flight beat was not photographed);
 nothing was hand-played; each mobtest is a single run (a first batch gave empty reach times for the warg and the draugr lord that a repeat did not, so
 the table uses the repeats); natural spawning, the troll's daylight rule over a full day, and the advancements were not watched.
+
+
+## Run 4: Polish (2.0: faces and the raven's beak)
+
+**Brief:** clean up the rough details, faces looking off; the models are mostly A minus; the raven's beak is a B. Mode: Adaptive. Run type: Polish (the
+creatures, their behaviour and the page system are frozen; only model details change).
+
+**Found by the face close-ups:** the frost giant's brow box lay in the same plane as its face and hid the eyes, nose and mouth (a blank mask); the draugr cap
+covered its eye rows (a visor with no eyes); the troll's mouth read as a smile because its tusks ran across it; the wolves' eye pixels were on the wrong rows;
+the raven's beak was a straight duck-bill block. The face cameras for wolves and the raven pointed at the belly or the sky (head position is now a parameter).
+**Fixed:** a `face()` helper in the shared kit lays out brow, eyes with a pupil, nose, nostrils, cheek hollows, mouth and teeth on the front of a head box; the
+raven has a deep tapering beak with a ridge, a hooked tip, a finer lower half, nostril bristles and eyes on the side of the head.
+
+**Not done:** animation still checked in stills only; one pass; no panel.

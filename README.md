@@ -24,7 +24,9 @@ Version 0.3 starts the [expansion design](design/expand.md) (Phase 1):
 - **Five more divine potions** (Freyr's Blessing, Tyr's Courage, Idunn's Elixir, Mimir's Knowledge, Yggdrasil's Essence),
   Yggdrasil Sap, Sacred Root, Heartwood, Ancient Bark and Golden World Tree Leaves, with crafting recipes.
 
-Version 0.5 gives every creature its own model and adds four more (Phase 2). Seven creatures, each a hand-built model of 20 to 45 parts
+Version 2.0 is the polish pass on the creature models: faces rebuilt (brow, eyes with pupils, nose, nostrils, cheek hollows, mouths and teeth),
+the draugr cap raised so its eyes show, the frost giant's brow moved off its face, wolf eyes and the raven's beak and eyes redone.
+Version 0.5 gave every creature its own model and adds four more (Phase 2). Seven creatures, each a hand-built model of 20 to 45 parts
 with a painted texture: the **Draugr** (an undead warrior in an iron cap, with sword and shield, never burns), the **Draugr
 Lord** (horned helm, greataxe, weakening blows, rages when hurt), the **Troll** (stooped, tusked, stone on its back; hits hard and turns
 to stone in daylight), the **Jötunn** (a frost giant with an ice hammer; slows you and stamps), the **Warg** (a big black wolf that hunts

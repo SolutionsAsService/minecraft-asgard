@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
-from shadwlib.figure import Rig, box, rect  # noqa: E402
+from shadwlib.figure import Rig, box, rect, face  # noqa: E402
 
 PAINTS = {
     # the dead
@@ -66,31 +66,32 @@ def held(r, hand, name, pivot, rot, boxes):
 
 # ------------------------------------------------------------------ draugr
 def helm(r, w=8, hh=8, d=8, horns=False, crest=False, face="open"):
-    """An iron cap with a nose guard and cheek plates on the standard head (y from -(hh-2) to +2)."""
+    """An iron cap with a rim, a nose guard and cheek plates on the standard head (the face rows run from y = -(hh-2) to 0). The cap stops
+    at the second row so the eyes (rows 3 and 4) stay in the open."""
     top = -hh + 2
-    b = [box((-w / 2 - 0.2, top - 0.6, -d / 2 - 0.2), (w + 0.4, 3.4, d + 0.4), "iron"),
-         box((-w / 2 - 0.35, top + 2.6, -d / 2 - 0.35), (w + 0.7, 0.9, d + 0.7), "rust"),
-         box((-0.5, top + 2.8, -d / 2 - 0.7), (1, 3.4, 0.9), "iron"),
-         box((-w / 2 - 0.3, top + 3.2, -d / 2 + 1.5), (0.8, 3.2, 3.6), "iron"), box((w / 2 - 0.5, top + 3.2, -d / 2 + 1.5), (0.8, 3.2, 3.6), "iron")]
+    b = [box((-w / 2 - 0.2, top - 1.0, -d / 2 - 0.2), (w + 0.4, 2.5, d + 0.4), "iron"),
+         box((-w / 2 - 0.35, top + 1.5, -d / 2 - 0.35), (w + 0.7, 0.8, d + 0.7), "rust"),
+         box((-0.55, top + 2.2, -d / 2 - 0.6), (1.1, 3.6, 0.8), "iron"),
+         box((-w / 2 - 0.3, top + 2.4, -d / 2 + 1.5), (0.8, 3.6, 4.4), "iron"), box((w / 2 - 0.5, top + 2.4, -d / 2 + 1.5), (0.8, 3.6, 4.4), "iron"),
+         box((-w / 2 - 0.2, top - 1.6, -d / 2 - 0.2), (w + 0.4, 0.8, 1.4), "rust"), box((-w / 2 - 0.2, top - 1.6, d / 2 - 1.2), (w + 0.4, 0.8, 1.4), "rust")]
     if crest:
-        b.append(box((-0.6, top - 1.8, -d / 2 + 0.5), (1.2, 1.6, d - 1), "rust"))
+        b.append(box((-0.6, top - 2.6, -d / 2 + 0.5), (1.2, 1.8, d - 1), "rust"))
     return b
 
 
-def draugr_eyes(w=8):
-    return [rect("front", 1, 2, 2, 1, "#101820"), rect("front", w - 3, 2, 2, 1, "#101820"), rect("front", 1, 3, 2, 1, "#8ae8ff"), rect("front", w - 3, 3, 2, 1, "#8ae8ff"),
-            rect("front", 2, 5, 4, 1, "#2a1c1c")]
+def draugr_eyes(w=8, eye="#9aeeff"):
+    return face(w, 6, eye=eye, socket="#0a1016", brow="#34423f", nose="#4a5e5a", cheek="#3a4c48", pupil="#ffffff", eye_row=3, eye_w=2, gap=1)
 
 
 def draugr(lord=False):
     r = Rig(PAINTS)
     big = lord
-    n = r.biped("dead", cloth="leather", head_paint="dead", head=None, head_decals=draugr_eyes(), hip_y=-12, chest=(9, 7, 4.5) if big else (8, 7, 4), waist=(6, 5, 3),
+    n = r.biped("dead", cloth="leather", head_paint="dead", head=None, head_decals=None, hip_y=-12, chest=(9, 7, 4.5) if big else (8, 7, 4), waist=(6, 5, 3),
                 arm_len=(5, 5), stance=-50, arm_pose={"l": ((-40, 0, 6), (-30, 0, 0)), "r": ((-62, 0, -6), (-18, 0, 0))}, swing_arm="r", arm_paint="dead_dark",
                 shin_paint="tunic", thigh_paint="tunic", body_paint="tunic", chest_paint="mail", hunch=7, foot_paint="leather", foot_len=5.5, shoulder=True, walk=0.8)
     # the head: skull, iron cap, nose guard, cheek plates, and a braided beard
     hb = part_of(r, "head")["boxes"]
-    hb[0]["decals"] = draugr_eyes()
+    hb[0]["decals"] = draugr_eyes(eye="#ffb050" if lord else "#9aeeff")
     hb.extend(helm(r, crest=lord, horns=lord))
     hb.append(box((-3.2, 1.2, -4.5), (6.4, 3.8, 1.2), "beard"))
     hb.append(box((-2.4, 3.6, -4.2), (4.8, 2.4, 1.0), "beard", 0.0))
@@ -131,13 +132,11 @@ def troll():
             chest_paint="troll", hunch=26, foot_paint="troll_dark", foot_len=7, shoulder=False, walk=0.9, hands=True)
     # the head: a heavy jaw and brow, a flat nose, an underbite of tusks, small amber eyes, moss and stone
     set_head(r, [
-        box((-4.6, -5.6, -4.8), (9.2, 6.4, 8.6), "troll", 0.0, [rect("front", 1, 3, 2, 1, "#2a1c10"), rect("front", 6, 3, 2, 1, "#2a1c10"), rect("front", 1, 4, 2, 1, "#ffc830"), rect("front", 6, 4, 2, 1, "#ffc830"),
-                                                              rect("front", 0, 2, 9, 1, "#34462e")]),
-        box((-4.2, 0.2, -5.4), (8.4, 3.2, 7.4), "troll_dark"), box((-1.8, -2.2, -6.2), (3.6, 3.0, 1.6), "troll_dark"),
+        box((-4.6, -5.6, -4.8), (9.2, 6.4, 8.6), "troll", 0.0, face(10, 7, eye="#ffc830", socket="#1a1208", brow="#2a3a26", nose="#344a2e", nostril="#0e180c", cheek="#3a5234", pupil="#201000", eye_row=2, eye_w=2, gap=2)),
+        box((-4.2, 0.2, -5.4), (8.4, 3.2, 7.4), "troll_dark", 0.0, [rect("front", 1, 0, 8, 1, "#2a1a16"), rect("front", 2, 1, 1, 1, "#ece4cc"), rect("front", 4, 1, 1, 1, "#ece4cc"), rect("front", 6, 1, 1, 1, "#ece4cc")]), box((-1.8, -2.2, -6.2), (3.6, 3.0, 1.6), "troll_dark"),
         box((-4.9, -3.6, -4.6), (9.8, 1.6, 2.4), "troll_dark"),
         box((-2.6, -6.8, -2.0), (4.6, 1.6, 4.6), "moss"), box((1.4, -6.4, 0.6), (3.0, 1.2, 3.0), "moss"),
-        box((-3.6, -1.2, -6.0), (1.0, 2.6, 0.9), "tusk"), box((2.6, -1.2, -6.0), (1.0, 2.6, 0.9), "tusk"),
-        box((-3.2, 0.6, -5.6), (6.4, 1.0, 0.8), "tusk", 0.0),
+        box((-3.7, -1.6, -5.9), (1.1, 2.6, 1.0), "tusk"), box((2.6, -1.6, -5.9), (1.1, 2.6, 1.0), "tusk"), box((-3.4, -2.4, -5.7), (0.7, 1.0, 0.8), "tusk"), box((2.7, -2.4, -5.7), (0.7, 1.0, 0.8), "tusk"),
         box((-5.4, -3.2, -1.4), (1.4, 2.4, 1.8), "troll"), box((4.0, -3.2, -1.4), (1.4, 2.4, 1.8), "troll"),     # ears
     ])
     # stone growing out of the back, the shoulders and the right forearm; a moss mat across the spine
@@ -164,10 +163,9 @@ def jotunn():
             arm_pose={"l": ((-14, 0, 6), (-26, 0, 0)), "r": ((-30, 0, -6), (-40, 0, 0))}, swing_arm="r", arm_paint="frost", shin_paint="frost_cloth", thigh_paint="frost_cloth", body_paint="frost_cloth",
             chest_paint="frost", hunch=4, foot_paint="leather", foot_len=7, shoulder=True, walk=0.8)
     set_head(r, [
-        box((-4.4, -6.0, -4.4), (8.8, 7.4, 8.4), "frost", 0.0, [rect("front", 1, 3, 2, 1, "#10182a"), rect("front", 6, 3, 2, 1, "#10182a"), rect("front", 1, 4, 2, 1, "#e8f8ff"), rect("front", 6, 4, 2, 1, "#e8f8ff"),
-                                                              rect("front", 0, 2, 9, 1, "#6e92b4")]),
+        box((-4.4, -6.0, -4.4), (8.8, 7.4, 8.4), "frost", 0.0, face(9, 8, eye="#e8f8ff", socket="#14223a", brow="#dce8f2", nose="#8aaecb", nostril="#4a6a8a", cheek="#7aa0c0", pupil="#4a7ab0", eye_row=3, eye_w=2, gap=1)),
         box((-4.0, 1.0, -4.6), (8.0, 3.0, 7.2), "frost_dark"), box((-1.2, -1.8, -5.2), (2.4, 3.0, 1.2), "frost_dark"),
-        box((-4.4, -6.8, -4.4), (8.8, 2.4, 8.6), "snowpelt"), box((-4.8, -4.8, -4.4), (9.6, 2.0, 3.0), "snowpelt"),   # white brow and hair
+        box((-4.4, -6.8, -4.4), (8.8, 2.4, 8.6), "snowpelt"), box((-4.8, -5.4, -4.5), (9.6, 1.3, 2.4), "snowpelt"),   # white brow and hair
         box((-3.6, 1.8, -5.0), (7.2, 4.6, 1.6), "snowpelt"), box((-2.6, 5.4, -4.8), (5.2, 4.0, 1.4), "snowpelt"), box((-1.4, 8.4, -4.6), (2.8, 3.0, 1.2), "snowpelt"),   # long beard
         box((-5.0, -2.2, -2.0), (1.0, 6.0, 5.6), "snowpelt"), box((4.0, -2.2, -2.0), (1.0, 6.0, 5.6), "snowpelt"),
     ])
@@ -236,11 +234,17 @@ def raven():
     r.part("body", "root", (0, -8.6, 0.6), (-28, 0, 0), [box((-2.6, -2.4, -3.2), (5.2, 4.6, 8.6), "raven"), box((-2.2, -1.9, -3.0), (4.4, 1.2, 8.0), "raven_sheen", 0.0), box((-2.0, 0.6, -2.4), (4.0, 1.8, 6.0), "raven")])
     r.part("chest", "body", (0, 0.2, -3.0), (24, 0, 0), [box((-2.9, -2.6, -2.4), (5.8, 5.2, 3.6), "raven"), box((-2.5, -2.4, -2.6), (5.0, 2.4, 1.0), "raven_sheen", 0.0)])
     r.part("neck", "chest", (0, -1.6, -2.0), (-12, 0, 0), [box((-1.8, -3.0, -1.6), (3.6, 3.4, 3.4), "raven"), box((-2.2, -1.6, -1.9), (4.4, 2.6, 3.6), "raven_sheen", 0.0)])
-    r.part("head", "neck", (0, -2.6, 0), (14, 0, 0), [box((-1.9, -2.6, -2.6), (3.8, 3.8, 4.6), "raven", 0.0, [rect("front", 0, 1, 1, 1, "#e8e8f0"), rect("front", 3, 1, 1, 1, "#e8e8f0")]),
-                                                      box((-1.5, -3.0, -1.8), (3.0, 1.0, 3.4), "raven_sheen", 0.0)])
+    eye_l = [rect("left", 1, 1, 2, 2, "#2c2024"), rect("left", 1, 1, 1, 1, "#e8e8f0")]
+    eye_r = [rect("right", 1, 1, 2, 2, "#2c2024"), rect("right", 1, 1, 1, 1, "#e8e8f0")]
+    r.part("head", "neck", (0, -2.6, 0), (14, 0, 0), [box((-1.9, -2.6, -2.6), (3.8, 3.8, 4.6), "raven", 0.0, eye_l + eye_r),
+                                                      box((-1.5, -3.0, -1.8), (3.0, 1.0, 3.4), "raven_sheen", 0.0), box((-1.7, -2.2, -2.9), (3.4, 1.6, 1.0), "raven_sheen", 0.0)])
     r.anim("head", "look", amount=0.8)
-    r.part("beak_top", "head", (0, -0.9, -2.5), (6, 0, 0), [box((-0.9, -0.8, -3.6), (1.8, 1.8, 4.0), "beak"), box((-0.6, -0.9, -4.4), (1.2, 1.0, 1.4), "beak_light", 0.0)])
-    r.part("beak_low", "head", (0, 0.9, -2.4), (-3, 0, 0), [box((-0.7, 0, -3.2), (1.4, 0.8, 3.4), "beak")])
+    # a crow's beak: deep at the base, tapering, with a ridge along the top and a small hook at the tip; the lower half shorter and finer
+    r.part("beak_top", "head", (0, -0.7, -2.7), (4, 0, 0), [box((-1.1, -0.7, -2.0), (2.2, 1.9, 2.0), "beak"), box((-0.85, -0.5, -3.5), (1.7, 1.5, 1.6), "beak"), box((-0.4, -0.95, -3.4), (0.8, 0.5, 2.4), "beak_light", 0.0),
+                                                        box((-0.6, -0.3, -4.7), (1.2, 1.1, 1.3), "beak")])
+    r.part("beak_hook", "beak_top", (0, 0.5, -4.5), (22, 0, 0), [box((-0.45, -0.2, -1.0), (0.9, 0.9, 1.0), "beak")])
+    r.part("bristle", "head", (0, -1.0, -2.8), (0, 0, 0), [box((-1.0, -0.4, -0.6), (2.0, 0.9, 0.8), "raven")])
+    r.part("beak_low", "head", (0, 1.0, -2.5), (-6, 0, 0), [box((-0.9, 0, -2.4), (1.8, 0.9, 2.4), "beak"), box((-0.6, 0.1, -3.9), (1.2, 0.7, 1.5), "beak")])
     # throat hackles and a head crest: the ruffled look of a raven
     r.part("hackle", "neck", (0, 0.8, -1.4), (28, 0, 0), [box((-1.6, 0, -0.5), (3.2, 2.8, 1.0), "raven_sheen")])
     r.anim("hackle", "sway", axis="z", amp=0.04, freq=0.12)
