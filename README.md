@@ -111,6 +111,8 @@ off. The deploy serves the committed `site/` as static files.
 - **Not yet tested in a world:** a brew in a brewing stand, and drinking the potions. The brewing recipes are
   registered in code and counted in the log.
 
+**Mounts:** **Sleipnir**, Odin's eight-legged steed: a rare grey horse (taiga and mountains) to tame, saddle and ride; the fastest mount, with high jumps and no fall damage.
+
 ## Credit
 
 All work in this repository is credited to SolutionsAsService.

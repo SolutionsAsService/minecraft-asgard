@@ -267,3 +267,8 @@ the raven's beak was a straight duck-bill block. The face cameras for wolves and
 raven has a deep tapering beak with a ridge, a hooked tip, a finer lower half, nostril bristles and eyes on the side of the head.
 
 **Not done:** animation still checked in stills only; one pass; no panel.
+
+
+## Run: Extend (a mount: Sleipnir)
+
+**Built:** `Sleipnir` (hand-written on `AbstractHorse`: the fastest mount, high jumps, no fall damage, rare in taiga and mountains), with an eight-legged grey model generated from `mobs/sleipnir.json` (`Rig.horse` with `extra=` leg pairs). **Checked:** builds, loads, summons, can be ridden by command, photographed. **Not checked:** taming and riding by hand; the eight legs read as a bunched group in the photographs rather than eight clear legs.
