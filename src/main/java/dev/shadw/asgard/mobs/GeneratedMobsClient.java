@@ -42,6 +42,8 @@ public final class GeneratedMobsClient {
 		EntityRendererRegistry.register(GeneratedMobs.JOTUNN, JotunnRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(RavenModel.LAYER, RavenModel::createBodyLayer);
 		EntityRendererRegistry.register(dev.shadw.asgard.AsgardEntities.RAVEN, RavenRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(SleipnirModel.LAYER, SleipnirModel::createBodyLayer);
+		EntityRendererRegistry.register(dev.shadw.asgard.AsgardEntities.SLEIPNIR, SleipnirRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(TrollModel.LAYER, TrollModel::createBodyLayer);
 		EntityRendererRegistry.register(GeneratedMobs.TROLL, TrollRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(WargModel.LAYER, WargModel::createBodyLayer);

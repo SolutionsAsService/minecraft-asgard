@@ -102,14 +102,14 @@ public class RavenModel extends EntityModel<RavenModel.State> {
 		tail2.xRot += Mth.sin(state.ageInTicks * 0.1F + 1.0F) * (0.04F + 0.0F * state.walkAnimationSpeed);
 		tail3.xRot += Mth.sin(state.ageInTicks * 0.1F + 1.5F) * (0.04F + 0.0F * state.walkAnimationSpeed);
 		tail4.xRot += Mth.sin(state.ageInTicks * 0.1F + 2.0F) * (0.04F + 0.0F * state.walkAnimationSpeed);
-		wing_l.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.0F) * 0.9F : 0.3F;
-		wing_l.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F : -1.45F;
-		wing_l2.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.9F) * 0.5F : 0.0F;
-		wing_l2.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F : 2.4F;
-		wing_r.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.0F) * -0.9F : -0.3F;
-		wing_r.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F : 1.45F;
-		wing_r2.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.9F) * -0.5F : 0.0F;
-		wing_r2.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F : -2.4F;
+		wing_l.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.0F) * 0.9F + 0.0F : 0.3F;
+		wing_l.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F + 0.0F : -1.45F;
+		wing_l2.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.9F) * 0.5F + 0.0F : 0.0F;
+		wing_l2.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F + 0.0F : 2.4F;
+		wing_r.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.0F) * -0.9F + 0.0F : -0.3F;
+		wing_r.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F + 0.0F : 1.45F;
+		wing_r2.zRot += state.airborne ? Mth.sin(state.ageInTicks * 1.2F + 0.9F) * -0.5F + 0.0F : 0.0F;
+		wing_r2.yRot += state.airborne ? Mth.sin(state.ageInTicks * 1.1F + 0.0F) * 0.0F + 0.0F : -2.4F;
 		leg_l.xRot += Mth.cos(state.walkAnimationPos * 0.6662F + 0.0F) * 0.8F * state.walkAnimationSpeed;
 		leg_r.xRot += Mth.cos(state.walkAnimationPos * 0.6662F + 3.141592653589793F) * 0.8F * state.walkAnimationSpeed;
 	}

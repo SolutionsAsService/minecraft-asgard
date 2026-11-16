@@ -110,6 +110,7 @@ public class Mod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(entries -> {
 			GeneratedMobs.EGGS.forEach(entries::accept);
 			entries.accept(AsgardEntities.RAVEN_SPAWN_EGG);
+			entries.accept(AsgardEntities.SLEIPNIR_SPAWN_EGG);
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
 			for (var altar : AsgardBlocks.ALTARS) {
@@ -129,7 +130,7 @@ public class Mod implements ModInitializer {
 			entries.accept(AsgardItems.SACRED_ROOT);
 		});
 		LOGGER.info("Asgard loaded: {} potions ({} from data, plus Blessing), {} brewing recipes, {} unknown effects skipped; "
-				+ "3 relics, {} blocks, {} creatures", pending.size(), fromData, pending.size(), effectsSkipped, AsgardBlocks.count(), GeneratedMobs.EGGS.size() + 1);
+				+ "3 relics, {} blocks, {} creatures", pending.size(), fromData, pending.size(), effectsSkipped, AsgardBlocks.count(), GeneratedMobs.EGGS.size() + 2);
 	}
 
 	private static ResourceKey<Item> itemKey(String path) {

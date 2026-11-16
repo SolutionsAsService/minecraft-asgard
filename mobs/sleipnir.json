@@ -1,0 +1,1977 @@
+{
+  "id": "sleipnir",
+  "name": "Sleipnir",
+  "base": "zombie",
+  "hostile": false,
+  "external": {
+    "class": "dev.shadw.asgard.Sleipnir",
+    "type": "dev.shadw.asgard.AsgardEntities.SLEIPNIR"
+  },
+  "attributes": {
+    "health": 40,
+    "speed": 0.36
+  },
+  "drops": [
+    {
+      "item": "minecraft:leather",
+      "min": 1,
+      "max": 3
+    },
+    {
+      "item": "minecraft:bone",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "item": "asgard:rune_stone",
+      "min": 0,
+      "max": 1,
+      "chance": 0.3
+    }
+  ],
+  "egg": [
+    "#8a8e96",
+    "#8ae8ff"
+  ],
+  "model": {
+    "shadow": 1.0,
+    "paints": {
+      "dead": {
+        "type": "skin",
+        "base": "#6a827c",
+        "shade": 6
+      },
+      "dead_dark": {
+        "type": "skin",
+        "base": "#4a5e5a",
+        "shade": 5
+      },
+      "tunic": {
+        "type": "cloth",
+        "base": "#5a402c",
+        "trim": "#34261a"
+      },
+      "tunic_blue": {
+        "type": "cloth",
+        "base": "#2c3c58",
+        "trim": "#18223a"
+      },
+      "pelt": {
+        "type": "fur",
+        "base": "#a89e88",
+        "dark": "#6a6250",
+        "light": "#d8d0bc"
+      },
+      "beard": {
+        "type": "fur",
+        "base": "#b8b0a0",
+        "dark": "#7a7262",
+        "light": "#e8e4d8"
+      },
+      "iron": {
+        "type": "metal",
+        "base": "#8a8e96",
+        "dark": "#4a4e56",
+        "light": "#d0d4dc"
+      },
+      "rust": {
+        "type": "ridged",
+        "base": "#96644a",
+        "dark": "#5a3a28",
+        "light": "#b88664"
+      },
+      "mail": {
+        "type": "scales",
+        "base": "#6a6e76",
+        "dark": "#34383e",
+        "light": "#a8acb4",
+        "cell": 3
+      },
+      "leather": {
+        "type": "cloth",
+        "base": "#3a2a1e",
+        "trim": "#24180e"
+      },
+      "bone": {
+        "type": "plain",
+        "base": "#e6dfc8"
+      },
+      "wood": {
+        "type": "ridged",
+        "base": "#7a5a34",
+        "dark": "#4a3418",
+        "light": "#9a7a4a"
+      },
+      "ice_eye": {
+        "type": "plain",
+        "base": "#8ae8ff"
+      },
+      "gold": {
+        "type": "metal",
+        "base": "#d8b030",
+        "dark": "#80640e",
+        "light": "#fff0a0"
+      },
+      "cape": {
+        "type": "cloth",
+        "base": "#6a1c20",
+        "trim": "#2c0a0c"
+      },
+      "troll": {
+        "type": "skin",
+        "base": "#5c7654",
+        "shade": 7
+      },
+      "troll_dark": {
+        "type": "skin",
+        "base": "#44583e",
+        "shade": 5
+      },
+      "stone": {
+        "type": "ridged",
+        "base": "#7c7e7a",
+        "dark": "#4a4c48",
+        "light": "#a8aaa4"
+      },
+      "moss": {
+        "type": "fur",
+        "base": "#486a32",
+        "dark": "#2a4018",
+        "light": "#78a050"
+      },
+      "hide": {
+        "type": "cloth",
+        "base": "#6e5034",
+        "trim": "#3e2c1a"
+      },
+      "tusk": {
+        "type": "plain",
+        "base": "#ece4cc"
+      },
+      "eye_amber": {
+        "type": "plain",
+        "base": "#ffc830"
+      },
+      "warg": {
+        "type": "fur",
+        "base": "#3e3a38",
+        "dark": "#1a1816",
+        "light": "#6e675e"
+      },
+      "warg_belly": {
+        "type": "fur",
+        "base": "#625a50",
+        "dark": "#3a342c",
+        "light": "#8a8070"
+      },
+      "warg_mane": {
+        "type": "fur",
+        "base": "#26221f",
+        "dark": "#0e0c0b",
+        "light": "#554e46"
+      },
+      "nose": {
+        "type": "plain",
+        "base": "#0e0e10"
+      },
+      "fenrir": {
+        "type": "fur",
+        "base": "#7a8088",
+        "dark": "#2c3038",
+        "light": "#c4ccd4"
+      },
+      "fenrir_belly": {
+        "type": "fur",
+        "base": "#a8b0b8",
+        "dark": "#6a727a",
+        "light": "#e0e6ec"
+      },
+      "fenrir_mane": {
+        "type": "fur",
+        "base": "#c8d0d8",
+        "dark": "#7c848c",
+        "light": "#f4f8fc"
+      },
+      "chain": {
+        "type": "metal",
+        "base": "#5a5e66",
+        "dark": "#24262c",
+        "light": "#9ea2aa"
+      },
+      "ember": {
+        "type": "plain",
+        "base": "#ff4a30"
+      },
+      "rune": {
+        "type": "plain",
+        "base": "#ff7a30"
+      },
+      "scar": {
+        "type": "skin",
+        "base": "#5a3238",
+        "shade": 3
+      },
+      "frost": {
+        "type": "skin",
+        "base": "#a6c4dc",
+        "shade": 5
+      },
+      "frost_dark": {
+        "type": "skin",
+        "base": "#6e92b4",
+        "shade": 4
+      },
+      "ice": {
+        "type": "metal",
+        "base": "#bcdcf0",
+        "dark": "#5a86b0",
+        "light": "#f2faff"
+      },
+      "snowpelt": {
+        "type": "fur",
+        "base": "#e8eef4",
+        "dark": "#a8b8c8",
+        "light": "#ffffff"
+      },
+      "frost_cloth": {
+        "type": "cloth",
+        "base": "#3a5a82",
+        "trim": "#1c2e4a"
+      },
+      "frost_eye": {
+        "type": "plain",
+        "base": "#e8f8ff"
+      },
+      "raven": {
+        "type": "skin",
+        "base": "#14161e",
+        "shade": 3
+      },
+      "raven_sheen": {
+        "type": "skin",
+        "base": "#222a44",
+        "shade": 4
+      },
+      "raven_wing": {
+        "type": "ridged",
+        "base": "#171a26",
+        "dark": "#0c0d14",
+        "light": "#2c3558"
+      },
+      "beak": {
+        "type": "plain",
+        "base": "#2a2a30"
+      },
+      "beak_light": {
+        "type": "plain",
+        "base": "#4a4a52"
+      },
+      "claw": {
+        "type": "plain",
+        "base": "#3a3438"
+      },
+      "raven_eye": {
+        "type": "plain",
+        "base": "#e8e8f0"
+      },
+      "slp": {
+        "type": "fur",
+        "base": "#8a8e96",
+        "dark": "#4a4e58",
+        "light": "#c8ccd4"
+      },
+      "slp_belly": {
+        "type": "fur",
+        "base": "#a8acb4",
+        "dark": "#6a6e78",
+        "light": "#d8dce4"
+      },
+      "slp_mane": {
+        "type": "fur",
+        "base": "#d8dce4",
+        "dark": "#8a8e98",
+        "light": "#ffffff"
+      },
+      "slp_hoof": {
+        "type": "plain",
+        "base": "#3a3a40"
+      },
+      "slp_nose": {
+        "type": "skin",
+        "base": "#5a5a62",
+        "shade": 3
+      },
+      "slp_saddle": {
+        "type": "cloth",
+        "base": "#2c3c58",
+        "trim": "#d8b030"
+      },
+      "slp_trim": {
+        "type": "metal",
+        "base": "#d8b030",
+        "dark": "#80640e",
+        "light": "#fff0a0"
+      }
+    },
+    "parts": [
+      {
+        "name": "body",
+        "parent": "root",
+        "pivot": [
+          0,
+          -17.355236842384965,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -4.5,
+              -9.5,
+              -8.0
+            ],
+            "size": [
+              9,
+              9.5,
+              19
+            ],
+            "grow": 0,
+            "paint": "slp"
+          },
+          {
+            "from": [
+              -3.9,
+              -0.2,
+              -7.6
+            ],
+            "size": [
+              7.8,
+              1.4,
+              18.2
+            ],
+            "grow": 0.0,
+            "paint": "slp_belly"
+          },
+          {
+            "from": [
+              -4.9,
+              -10.4,
+              -5.0
+            ],
+            "size": [
+              9.8,
+              1.2,
+              9
+            ],
+            "grow": 0,
+            "paint": "slp_saddle"
+          },
+          {
+            "from": [
+              -5.0,
+              -11.1,
+              -5.4
+            ],
+            "size": [
+              10.0,
+              1.0,
+              1.8
+            ],
+            "grow": 0,
+            "paint": "slp_trim"
+          },
+          {
+            "from": [
+              -5.0,
+              -11.1,
+              3.4
+            ],
+            "size": [
+              10.0,
+              1.0,
+              1.8
+            ],
+            "grow": 0,
+            "paint": "slp_trim"
+          },
+          {
+            "from": [
+              -5.3,
+              -1.9000000000000001,
+              -2.0
+            ],
+            "size": [
+              10.6,
+              0.8,
+              5
+            ],
+            "grow": 0,
+            "paint": "slp_trim"
+          },
+          {
+            "from": [
+              4.55,
+              -7.5,
+              -2
+            ],
+            "size": [
+              0.4,
+              1.2,
+              5
+            ],
+            "grow": 0.0,
+            "paint": "slp_trim"
+          },
+          {
+            "from": [
+              -4.95,
+              -7.5,
+              -2
+            ],
+            "size": [
+              0.4,
+              1.2,
+              5
+            ],
+            "grow": 0.0,
+            "paint": "slp_trim"
+          }
+        ]
+      },
+      {
+        "name": "chest",
+        "parent": "body",
+        "pivot": [
+          0,
+          0,
+          -8.0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -5.2,
+              -9.9,
+              -3.2
+            ],
+            "size": [
+              10.4,
+              10.9,
+              6.4
+            ],
+            "grow": 0,
+            "paint": "slp"
+          },
+          {
+            "from": [
+              -4.2,
+              0.2,
+              -2.8
+            ],
+            "size": [
+              8.4,
+              1.4,
+              5.6
+            ],
+            "grow": 0,
+            "paint": "slp_belly"
+          }
+        ]
+      },
+      {
+        "name": "neck",
+        "parent": "chest",
+        "pivot": [
+          0,
+          -8.1,
+          -2.2
+        ],
+        "rot": [
+          34,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.8,
+              -12,
+              -3.2
+            ],
+            "size": [
+              5.6,
+              12,
+              6.4
+            ],
+            "grow": 0,
+            "paint": "slp"
+          },
+          {
+            "from": [
+              -3.1999999999999997,
+              -11.6,
+              -3.5
+            ],
+            "size": [
+              6.3999999999999995,
+              6.6000000000000005,
+              7.0
+            ],
+            "grow": 0.0,
+            "paint": "slp_mane"
+          },
+          {
+            "from": [
+              -0.9,
+              -12.2,
+              2.8000000000000003
+            ],
+            "size": [
+              1.8,
+              12.6,
+              2.4
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          },
+          {
+            "from": [
+              -2.5,
+              -3,
+              -4.0
+            ],
+            "size": [
+              5.0,
+              5.5,
+              1.2
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "head",
+        "parent": "neck",
+        "pivot": [
+          0,
+          -11.4,
+          0.3
+        ],
+        "rot": [
+          -28,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.7,
+              -3.1,
+              -5.5
+            ],
+            "size": [
+              5.4,
+              6.2,
+              7
+            ],
+            "grow": 0.0,
+            "paint": "slp",
+            "decals": [
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 0,
+                "y": 2,
+                "w": 1,
+                "h": 1,
+                "color": "#101010"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 5,
+                "y": 2,
+                "w": 1,
+                "h": 1,
+                "color": "#101010"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 0,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "color": "#8ae8ff"
+              },
+              {
+                "face": "front",
+                "type": "rect",
+                "x": 5,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "color": "#8ae8ff"
+              }
+            ]
+          },
+          {
+            "from": [
+              -3.2,
+              -1.6,
+              -2.0
+            ],
+            "size": [
+              6.4,
+              4.2,
+              2.5
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          },
+          {
+            "from": [
+              -1.2,
+              -3.6,
+              -6.4
+            ],
+            "size": [
+              2.4,
+              2.0,
+              1.8
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          }
+        ]
+      },
+      {
+        "name": "snout",
+        "parent": "head",
+        "pivot": [
+          0,
+          0.4,
+          -5.5
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              -2.1,
+              -7
+            ],
+            "size": [
+              4.0,
+              3.3000000000000003,
+              7
+            ],
+            "grow": 0,
+            "paint": "slp"
+          },
+          {
+            "from": [
+              -1.7,
+              0.9000000000000001,
+              -6.7
+            ],
+            "size": [
+              3.4,
+              0.6,
+              6.4
+            ],
+            "grow": 0,
+            "paint": "slp_belly"
+          }
+        ]
+      },
+      {
+        "name": "nose",
+        "parent": "snout",
+        "pivot": [
+          0,
+          -1.8,
+          -6.8
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.3,
+              -0.4,
+              -1.1
+            ],
+            "size": [
+              2.6,
+              1.5,
+              1.4
+            ],
+            "grow": 0,
+            "paint": "slp_nose"
+          }
+        ]
+      },
+      {
+        "name": "jaw",
+        "parent": "head",
+        "pivot": [
+          0,
+          1.5,
+          -2.5
+        ],
+        "rot": [
+          2,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.7,
+              0,
+              -7.5
+            ],
+            "size": [
+              3.4,
+              1.3,
+              7.5
+            ],
+            "grow": 0,
+            "paint": "slp_belly"
+          }
+        ]
+      },
+      {
+        "name": "ear_r",
+        "parent": "head",
+        "pivot": [
+          -1.6,
+          -2.9,
+          -1.2999999999999998
+        ],
+        "rot": [
+          -8,
+          0,
+          10
+        ],
+        "boxes": [
+          {
+            "from": [
+              -0.9,
+              -3.2,
+              -0.6
+            ],
+            "size": [
+              1.8,
+              3.2,
+              1.2
+            ],
+            "grow": 0,
+            "paint": "slp"
+          },
+          {
+            "from": [
+              -0.4,
+              -2.7,
+              -0.65
+            ],
+            "size": [
+              0.8,
+              2.2,
+              0.4
+            ],
+            "grow": 0.0,
+            "paint": "slp_belly"
+          }
+        ]
+      },
+      {
+        "name": "ear_l",
+        "parent": "head",
+        "pivot": [
+          1.6,
+          -2.9,
+          -1.2999999999999998
+        ],
+        "rot": [
+          -8,
+          0,
+          -10
+        ],
+        "boxes": [
+          {
+            "from": [
+              -0.9,
+              -3.2,
+              -0.6
+            ],
+            "size": [
+              1.8,
+              3.2,
+              1.2
+            ],
+            "grow": 0,
+            "paint": "slp"
+          },
+          {
+            "from": [
+              -0.4,
+              -2.7,
+              -0.65
+            ],
+            "size": [
+              0.8,
+              2.2,
+              0.4
+            ],
+            "grow": 0.0,
+            "paint": "slp_belly"
+          }
+        ]
+      },
+      {
+        "name": "leg_fr",
+        "parent": "body",
+        "pivot": [
+          -3.0,
+          -0.5,
+          -6.8
+        ],
+        "rot": [
+          4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.7,
+              0,
+              -1.7
+            ],
+            "size": [
+              3.4,
+              7.0,
+              3.4
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_fr",
+        "parent": "leg_fr",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.2999999999999998,
+              0,
+              -1.2999999999999998
+            ],
+            "size": [
+              2.5999999999999996,
+              7.0,
+              2.5999999999999996
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_fr",
+        "parent": "shin_fr",
+        "pivot": [
+          0,
+          6.7,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.8,
+              0,
+              -3.0999999999999996
+            ],
+            "size": [
+              3.6,
+              1.4,
+              5.0
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -1.8,
+              0.9,
+              -3.5
+            ],
+            "size": [
+              3.6,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_fl",
+        "parent": "body",
+        "pivot": [
+          3.0,
+          -0.5,
+          -6.8
+        ],
+        "rot": [
+          4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.7,
+              0,
+              -1.7
+            ],
+            "size": [
+              3.4,
+              7.0,
+              3.4
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_fl",
+        "parent": "leg_fl",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.2999999999999998,
+              0,
+              -1.2999999999999998
+            ],
+            "size": [
+              2.5999999999999996,
+              7.0,
+              2.5999999999999996
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_fl",
+        "parent": "shin_fl",
+        "pivot": [
+          0,
+          6.7,
+          0
+        ],
+        "rot": [
+          0,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.8,
+              0,
+              -3.0999999999999996
+            ],
+            "size": [
+              3.6,
+              1.4,
+              5.0
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -1.8,
+              0.9,
+              -3.5
+            ],
+            "size": [
+              3.6,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_br",
+        "parent": "body",
+        "pivot": [
+          -3.0,
+          -1.4,
+          9.4
+        ],
+        "rot": [
+          -18,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.9,
+              0,
+              -2.3
+            ],
+            "size": [
+              3.8,
+              7.0,
+              4.6
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_br",
+        "parent": "leg_br",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          34,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3.0,
+              7.8,
+              3.0
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_br",
+        "parent": "shin_br",
+        "pivot": [
+          0,
+          7.5,
+          0
+        ],
+        "rot": [
+          -16,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              0,
+              -3.3
+            ],
+            "size": [
+              4.0,
+              1.4,
+              5.4
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -2.0,
+              0.9,
+              -3.7
+            ],
+            "size": [
+              4.0,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_bl",
+        "parent": "body",
+        "pivot": [
+          3.0,
+          -1.4,
+          9.4
+        ],
+        "rot": [
+          -18,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.9,
+              0,
+              -2.3
+            ],
+            "size": [
+              3.8,
+              7.0,
+              4.6
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_bl",
+        "parent": "leg_bl",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          34,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3.0,
+              7.8,
+              3.0
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_bl",
+        "parent": "shin_bl",
+        "pivot": [
+          0,
+          7.5,
+          0
+        ],
+        "rot": [
+          -16,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -2.0,
+              0,
+              -3.3
+            ],
+            "size": [
+              4.0,
+              1.4,
+              5.4
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -2.0,
+              0.9,
+              -3.7
+            ],
+            "size": [
+              4.0,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_mr",
+        "parent": "body",
+        "pivot": [
+          -2.9000000000000004,
+          -0.5,
+          -1.0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.8,
+              0,
+              -1.8
+            ],
+            "size": [
+              3.6,
+              7,
+              3.6
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_mr",
+        "parent": "leg_mr",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          6,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.4,
+              0,
+              -1.4
+            ],
+            "size": [
+              2.8,
+              7,
+              2.8
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_mr",
+        "parent": "shin_mr",
+        "pivot": [
+          0,
+          6.7,
+          0
+        ],
+        "rot": [
+          -2,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.9000000000000001,
+              0,
+              -3.2
+            ],
+            "size": [
+              3.8000000000000003,
+              1.4,
+              5.2
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -1.9000000000000001,
+              0.9,
+              -3.6
+            ],
+            "size": [
+              3.8000000000000003,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_ml",
+        "parent": "body",
+        "pivot": [
+          2.9000000000000004,
+          -0.5,
+          -1.0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.8,
+              0,
+              -1.8
+            ],
+            "size": [
+              3.6,
+              7,
+              3.6
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_ml",
+        "parent": "leg_ml",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          6,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.4,
+              0,
+              -1.4
+            ],
+            "size": [
+              2.8,
+              7,
+              2.8
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_ml",
+        "parent": "shin_ml",
+        "pivot": [
+          0,
+          6.7,
+          0
+        ],
+        "rot": [
+          -2,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.9000000000000001,
+              0,
+              -3.2
+            ],
+            "size": [
+              3.8000000000000003,
+              1.4,
+              5.2
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -1.9000000000000001,
+              0.9,
+              -3.6
+            ],
+            "size": [
+              3.8000000000000003,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_nr",
+        "parent": "body",
+        "pivot": [
+          -2.9000000000000004,
+          -0.5,
+          2.0
+        ],
+        "rot": [
+          -10,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.8,
+              0,
+              -1.8
+            ],
+            "size": [
+              3.6,
+              7,
+              3.6
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_nr",
+        "parent": "leg_nr",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          16,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.4,
+              0,
+              -1.4
+            ],
+            "size": [
+              2.8,
+              7.4,
+              2.8
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_nr",
+        "parent": "shin_nr",
+        "pivot": [
+          0,
+          7.1000000000000005,
+          0
+        ],
+        "rot": [
+          -6,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.9000000000000001,
+              0,
+              -3.2
+            ],
+            "size": [
+              3.8000000000000003,
+              1.4,
+              5.2
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -1.9000000000000001,
+              0.9,
+              -3.6
+            ],
+            "size": [
+              3.8000000000000003,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "leg_nl",
+        "parent": "body",
+        "pivot": [
+          2.9000000000000004,
+          -0.5,
+          2.0
+        ],
+        "rot": [
+          -10,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.8,
+              0,
+              -1.8
+            ],
+            "size": [
+              3.6,
+              7,
+              3.6
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "shin_nl",
+        "parent": "leg_nl",
+        "pivot": [
+          0,
+          6.6,
+          0
+        ],
+        "rot": [
+          16,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.4,
+              0,
+              -1.4
+            ],
+            "size": [
+              2.8,
+              7.4,
+              2.8
+            ],
+            "grow": 0,
+            "paint": "slp"
+          }
+        ]
+      },
+      {
+        "name": "paw_nl",
+        "parent": "shin_nl",
+        "pivot": [
+          0,
+          7.1000000000000005,
+          0
+        ],
+        "rot": [
+          -6,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.9000000000000001,
+              0,
+              -3.2
+            ],
+            "size": [
+              3.8000000000000003,
+              1.4,
+              5.2
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          },
+          {
+            "from": [
+              -1.9000000000000001,
+              0.9,
+              -3.6
+            ],
+            "size": [
+              3.8000000000000003,
+              0.5,
+              0.6
+            ],
+            "grow": 0,
+            "paint": "slp_hoof"
+          }
+        ]
+      },
+      {
+        "name": "tail0",
+        "parent": "body",
+        "pivot": [
+          0,
+          -8.0,
+          10.5
+        ],
+        "rot": [
+          30,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.2,
+              0,
+              -1.2
+            ],
+            "size": [
+              2.4,
+              5,
+              2.4
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          }
+        ]
+      },
+      {
+        "name": "tail1",
+        "parent": "tail0",
+        "pivot": [
+          0,
+          5,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.6,
+              0,
+              -1.6
+            ],
+            "size": [
+              3.2,
+              6,
+              3.2
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          }
+        ]
+      },
+      {
+        "name": "tail2",
+        "parent": "tail1",
+        "pivot": [
+          0,
+          6,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.5,
+              0,
+              -1.5
+            ],
+            "size": [
+              3.0,
+              6,
+              3.0
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          }
+        ]
+      },
+      {
+        "name": "tail3",
+        "parent": "tail2",
+        "pivot": [
+          0,
+          6,
+          0
+        ],
+        "rot": [
+          -4,
+          0,
+          0
+        ],
+        "boxes": [
+          {
+            "from": [
+              -1.0,
+              0,
+              -1.0
+            ],
+            "size": [
+              2.0,
+              5,
+              2.0
+            ],
+            "grow": 0,
+            "paint": "slp_mane"
+          }
+        ]
+      }
+    ],
+    "anim": [
+      {
+        "part": "head",
+        "type": "look",
+        "amount": 0.8
+      },
+      {
+        "part": "ear_r",
+        "type": "sway",
+        "axis": "z",
+        "amp": 0.05,
+        "freq": 0.11,
+        "phase": 2.0
+      },
+      {
+        "part": "ear_l",
+        "type": "sway",
+        "axis": "z",
+        "amp": 0.05,
+        "freq": 0.11,
+        "phase": 0
+      },
+      {
+        "part": "leg_fr",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 3.141592653589793
+      },
+      {
+        "part": "shin_fr",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 4.141592653589793
+      },
+      {
+        "part": "leg_fl",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 0.0
+      },
+      {
+        "part": "shin_fl",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 1.0
+      },
+      {
+        "part": "leg_br",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 0.0
+      },
+      {
+        "part": "shin_br",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 1.0
+      },
+      {
+        "part": "leg_bl",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 3.141592653589793
+      },
+      {
+        "part": "shin_bl",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 4.141592653589793
+      },
+      {
+        "part": "leg_mr",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 3.141592653589793
+      },
+      {
+        "part": "shin_mr",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 4.141592653589793
+      },
+      {
+        "part": "leg_ml",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 0.0
+      },
+      {
+        "part": "shin_ml",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 1.0
+      },
+      {
+        "part": "leg_nr",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 0.0
+      },
+      {
+        "part": "shin_nr",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 1.0
+      },
+      {
+        "part": "leg_nl",
+        "type": "walk",
+        "axis": "x",
+        "amp": 0.8,
+        "phase": 3.141592653589793
+      },
+      {
+        "part": "shin_nl",
+        "type": "walk",
+        "axis": "x",
+        "amp": -0.32000000000000006,
+        "phase": 4.141592653589793
+      },
+      {
+        "part": "tail0",
+        "type": "sway",
+        "axis": "z",
+        "amp": 0.12,
+        "freq": 0.13,
+        "phase": 0.0,
+        "walk_amp": 0.15
+      },
+      {
+        "part": "tail1",
+        "type": "sway",
+        "axis": "x",
+        "amp": 0.15,
+        "freq": 0.14,
+        "phase": 0.8,
+        "walk_amp": 0.15
+      },
+      {
+        "part": "tail2",
+        "type": "sway",
+        "axis": "z",
+        "amp": 0.18,
+        "freq": 0.15,
+        "phase": 1.6,
+        "walk_amp": 0.15
+      },
+      {
+        "part": "tail3",
+        "type": "sway",
+        "axis": "x",
+        "amp": 0.21,
+        "freq": 0.16,
+        "phase": 2.4000000000000004,
+        "walk_amp": 0.15
+      }
+    ]
+  },
+  "skin": {
+    "model": true
+  }
+}

@@ -24,6 +24,11 @@ public final class AsgardEntities {
 			b -> b.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Animal::checkAnimalSpawnRules)
 					.defaultAttributes(Raven::createAttributes)).sized(0.5F, 0.9F).clientTrackingRange(8));
 
+	public static final EntityType<Sleipnir> SLEIPNIR = register("sleipnir", FabricEntityType.Builder.createMob(Sleipnir::new, MobCategory.CREATURE,
+			b -> b.spawnRestriction(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, Animal::checkAnimalSpawnRules)
+					.defaultAttributes(Sleipnir::createAttributes)).sized(1.4F, 1.7F).passengerAttachments(1.55F).clientTrackingRange(10));
+
+	public static final Item SLEIPNIR_SPAWN_EGG = egg("sleipnir_spawn_egg", SLEIPNIR);
 	public static final Item RAVEN_SPAWN_EGG = egg("raven_spawn_egg", RAVEN);
 
 	private AsgardEntities() {}
@@ -42,5 +47,7 @@ public final class AsgardEntities {
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_TAIGA).or(BiomeSelectors.tag(BiomeTags.IS_FOREST))
 				.or(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)), MobCategory.CREATURE, RAVEN, 6, 2, 4);
+		// Odin's steed is rare, and keeps to the cold forests and the high meadows
+		BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_TAIGA).or(BiomeSelectors.tag(BiomeTags.IS_MOUNTAIN)), MobCategory.CREATURE, SLEIPNIR, 1, 1, 1);
 	}
 }

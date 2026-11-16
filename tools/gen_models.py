@@ -271,6 +271,29 @@ def raven():
     return r.model(0.4)
 
 
+# ------------------------------------------------------------------ sleipnir (a mount: the class is hand-written, only the model is generated)
+def sleipnir():
+    r = Rig(dict(PAINTS, **{
+        "slp": {"type": "fur", "base": "#8a8e96", "dark": "#4a4e58", "light": "#c8ccd4"}, "slp_belly": {"type": "fur", "base": "#a8acb4", "dark": "#6a6e78", "light": "#d8dce4"},
+        "slp_mane": {"type": "fur", "base": "#d8dce4", "dark": "#8a8e98", "light": "#ffffff"}, "slp_hoof": {"type": "plain", "base": "#3a3a40"},
+        "slp_nose": {"type": "skin", "base": "#5a5a62", "shade": 3}, "slp_saddle": {"type": "cloth", "base": "#2c3c58", "trim": "#d8b030"}, "slp_trim": {"type": "metal", "base": "#d8b030", "dark": "#80640e", "light": "#fff0a0"}}))
+    # eight legs: the usual four plus a middle pair on each side, out of step with their neighbours
+    extra = [{"tag": "m", "z": -1.0, "flip": False, "seg": (7, 7, 2.6), "pose": (-4, 6, -2)}, {"tag": "n", "z": 2.0, "flip": True, "seg": (7, 7.4, 2.6), "pose": (-10, 16, -6)}]
+    r.horse("slp", "slp_mane", belly="slp_belly", hoof="slp_hoof", nose="slp_nose", saddle="slp_saddle", trim="slp_trim", eye="#ffffff", eye_glow="#8ae8ff", tail_paint="slp_mane", extra=extra)
+    # runes cut into the flank, a halter of gold
+    for p_ in r.parts:
+        if p_["name"] == "body":
+            p_["boxes"] += [box((4.55, -7.5, -2), (0.4, 1.2, 5), "slp_trim", 0.0), box((-4.95, -7.5, -2), (0.4, 1.2, 5), "slp_trim", 0.0)]
+    return r.model(1.0)
+
+
+SLEIPNIR_SPEC = {"id": "sleipnir", "name": "Sleipnir", "base": "zombie", "hostile": False,
+                 "external": {"class": "dev.shadw.asgard.Sleipnir", "type": "dev.shadw.asgard.AsgardEntities.SLEIPNIR"},
+                 "attributes": {"health": 40, "speed": 0.36},
+                 "drops": [{"item": "minecraft:leather", "min": 1, "max": 3}, {"item": "minecraft:bone", "min": 0, "max": 2}, {"item": "asgard:rune_stone", "min": 0, "max": 1, "chance": 0.3}],
+                 "egg": ["#8a8e96", "#8ae8ff"]}
+
+
 def build():
     return {
         "draugr": (lambda: draugr(False), {"skin": {"model": True}}),
@@ -280,10 +303,12 @@ def build():
         "warg": (warg, {}),
         "fenrir": (fenrir, {}),
         "raven": (raven, {}),
+        "sleipnir": (sleipnir, {}),
     }
 
 
 SPECS = {
+    "sleipnir": SLEIPNIR_SPEC,
     "draugr": {"id": "draugr", "name": "Draugr", "base": "zombie", "hostile": True,
                "attributes": {"health": 34, "damage": 5, "armor": 6, "speed": 0.21, "knockback_resistance": 0.3},
                "flags": {"sun_sensitive": False, "converts_in_water": False, "baby": False, "reinforcements": False},

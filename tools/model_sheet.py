@@ -7,7 +7,7 @@ import json
 import sys
 
 # id: (height in blocks, head-centre height, full-view distance, face distance)
-SIZES = {"draugr": (2.0, 1.75, 4.4, 1.9), "draugr_lord": (2.4, 2.1, 5.0, 2.2), "troll": (2.9, 2.2, 6.2, 3.0), "jotunn": (3.4, 3.0, 7.4, 3.4), "warg": (1.2, 0.95, 3.6, 1.6, 1.1), "fenrir": (3.4, 2.5, 8.5, 3.6, 2.9), "raven": (0.8, 0.8, 2.4, 0.9, 0.3)}
+SIZES = {"sleipnir": (1.9, 1.7, 6.5, 2.2, 0.9), "draugr": (2.0, 1.75, 4.4, 1.9), "draugr_lord": (2.4, 2.1, 5.0, 2.2), "troll": (2.9, 2.2, 6.2, 3.0), "jotunn": (3.4, 3.0, 7.4, 3.4), "warg": (1.2, 0.95, 3.6, 1.6, 1.1), "fenrir": (3.4, 2.5, 8.5, 3.6, 2.9), "raven": (0.8, 0.8, 2.4, 0.9, 0.3)}
 
 
 def cam(x, y, z, yaw, p, n):
