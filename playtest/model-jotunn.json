@@ -15,22 +15,22 @@
     },
     {
       "tp": [
-        5.18,
+        4.247599999999999,
         "G+0.08",
-        -14.82,
-        145,
-        6
+        -15.752400000000002,
+        135,
+        0
       ],
       "capture": "jotunn-three-quarter",
       "wait": 6
     },
     {
       "tp": [
-        7.4,
+        6.068,
         "G+0.08",
         -20,
         90,
-        6
+        0
       ],
       "capture": "jotunn-side",
       "wait": 6
@@ -73,6 +73,7 @@
     "forceload add -20 -40 20 0",
     "kill @e[type=slime]",
     "gamerule doMobSpawning false",
+    "kill @e[type=asgard:sleipnir]",
     "kill @e[type=asgard:draugr]",
     "kill @e[type=asgard:draugr_lord]",
     "kill @e[type=asgard:troll]",

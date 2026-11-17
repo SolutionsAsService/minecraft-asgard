@@ -195,7 +195,7 @@ def wolf_extras(r, scar=False, chains=False, runes=False, spines=False):
 def warg():
     r = Rig(PAINTS)
     r.quadruped("warg", belly="warg_belly", mane="warg_mane", claw="bone", nose="nose", body=(9, 8.6, 18), head=(7, 6.4, 6.2), snout=(4, 3.6, 6), leg_w=3.7, ears=(2.0, 3.0), neck_rot=62, neck=(5.6, 5, 5),
-                front=(4.6, 4.4, 2.4), hind=(4.8, 5.0, 2.4), tail={"segs": [(4, 2.6, 2.6, 0), (4, 3.0, 3.0, -14), (3.5, 2.4, 2.4, -14)], "paint": "warg"}, eye_glow="#ff9a20", jaw_open=10)
+                front=(4.6, 4.4, 2.4), hind=(4.8, 5.0, 2.4), tail={"segs": [(4, 2.6, 2.6, 0), (4, 3.0, 3.0, -14), (3.5, 2.4, 2.4, -14)], "paint": "warg"}, eye_glow="#ff9a20", jaw_open=7, head_drop=24)
     for i, z in enumerate((-8, -5, -2, 1)):             # the ridge down the spine
         r.part(f"spine{i}", "body", (0, -7.8, z), (0, 0, 0), [box((-0.5, -2.0 - (i % 2), -0.5), (1.0, 2.4 + (i % 2), 1.0), "warg_mane")])
     # torn left ear, a scar across the muzzle
@@ -206,7 +206,7 @@ def warg():
 def fenrir():
     r = Rig(PAINTS)
     r.quadruped("fenrir", belly="fenrir_belly", mane="fenrir_mane", claw="bone", nose="nose", body=(10.5, 10, 22), head=(8.4, 7.4, 7), snout=(4.8, 4.2, 7), leg_w=4.8, front=(5.0, 4.8, 2.6), hind=(5.2, 5.4, 2.6), neck_rot=62,
-                tail={"segs": [(5, 3.4, 3.4, 0), (5, 4.2, 4.2, -12), (4.5, 3.4, 3.4, -12), (3.5, 2.4, 2.4, -12)], "paint": "fenrir_mane"}, eye="#ffb040", eye_glow="#ff3a20", jaw_open=14, ears=(2.4, 3.6),
+                tail={"segs": [(5, 3.4, 3.4, 0), (5, 4.2, 4.2, -12), (4.5, 3.4, 3.4, -12), (3.5, 2.4, 2.4, -12)], "paint": "fenrir_mane"}, eye="#ffb040", eye_glow="#ff3a20", jaw_open=9, head_drop=22, ears=(2.4, 3.6),
                 neck=(7, 5.6, 6), mane_len=0.6)
     # a great mane that runs along the spine, and the scars of a hundred fights
     for i, z in enumerate((-9, -6.5, -4, -1.5, 1)):

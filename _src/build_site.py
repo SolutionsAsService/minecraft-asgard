@@ -775,7 +775,7 @@ def build_shrines(data, gods, manifest, names):
 # ---------- creatures: every number on the page is read from mobs/<id>.json (the spec the game's code is generated from) ----------
 
 MOBS = REPO / "mobs"
-CREATURE_ORDER = ["draugr", "draugr_lord", "troll", "jotunn", "warg", "fenrir", "raven"]
+CREATURE_ORDER = ["draugr", "draugr_lord", "troll", "jotunn", "warg", "fenrir", "raven", "sleipnir"]
 BLURBS = {
     "draugr": "An undead Norse warrior in a rusted iron cap, a braided beard and a torn blue cape, with glowing ice-blue eyes, a round shield and a notched sword. Tougher and slower than a zombie, and it never burns in sunlight.",
     "draugr_lord": "The mound-king: taller than a draugr, in a horned helm with iron pauldrons, a red cape, a shield and a greataxe. Its blows weaken you, and when it is nearly dead it goes into a rage.",
@@ -783,9 +783,10 @@ BLURBS = {
     "jotunn": "A frost giant of Jötunheimr: ice-blue skin, a white beard to the belt, a crown of ice spikes, a fur cloak and a hammer of ice. Its blows slow you, and it stamps the ground around it.",
     "warg": "A big black wolf of the northern forests, with a ridge down its spine, amber eyes and bared fangs. It is fast, hunts in packs at night, and pounces: it bursts into a short sprint from a few blocks away.",
     "fenrir": "Fenrir, the wolf who bit off Tyr's hand and broke every chain the gods made for him. A boss: huge, silver-grey, with a mane like frost, scarred, red-eyed, still wearing the broken manacles and trailing links of chain. He charges, stamps, and when he is half dead he goes into a rage. He has a boss bar.",
+    "sleipnir": "Odin's eight-legged steed: a grey horse with a mane like frost, runes of gold along its flank and a saddle blanket of blue and gold, with two extra pairs of legs. Tame it as you would a horse (ride it again and again, then saddle it and feed it). It is the fastest mount, jumps high and takes no fall damage. It is a horse underneath, with its own model.",
     "raven": "Odin's black bird, with a blue sheen on its feathers, a heavy beak, a ruffled throat and a fan of tail feathers. It flies, can be tamed with seeds, and mimics the sounds around it like a parrot. It is a parrot underneath, with its own model; the wings beat in the air and fold when it lands.",
 }
-WHERE = {"draugr": "Also haunts the rune circle and Tyr's shrine.", "troll": "Also guards Tyr's shrine, rarely.", "raven": "Lives around Yggdrasil and Odin's shrine.",
+WHERE = {"sleipnir": "Rare: one at a time.", "draugr": "Also haunts the rune circle and Tyr's shrine.", "troll": "Also guards Tyr's shrine, rarely.", "raven": "Lives around Yggdrasil and Odin's shrine.",
          "fenrir": "Rare: one at a time, only on the highest snowy peaks, and at night like any monster."}
 BEHAVIOUR_TEXT = {"knockback": "heavy knockback", "stone_by_day": "turns to stone in open daylight", "enrage": "enrages when badly hurt", "boss_bar": "boss bar",
                   "slam": "ground stamp", "charge": "pounce / charge", "hunt": "tracks players through walls", "fire_vulnerable": "burns badly"}
@@ -803,7 +804,8 @@ def build_creatures(data, gods, manifest, names):
         a = spec.get("attributes", {})
         parts = len(spec["model"]["parts"])
         if spec.get("external"):
-            stats = "<tr><th scope=\"row\">Stats</th><td>The parrot's: 6 health, flies, tameable with seeds.</td></tr>"
+            stats = ("<tr><th scope=\"row\">Stats</th><td>The horse's, faster: 40 health, speed 0.36, high jumps, no fall damage; tame and saddle it like a horse.</td></tr>" if key == "sleipnir"
+                     else "<tr><th scope=\"row\">Stats</th><td>The parrot's: 6 health, flies, tameable with seeds.</td></tr>")
         else:
             traits = [BEHAVIOUR_TEXT[b["type"]] for b in spec.get("behaviours", []) if b["type"] in BEHAVIOUR_TEXT]
             for b in spec.get("behaviours", []):
@@ -816,24 +818,27 @@ def build_creatures(data, gods, manifest, names):
         if sp:
             amt = "one at a time" if sp.get("min") == sp.get("max") == 1 else f"groups of {sp.get('min', 1)} to {sp.get('max', 1)}"
             spawn = (f"<tr><th scope=\"row\">Spawns</th><td>{esc(', '.join(biome_label(b) for b in sp['biomes']))}; {amt}, spawn weight {sp.get('weight', '?')}. {esc(WHERE.get(key, ''))}</td></tr>")
+        elif key == "sleipnir":
+            spawn = "<tr><th scope=\"row\">Spawns</th><td>Taiga and mountain biomes, one at a time, spawn weight 1. Rare.</td></tr>"
         elif spec.get("external"):
             spawn = f"<tr><th scope=\"row\">Spawns</th><td>Taiga, forest and mountain biomes, groups of 2 to 4. {esc(WHERE.get(key, ''))}</td></tr>"
         else:
             spawn = ""
         drops = ", ".join(item_label(d["item"]) for d in spec.get("drops", []))
-        fig = (f'<figure class="shot"><img src="{shot("creature-" + key)}" alt="The {esc(name)} model from a three-quarter view and from the side, in a flat Minecraft test world." width="854" height="480" loading="lazy">'
-               f'<figcaption>{esc(name)}: a custom model of {parts} parts, photographed in a flat test world with its AI switched off.</figcaption></figure>') if shot("creature-" + key) else ""
+        def one(n, view):
+            return (f'<figure class="shot"><img src="{shot(n)}" alt="The {esc(name)} model, {view}, in a flat Minecraft test world." width="854" height="480" loading="lazy"><figcaption>{esc(name)}, {view} ({parts} parts), AI switched off for the photograph.</figcaption></figure>') if shot(n) else ""
+        fig = one("creature-" + key, "three-quarter view") + one("creature-" + key + "-side", "side view")
         cards += (f'<section class="struct" id="{key}"><h2>{esc(name)}</h2><p>{esc(BLURBS[key])}</p>{fig}'
                   f'<table class="data"><caption class="sr">{esc(name)}: facts</caption><tbody>{stats}{spawn}'
                   f'<tr><th scope="row">Drops</th><td>{esc(drops)}</td></tr>'
                   f'<tr><th scope="row">Spawn egg</th><td>In the Spawn Eggs tab, and <code>/summon asgard:{key}</code></td></tr></tbody></table></section>')
     hero = shot("creatures")
-    group = (f'<figure class="shot wide"><img src="{hero}" alt="The seven creatures: a draugr, a draugr lord, a troll, a frost giant, a warg, Fenrir and a raven, each with its own model." width="854" height="480"><figcaption>All seven, each in a flat test world with its AI switched off for the photograph.</figcaption></figure>') if hero else ""
+    group = (f'<figure class="shot wide"><img src="{hero}" alt="The eight creatures: a draugr, a draugr lord, a troll, a frost giant, a warg, Fenrir, a raven and Sleipnir, each with its own model." width="1708" height="480"><figcaption>All eight, each in a flat test world with its AI switched off for the photograph.</figcaption></figure>') if hero else ""
     body = f"""
 <section class="page">
   <p class="eyebrow">Creatures</p>
   <h1 class="mc-h">Draugr, trolls, giants, wolves and a raven</h1>
-  <p class="lede">Seven creatures from the design's Phase 2, every one with its own hand-built model (20 to 45 parts) and a texture painted from the same description. The six that walk are defined as data in <code>mobs/*.json</code> and generated by the <code>shadw-mod mob</code> tool; the raven is a hand-written parrot that takes only its model from the tool.</p>
+  <p class="lede">Eight creatures from the design's Phase 2, every one with its own hand-built model (20 to 45 parts) and a texture painted from the same description. Seven are defined as data in <code>mobs/*.json</code> and generated by the <code>shadw-mod mob</code> tool; the raven (a parrot) and Sleipnir (a horse) are hand-written classes that take only their model from the tool.</p>
   {group}
   {cards}
   <h2>Not built yet</h2>

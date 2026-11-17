@@ -15,22 +15,22 @@
     },
     {
       "tp": [
-        3.5,
+        2.8,
         "G+-0.42",
-        -16.5,
-        145,
-        6
+        -17.2,
+        135,
+        0
       ],
       "capture": "draugr_lord-three-quarter",
       "wait": 6
     },
     {
       "tp": [
-        5.0,
+        4.0,
         "G+-0.42",
         -20,
         90,
-        6
+        0
       ],
       "capture": "draugr_lord-side",
       "wait": 6
@@ -73,6 +73,7 @@
     "forceload add -20 -40 20 0",
     "kill @e[type=slime]",
     "gamerule doMobSpawning false",
+    "kill @e[type=asgard:sleipnir]",
     "kill @e[type=asgard:draugr]",
     "kill @e[type=asgard:draugr_lord]",
     "kill @e[type=asgard:troll]",

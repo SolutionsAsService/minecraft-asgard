@@ -10,6 +10,9 @@ import sys
 SIZES = {"sleipnir": (1.9, 1.7, 6.5, 2.2, 0.9), "draugr": (2.0, 1.75, 4.4, 1.9), "draugr_lord": (2.4, 2.1, 5.0, 2.2), "troll": (2.9, 2.2, 6.2, 3.0), "jotunn": (3.4, 3.0, 7.4, 3.4), "warg": (1.2, 0.95, 3.6, 1.6, 1.1), "fenrir": (3.4, 2.5, 8.5, 3.6, 2.9), "raven": (0.8, 0.8, 2.4, 0.9, 0.3)}
 
 
+K = {"fenrir": 0.95, "raven": 0.85, "warg": 0.9, "sleipnir": 0.75, "pegasus": 0.75, "troll": 0.8, "jotunn": 0.82, "draugr_lord": 0.8, "crocodile": 0.9, "chariot": 0.85, "cobra": 0.85, "scarab": 1.0, "forgotten_pharaoh": 0.85, "sun_pharaoh": 0.85, "tomb_guardian": 0.8, "minotaur": 0.85, "cyclops": 0.8, "gorgon": 0.8}   # framing: the fraction of the full-view distance the portrait cameras use (default 0.75)
+
+
 def cam(x, y, z, yaw, p, n):
     return {"tp": [x, y, z, yaw, p], "capture": n, "wait": 6}
 
@@ -21,8 +24,9 @@ def main(ids, ns):
         fy = f"G+{max(head - 1.62, -1.2):.2f}"
         mid = f"G+{max(hgt * 0.5 - 1.62, -0.9):.2f}"
         cx, cz = 0, -20
-        steps = [cam(cx, mid, cz + dist, 180, 6, f"{mob}-front"), cam(cx + dist * 0.7, mid, cz + dist * 0.7, 145, 6, f"{mob}-three-quarter"),
-                 cam(cx + dist, mid, cz, 90, 6, f"{mob}-side"), cam(cx, mid, cz - dist, 0, 6, f"{mob}-back"),
+        t = dist * K.get(mob, 0.75)        # tight, for the site's pictures: the subject fills about half the frame, and the camera is AIMED at it (yaw 135 looks at the mob from 45 degrees)
+        steps = [cam(cx, mid, cz + dist, 180, 6, f"{mob}-front"), cam(cx + t * 0.7, mid, cz + t * 0.7, 135, 0, f"{mob}-three-quarter"),
+                 cam(cx + t, mid, cz, 90, 0, f"{mob}-side"), cam(cx, mid, cz - dist, 0, 6, f"{mob}-back"),
                  cam(cx, fy, cz + hz + fd, 180, 0, f"{mob}-face"), cam(fd * 0.8, fy, cz + hz + fd * 0.7, 153, 0, f"{mob}-face-side")]
         scene = {"out": "playtest/models", "settle": 8, "steps": steps, "setup": [
             "forceload add -20 -40 20 0", "kill @e[type=slime]", "gamerule doMobSpawning false"] + [f"kill @e[type={ns}:{m}]" for m in SIZES] + ["kill @e[type=item]"] +
