@@ -16,10 +16,10 @@
     {
       "tp": [
         2.8,
-        "G+-0.42",
+        "G+0.42",
         -17.2,
         135,
-        0
+        12
       ],
       "capture": "draugr_lord-three-quarter",
       "wait": 6
@@ -27,10 +27,10 @@
     {
       "tp": [
         4.0,
-        "G+-0.42",
+        "G+0.42",
         -20,
         90,
-        0
+        12
       ],
       "capture": "draugr_lord-side",
       "wait": 6
